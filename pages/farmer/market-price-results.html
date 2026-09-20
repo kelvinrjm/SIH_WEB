@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandi Price Results | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item active"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="market-price.html" class="btn btn-icon" style="background:none; border:none;" title="Back">
+                        <i data-lucide="arrow-left"></i>
+                    </a>
+                    <span style="font-weight:700; font-size:1.1rem;" data-i18n="Mandi Price Query Results">Mandi Price Query Results</span>
+                </div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:960px;">
+                <!-- Sub-nav for Market Price modules -->
+                <div style="display:flex; gap:8px; overflow-x:auto; margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:8px;">
+                    <a href="market-price.html" class="btn btn-text" style="color:var(--text-secondary);" data-i18n="Query Mandi">Query Mandi</a>
+                    <a href="market-price-results.html" class="btn btn-text" style="color:var(--primary); font-weight:700;" data-i18n="Price Results">Price Results</a>
+                    <a href="market-price-comparison.html" class="btn btn-text" style="color:var(--text-secondary);" data-i18n="Mandi vs Direct Net Return">Mandi vs Direct Net Return</a>
+                    <a href="market-price-history.html" class="btn btn-text" style="color:var(--text-secondary);" data-i18n="Historical Trends">Historical Trends</a>
+                </div>
+
+                <div class="card" style="padding:24px; margin-bottom:24px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                        <div>
+                            <span class="status-badge badge-confirmed" style="margin-bottom:6px;" data-i18n="AgmarkNet Verified Indices">AgmarkNet Verified Indices</span>
+                            <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary); margin:0;">
+                                <span id="resCropName" data-i18n="Tomato">Tomato</span> Mandi Prices in <span id="resDistrict" data-i18n="Nashik">Nashik</span>
+                            </h1>
+                            <div style="font-size:0.85rem; color:var(--text-secondary); margin-top:4px;">
+                                Benchmark Date: <strong data-i18n="Current Market Week (September 2026)">Current Market Week (September 2026)</strong>
+                            </div>
+                        </div>
+                        <a href="market-price.html" class="btn btn-secondary btn-sm"><i data-lucide="search"></i> Change Commodity</a>
+                    </div>
+
+                    <!-- Key Rates Cards -->
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin:20px 0;">
+                        <div style="background:var(--surface-sunken); padding:16px; border-radius:var(--radius); border:1px solid var(--border);">
+                            <div style="font-size:0.82rem; color:var(--text-secondary); text-transform:uppercase;" data-i18n="Minimum Rate">Minimum Rate</div>
+                            <div style="font-size:1.6rem; font-weight:800; color:var(--text-primary); margin-top:4px;">₹22 <small style="font-size:0.85rem; font-weight:500;">/ kg</small></div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);">₹2,200 / Quintal</div>
+                        </div>
+                        <div style="background:rgba(46, 125, 50, 0.08); padding:16px; border-radius:var(--radius); border:1px solid rgba(46, 125, 50, 0.25);">
+                            <div style="font-size:0.82rem; color:var(--primary); font-weight:700; text-transform:uppercase;" data-i18n="Modal (Average) Rate">Modal (Average) Rate</div>
+                            <div style="font-size:1.8rem; font-weight:800; color:var(--primary); margin-top:4px;">₹28 <small style="font-size:0.85rem; font-weight:500;">/ kg</small></div>
+                            <div style="font-size:0.75rem; color:var(--primary);" data-i18n="₹2,800 / Quintal (Fair Mandi Rate)">₹2,800 / Quintal (Fair Mandi Rate)</div>
+                        </div>
+                        <div style="background:var(--surface-sunken); padding:16px; border-radius:var(--radius); border:1px solid var(--border);">
+                            <div style="font-size:0.82rem; color:var(--text-secondary); text-transform:uppercase;" data-i18n="Maximum Rate">Maximum Rate</div>
+                            <div style="font-size:1.6rem; font-weight:800; color:var(--text-primary); margin-top:4px;">₹34 <small style="font-size:0.85rem; font-weight:500;">/ kg</small></div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);" data-i18n="₹3,400 / Quintal (Grade A Export)">₹3,400 / Quintal (Grade A Export)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mandi Yards Breakdown Table -->
+                <div class="card" style="padding:24px;">
+                    <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:16px;" data-i18n="Regional APMC Mandi Yard Arrivals">Regional APMC Mandi Yard Arrivals</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="APMC Mandi Yard">APMC Mandi Yard</th>
+                                    <th data-i18n="District">District</th>
+                                    <th data-i18n="Arrival Volume">Arrival Volume</th>
+                                    <th data-i18n="Min Rate">Min Rate</th>
+                                    <th data-i18n="Modal Rate">Modal Rate</th>
+                                    <th data-i18n="Max Rate">Max Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight:700;">Nashik APMC Market Yard</td>
+                                    <td>Nashik</td>
+                                    <td>1,240 Quintals</td>
+                                    <td>₹22 / kg</td>
+                                    <td style="font-weight:700; color:var(--primary);">₹28 / kg</td>
+                                    <td>₹33 / kg</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:700;">Pimpalgaon Baswant APMC</td>
+                                    <td>Nashik</td>
+                                    <td>980 Quintals</td>
+                                    <td>₹24 / kg</td>
+                                    <td style="font-weight:700; color:var(--primary);">₹29 / kg</td>
+                                    <td>₹34 / kg</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:700;">Lasalgaon APMC</td>
+                                    <td>Nashik</td>
+                                    <td>1,650 Quintals</td>
+                                    <td>₹21 / kg</td>
+                                    <td style="font-weight:700; color:var(--primary);">₹27 / kg</td>
+                                    <td>₹32 / kg</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight:700;">Pune Market Yard (Gultekdi)</td>
+                                    <td>Pune</td>
+                                    <td>2,100 Quintals</td>
+                                    <td>₹25 / kg</td>
+                                    <td style="font-weight:700; color:var(--primary);">₹30 / kg</td>
+                                    <td>₹36 / kg</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                        <a href="market-price-comparison.html" class="btn btn-primary btn-sm">
+                            <i data-lucide="calculator"></i> Calculate Direct Farm-Gate Net Return
+                        </a>
+                        <a href="add-product-info.html" class="btn btn-secondary btn-sm">
+                            <i data-lucide="plus-circle"></i> List Produce at this Rate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const crop = urlParams.get('crop') || 'Tomato';
+            const district = urlParams.get('district') || 'Nashik';
+
+            document.getElementById('resCropName').textContent = crop;
+            document.getElementById('resDistrict').textContent = district;
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

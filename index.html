@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FarmLink — Smart Market Linkage</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .demo-credentials-box {
+            margin-top: 18px;
+            padding: 12px 14px;
+            background: rgba(46, 125, 50, 0.07);
+            border: 1px dashed rgba(46, 125, 50, 0.35);
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .demo-chip {
+            display: inline-block;
+            background: #FFFFFF;
+            border: 1px solid rgba(46, 125, 50, 0.3);
+            border-radius: var(--radius-full);
+            padding: 4px 10px;
+            margin: 4px 2px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .demo-chip:hover {
+            background: var(--primary);
+            color: #FFFFFF;
+        }
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            display: grid;
+            place-items: center;
+        }
+        .password-toggle-btn:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+    <div class="auth-card" id="loginCard">
+        <!-- Language Selector Bar -->
+        <div class="auth-lang-bar">
+            <div class="language-selector">
+                <!-- <i data-lucide="globe" style="width:16px;height:16px;"></i> -->
+                <select class="lang-select-input" id="authLangSelect" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Brand Header with Official Logo -->
+        <header class="auth-brand">
+            <div class="auth-logo-circle">
+                <img src="img/logo.png" alt="FarmLink Logo" id="brandLogo">
+            </div>
+            <h1 data-i18n="FarmLink">FarmLink</h1>
+            <p data-i18n="Smart Market Linkage">Smart Market Linkage</p>
+            <span style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;" data-i18n="Govt. of Maharashtra · SIH 2026">Govt. of Maharashtra · SIH 2026</span>
+        </header>
+
+        <!-- Role Selector Tabs -->
+        <div class="role-tabs" role="tablist" aria-label="Login Role Selection">
+            <button type="button" class="role-tab active" id="roleFarmerBtn" data-role="farmer">
+                <i data-lucide="sprout" style="width:18px;height:18px;"></i>
+                <span data-i18n="Farmer / Seller">Farmer / Seller</span>
+            </button>
+            <button type="button" class="role-tab" id="roleBuyerBtn" data-role="buyer">
+                <i data-lucide="shopping-bag" style="width:18px;height:18px;"></i>
+                <span data-i18n="Buyer / Merchant">Buyer / Merchant</span>
+            </button>
+        </div>
+
+        <!-- Phone Number + Password Login Form -->
+        <form id="loginForm" novalidate>
+            <!-- Mobile Number -->
+            <div class="form-group">
+                <label for="mobileInput" data-i18n="Mobile Number">Mobile Number</label>
+                <div style="position:relative; display:flex; align-items:center;">
+                    <span style="position:absolute; left:14px; font-weight:700; color:var(--text-secondary); font-size:0.95rem;">+91</span>
+                    <input 
+                        type="tel" 
+                        id="mobileInput" 
+                        class="form-control" 
+                        style="padding-left:52px;" 
+                        placeholder="98765 43210" 
+                        data-i18n-placeholder="Enter 10-digit mobile number"
+                        maxlength="10" 
+                        autocomplete="tel" 
+                        required
+                    >
+                </div>
+                <div class="form-error-msg hidden" id="phoneError"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group" style="margin-top:16px;">
+                <label for="passwordInput" data-i18n="Password">Password</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="passwordInput" 
+                        class="form-control" 
+                        placeholder="••••••••" 
+                        autocomplete="current-password" 
+                        required
+                    >
+                    <button type="button" class="password-toggle-btn" id="togglePasswordBtn" title="Toggle password visibility">
+                        <i data-lucide="eye" id="eyeIcon" style="width:18px; height:18px;"></i>
+                    </button>
+                </div>
+                <div class="form-error-msg hidden" id="passwordError"></div>
+            </div>
+
+            <!-- General Form Error Message -->
+            <div class="form-error-msg hidden" id="loginGeneralError" style="margin-bottom:14px; text-align:center; padding:10px; background:#FEECEB; border-radius:var(--radius-sm);"></div>
+
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitLoginBtn" style="margin-top:10px;">
+                <span id="btnText" data-i18n="Login">Login</span>
+                <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+            </button>
+
+            <!-- Quick Demo Credentials Chips for Hackathon Testing -->
+            <div class="demo-credentials-box">
+                <div style="font-weight:700; color:var(--primary); margin-bottom:4px;" data-i18n="Demo Accounts (Quick Autofill):">Demo Accounts (Quick Autofill):</div>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                    <span class="demo-chip" id="demoFarmerChip">🌾 Farmer: 9876543210 (farmer123)</span>
+                    <span class="demo-chip" id="demoBuyerChip">🛒 Buyer: 9876501234 (buyer123)</span>
+                </div>
+            </div>
+        </form>
+
+        <footer class="auth-footer">
+            <span data-i18n="New to FarmLink?">New to FarmLink?</span>
+            <a href="pages/registration.html" data-i18n="Create an Account">Create an Account</a>
+            <div style="margin-top:14px; font-size:0.8rem;">
+                <a href="public/about.html" style="color:var(--text-secondary); margin:0 8px;" data-i18n="About">About</a> · 
+                <a href="public/how-it-works.html" style="color:var(--text-secondary); margin:0 8px;" data-i18n="How It Works">How It Works</a> ·
+                <a href="public/faq.html" style="color:var(--text-secondary); margin:0 8px;" data-i18n="FAQ">FAQ</a>
+            </div>
+            <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border); font-size:0.85rem;">
+                <a href="pages/field-officer/login.html" style="color:var(--primary); font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+                    <i data-lucide="shield-check" style="width:15px;height:15px;"></i>
+                    <span data-i18n="Authorized Field Officer Portal">Authorized Field Officer Portal</span> →
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/validation.js"></script>
+    <script>
+        let selectedRole = 'farmer';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            // If already authenticated, redirect to the appropriate dashboard
+            if (window.AuthService && AuthService.isLoggedIn()) {
+                const role = AuthService.getRole();
+                if (role === 'field_officer') {
+                    window.location.href = 'pages/field-officer/dashboard.html';
+                } else if (role === 'buyer') {
+                    window.location.href = 'pages/buyer/dashboard.html';
+                } else {
+                    window.location.href = 'pages/farmer/dashboard.html';
+                }
+                return;
+            }
+
+            // Check URL parameters for ?role=buyer or ?role=farmer
+            const urlParams = new URLSearchParams(window.location.search);
+            const roleParam = urlParams.get('role');
+            if (roleParam === 'buyer' || roleParam === 'farmer') {
+                setRole(roleParam);
+            }
+            const phoneParam = urlParams.get('phone');
+            if (phoneParam) {
+                document.getElementById('mobileInput').value = phoneParam.replace(/\D/g, '').slice(-10);
+            }
+            if (urlParams.get('registered') === 'true') {
+                if (window.FarmUtils) {
+                    FarmUtils.showToast('Account created successfully! Enter your password to log in.', 'success');
+                }
+                const genAlert = document.getElementById('loginGeneralError');
+                if (genAlert) {
+                    genAlert.style.background = '#E8F5E9';
+                    genAlert.style.color = '#2E7D32';
+                    genAlert.style.border = '1px solid #A5D6A7';
+                    genAlert.textContent = 'Account created successfully! Enter your password to log in.';
+                    genAlert.classList.remove('hidden');
+                }
+            }
+
+            // Role buttons toggle
+            const farmerBtn = document.getElementById('roleFarmerBtn');
+            const buyerBtn = document.getElementById('roleBuyerBtn');
+
+            farmerBtn.addEventListener('click', () => setRole('farmer'));
+            buyerBtn.addEventListener('click', () => setRole('buyer'));
+
+            function setRole(role) {
+                selectedRole = role;
+                farmerBtn.classList.toggle('active', role === 'farmer');
+                buyerBtn.classList.toggle('active', role === 'buyer');
+            }
+
+            // Show / Hide Password
+            const passwordInput = document.getElementById('passwordInput');
+            const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            togglePasswordBtn.addEventListener('click', () => {
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+                eyeIcon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+                if (window.lucide) window.lucide.createIcons();
+            });
+
+            // Demo Credentials Quick Autofill
+            document.getElementById('demoFarmerChip').addEventListener('click', () => {
+                setRole('farmer');
+                document.getElementById('mobileInput').value = '9876543210';
+                document.getElementById('passwordInput').value = 'farmer123';
+                clearErrors();
+            });
+
+            document.getElementById('demoBuyerChip').addEventListener('click', () => {
+                setRole('buyer');
+                document.getElementById('mobileInput').value = '9876501234';
+                document.getElementById('passwordInput').value = 'buyer123';
+                clearErrors();
+            });
+
+            // Form Submission
+            const loginForm = document.getElementById('loginForm');
+            const phoneError = document.getElementById('phoneError');
+            const passwordError = document.getElementById('passwordError');
+            const generalError = document.getElementById('loginGeneralError');
+            const submitBtn = document.getElementById('submitLoginBtn');
+
+            function clearErrors() {
+                phoneError.classList.add('hidden');
+                passwordError.classList.add('hidden');
+                generalError.classList.add('hidden');
+                phoneError.textContent = '';
+                passwordError.textContent = '';
+                generalError.textContent = '';
+            }
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                clearErrors();
+
+                const phone = document.getElementById('mobileInput').value.trim();
+                const password = document.getElementById('passwordInput').value;
+
+                let hasError = false;
+
+                if (!phone || phone.replace(/\D/g, '').length < 10) {
+                    phoneError.textContent = 'Please enter a valid 10-digit mobile number.';
+                    phoneError.classList.remove('hidden');
+                    hasError = true;
+                }
+
+                if (!password) {
+                    passwordError.textContent = 'Please enter your password.';
+                    passwordError.classList.remove('hidden');
+                    hasError = true;
+                }
+
+                if (hasError) return;
+
+                // Authenticate with Phone + Password
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;"></span> Logging in...`;
+
+                setTimeout(() => {
+                    const result = AuthService.loginWithCredentials(phone, password, selectedRole);
+
+                    if (result.success) {
+                        FarmUtils.showToast(`Welcome back, ${result.user.name}!`, 'success');
+                        setTimeout(() => {
+                            if (result.user.role === 'buyer') {
+                                window.location.href = 'pages/buyer/dashboard.html';
+                            } else {
+                                window.location.href = 'pages/farmer/dashboard.html';
+                            }
+                        }, 500);
+                    } else {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = `<span data-i18n="Login">Login</span> <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>`;
+                        if (window.lucide) window.lucide.createIcons();
+
+                        generalError.textContent = result.message || 'Invalid credentials. Please try again.';
+                        generalError.classList.remove('hidden');
+                    }
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

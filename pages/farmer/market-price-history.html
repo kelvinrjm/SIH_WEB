@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandi Historical Price Trends | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .trend-bar-wrap {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 200px;
+            padding: 20px 10px 0 10px;
+            border-bottom: 2px solid var(--border);
+            margin: 20px 0;
+        }
+        .trend-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+        }
+        .trend-bar {
+            width: 100%;
+            max-width: 40px;
+            background: var(--primary);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            transition: height 0.5s ease;
+            position: relative;
+        }
+        .trend-val {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+        .trend-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item active"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Historical Mandi Price Trends">Historical Mandi Price Trends</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:960px;">
+                <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Historical Price Movements">Historical Price Movements</h1>
+                        <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="Monthly wholesale price history across major Maharashtra APMC mandis.">Monthly wholesale price history across major Maharashtra APMC mandis.</p>
+                    </div>
+
+                    <div style="display:flex; gap:10px;">
+                        <select id="trendCrop" class="form-control" style="width:auto; font-weight:700;">
+                            <option value="Tomato" selected>Tomato (Hybrid & Desi)</option>
+                            <option value="Onion">Red Onion (Nashik Lot)</option>
+                            <option value="Wheat">Sharbati Wheat</option>
+                            <option value="Banana">Grand Naine Banana</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Price Chart Card -->
+                <div class="card" style="padding:28px; margin-bottom:24px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <h3 style="font-size:1.15rem; font-weight:700; margin:0;" id="chartTitle" data-i18n="Tomato Modal Price Trend (2026)">Tomato Modal Price Trend (2026)</h3>
+                        <span class="status-badge badge-confirmed" data-i18n="AgmarkNet Index">AgmarkNet Index</span>
+                    </div>
+                    <p style="color:var(--text-secondary); font-size:0.85rem; margin:0;" data-i18n="Unit: ₹ per Kilogram (Wholesale)">Unit: ₹ per Kilogram (Wholesale)</p>
+
+                    <!-- Bar Chart -->
+                    <div class="trend-bar-wrap" id="chartWrap">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Monthly Seasonality Table -->
+                <div class="card" style="padding:24px;">
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:16px;" data-i18n="Quarterly Price Indices & Inflow Volume">Quarterly Price Indices & Inflow Volume</h3>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="Month">Month</th>
+                                    <th data-i18n="Avg Modal Rate">Avg Modal Rate</th>
+                                    <th data-i18n="Lowest Rate">Lowest Rate</th>
+                                    <th data-i18n="Peak Rate">Peak Rate</th>
+                                    <th data-i18n="Mandi Arrival Trend">Mandi Arrival Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            const datasets = {
+                Tomato: [
+                    { month: 'Apr', price: 18, arrivals: 'High (Flush Season)' },
+                    { month: 'May', price: 22, arrivals: 'Normal' },
+                    { month: 'Jun', price: 34, arrivals: 'Moderate' },
+                    { month: 'Jul', price: 42, arrivals: 'Low (Monsoon Peak)' },
+                    { month: 'Aug', price: 31, arrivals: 'Increasing' },
+                    { month: 'Sep', price: 28, arrivals: 'Fresh Harvest Lot' }
+                ],
+                Onion: [
+                    { month: 'Apr', price: 15, arrivals: 'Heavy Rabi Inflow' },
+                    { month: 'May', price: 18, arrivals: 'Heavy' },
+                    { month: 'Jun', price: 22, arrivals: 'Stored Chawl Stock' },
+                    { month: 'Jul', price: 26, arrivals: 'Moderate' },
+                    { month: 'Aug', price: 27, arrivals: 'Steady' },
+                    { month: 'Sep', price: 28, arrivals: 'Pre-Kharif Arrival' }
+                ],
+                Wheat: [
+                    { month: 'Apr', price: 24, arrivals: 'Peak Harvest' },
+                    { month: 'May', price: 25, arrivals: 'High' },
+                    { month: 'Jun', price: 26, arrivals: 'Steady' },
+                    { month: 'Jul', price: 27, arrivals: 'Normal' },
+                    { month: 'Aug', price: 28, arrivals: 'Stable' },
+                    { month: 'Sep', price: 29, arrivals: 'Stable' }
+                ],
+                Banana: [
+                    { month: 'Apr', price: 22, arrivals: 'Normal' },
+                    { month: 'May', price: 25, arrivals: 'Summer Peak' },
+                    { month: 'Jun', price: 28, arrivals: 'Steady' },
+                    { month: 'Jul', price: 30, arrivals: 'Festive Season' },
+                    { month: 'Aug', price: 32, arrivals: 'High Demand' },
+                    { month: 'Sep', price: 32, arrivals: 'High Demand' }
+                ]
+            };
+
+            const select = document.getElementById('trendCrop');
+            select.addEventListener('change', renderChart);
+            renderChart();
+
+            function renderChart() {
+                const crop = select.value;
+                const data = datasets[crop] || datasets.Tomato;
+                document.getElementById('chartTitle').textContent = `${crop} Wholesale Modal Rate Trend (2026)`;
+
+                const maxPrice = Math.max(...data.map(d => d.price)) + 8;
+
+                const wrap = document.getElementById('chartWrap');
+                wrap.innerHTML = data.map(d => {
+                    const heightPercent = Math.round((d.price / maxPrice) * 100);
+                    return `
+                        <div class="trend-col">
+                            <div class="trend-bar" style="height:${heightPercent}%;">
+                                <div class="trend-val">₹${d.price}</div>
+                            </div>
+                            <div class="trend-label">${d.month}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                const tbody = document.getElementById('historyTableBody');
+                tbody.innerHTML = data.map(d => `
+                    <tr>
+                        <td style="font-weight:700;">${d.month} 2026</td>
+                        <td style="font-weight:700; color:var(--primary);">₹${d.price} / kg</td>
+                        <td>₹${Math.round(d.price * 0.85)} / kg</td>
+                        <td>₹${Math.round(d.price * 1.2)} / kg</td>
+                        <td><span class="badge" style="background:var(--surface-sunken);">${d.arrivals}</span></td>
+                    </tr>
+                `).join('');
+            }
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/chatbot.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="post-demand.html" class="nav-item"><i data-lucide="megaphone"></i><span data-i18n="Post Demand">Post Demand</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Buyer Dashboard">Buyer Dashboard</div>
+                <div class="topbar-right">
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <!-- Hero Banner -->
+                <div class="card" style="background: linear-gradient(135deg, #1B5E20, #2E7D32); color:#FFFFFF; padding: 28px 32px; border-radius: var(--radius-lg); margin-bottom: 24px; position:relative; overflow:hidden;">
+                    <div style="max-width: 650px; z-index:1; position:relative;">
+                        <span style="background:rgba(255,255,255,0.2); padding:4px 12px; border-radius:var(--radius-full); font-size:0.8rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;"><span data-i18n="Direct From Certified Farmers</span>">Direct From Certified Farmers</span></span>
+                        <h1 style="font-size:1.85rem; font-weight:800; margin:12px 0 8px 0; color:#FFFFFF;" data-i18n="Source Farm-Fresh Crops At Mandi Rates">Source Farm-Fresh Crops At Mandi Rates</h1>
+                        <p style="color:rgba(255,255,255,0.9); font-size:0.95rem; margin-bottom:18px;" data-i18n="Eliminate middleman markups. Buy directly from verified farmers in Maharashtra with guaranteed quality and fair pricing.">Eliminate middleman markups. Buy directly from verified farmers in Maharashtra with guaranteed quality and fair pricing.</p>
+                        
+                        <form action="search.html" method="GET" style="display:flex; gap:8px; max-width:480px;">
+                            <input type="text" name="q" class="form-control" placeholder="Search tomatoes, onions, wheat, cotton..." data-i18n="Search tomatoes, onions, wheat, cotton..." style="background:#fff; border:none; padding:12px 16px; font-size:0.95rem; border-radius:var(--radius-md);">
+                            <button type="submit" class="btn btn-secondary" style="background:#FFFFFF; color:var(--primary); font-weight:700; border:none; flex-shrink:0;">
+                                <i data-lucide="search"></i> <span data-i18n="Search">Search</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Buyer Key Metrics -->
+                <div class="stats-grid" style="margin-bottom:28px;">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap stat-icon-green"><i data-lucide="package-check"></i></div>
+                        <div class="stat-value" id="activeOrdersCount">0</div>
+                        <div class="stat-label" data-i18n="Active Orders">Active Orders</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap stat-icon-blue"><i data-lucide="shopping-cart"></i></div>
+                        <div class="stat-value" id="cartItemsCount">0</div>
+                        <div class="stat-label" data-i18n="Items In Cart">Items in Cart</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap stat-icon-amber"><i data-lucide="indian-rupee"></i></div>
+                        <div class="stat-value" id="totalPurchasesValue">₹0</div>
+                        <div class="stat-label" data-i18n="Total Sourced">Total Sourced</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap stat-icon-purple"><i data-lucide="store"></i></div>
+                        <div class="stat-value" id="availableProduceCount">0</div>
+                        <div class="stat-label" data-i18n="Live Farm Listings">Live Farm Listings</div>
+                    </div>
+                </div>
+
+                <!-- Featured Marketplace Produce -->
+                <div style="margin-bottom:32px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-primary);" data-i18n="Freshly Harvested Today">Freshly Harvested Today</h2>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin:0;" data-i18n="Direct harvest lots ready for immediate dispatch">Direct harvest lots ready for immediate dispatch</p>
+                        </div>
+                        <a href="marketplace.html" class="btn btn-secondary" style="font-size:0.88rem;">
+                            <span data-i18n="View Marketplace">View All</span> <i data-lucide="arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="marketplace-grid" id="featuredGrid">
+                        <!-- Loaded dynamically -->
+                        <div style="grid-column:1/-1; text-align:center; padding:40px;">
+                            <div class="spinner"></div>
+                            <p style="color:var(--text-secondary); margin-top:12px;" data-i18n="Loading farm listings...">Loading farm listings...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders Section -->
+                <div class="card" style="padding:24px; margin-bottom:32px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                        <h2 style="font-size:1.2rem; font-weight:800; color:var(--text-primary);" data-i18n="My Recent Orders">Recent Orders</h2>
+                        <a href="orders.html" class="btn btn-text" style="font-size:0.88rem;">View All Orders <i data-lucide="arrow-right"></i></a>
+                    </div>
+                    <div id="recentOrdersContainer">
+                        <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="Loading your orders...">Loading your orders...</p>
+                    </div>
+                </div>
+
+                <!-- Trust Guarantee Grid -->
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px;">
+                    <div class="card" style="padding:20px; display:flex; align-items:flex-start; gap:14px;">
+                        <div style="width:42px; height:42px; border-radius:var(--radius-full); background:rgba(46, 125, 50, 0.12); color:var(--primary); display:grid; place-items:center; flex-shrink:0;">
+                            <i data-lucide="shield-check" style="width:22px; height:22px;"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.98rem; font-weight:700; margin-bottom:4px;" data-i18n="100% Certified Farmers">100% Certified Farmers</h4>
+                            <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Every seller is identity-verified with Aadhaar/7-12 land records.">Every seller is identity-verified with Aadhaar/7-12 land records.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="padding:20px; display:flex; align-items:flex-start; gap:14px;">
+                        <div style="width:42px; height:42px; border-radius:var(--radius-full); background:rgba(2, 136, 209, 0.12); color:var(--info); display:grid; place-items:center; flex-shrink:0;">
+                            <i data-lucide="truck" style="width:22px; height:22px;"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.98rem; font-weight:700; margin-bottom:4px;" data-i18n="Direct Farm Logistics">Direct Farm Logistics</h4>
+                            <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Transparent pickup and dispatch directly from farm gates.">Transparent pickup and dispatch directly from farm gates.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="padding:20px; display:flex; align-items:flex-start; gap:14px;">
+                        <div style="width:42px; height:42px; border-radius:var(--radius-full); background:rgba(245, 124, 0, 0.12); color:var(--warning); display:grid; place-items:center; flex-shrink:0;">
+                            <i data-lucide="scale" style="width:22px; height:22px;"></i>
+                        </div>
+                        <div>
+                            <h4 style="font-size:0.98rem; font-weight:700; margin-bottom:4px;" data-i18n="Mandi-Benchmarked Rates">Mandi-Benchmarked Rates</h4>
+                            <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Fair pricing aligned with official APMC AgmarkNet indices.">Fair pricing aligned with official APMC AgmarkNet indices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How-to-Use Videos Section -->
+                <div style="margin-top:32px; margin-bottom:28px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-primary);" data-i18n="Buyer Tutorials">Buyer Tutorials</h2>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin:0;" data-i18n="Learn how to source effectively on FarmLink">Learn how to source effectively on FarmLink</p>
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="background:#000; height:160px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; position:relative;">
+                                <i data-lucide="play-circle" style="width:48px;height:48px; opacity:0.8;"></i>
+                                <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; font-size:0.75rem;">1:30</div>
+                            </div>
+                            <div style="padding:16px;">
+                                <h3 style="font-size:1rem; font-weight:700; margin-bottom:4px;" data-i18n="How to Order">How to Order</h3>
+                                <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Learn how to add to cart and checkout securely.">Learn how to add to cart and checkout securely.</p>
+                            </div>
+                        </div>
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="background:#000; height:160px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; position:relative;">
+                                <i data-lucide="play-circle" style="width:48px;height:48px; opacity:0.8;"></i>
+                                <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; font-size:0.75rem;">2:05</div>
+                            </div>
+                            <div style="padding:16px;">
+                                <h3 style="font-size:1rem; font-weight:700; margin-bottom:4px;" data-i18n="Tracking Your Order">Tracking Your Order</h3>
+                                <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Track logistics from the farm to your destination.">Track logistics from the farm to your destination.</p>
+                            </div>
+                        </div>
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="background:#000; height:160px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; position:relative;">
+                                <i data-lucide="play-circle" style="width:48px;height:48px; opacity:0.8;"></i>
+                                <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; font-size:0.75rem;">1:15</div>
+                            </div>
+                            <div style="padding:16px;">
+                                <h3 style="font-size:1rem; font-weight:700; margin-bottom:4px;" data-i18n="Submitting Custom Offers">Submitting Custom Offers</h3>
+                                <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Negotiate bulk deals directly with verified farmers.">Negotiate bulk deals directly with verified farmers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/orders.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/chatbot.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            const user = FarmAuth.getCurrentUser();
+            if (user) {
+                document.querySelectorAll('.user-name-display').forEach(el => el.textContent = user.name || 'Priya Sharma');
+                document.querySelectorAll('.user-avatar-initials').forEach(el => el.textContent = FarmUtils.getInitials(user.name || 'Priya Sharma'));
+            }
+
+            // Load products
+            try {
+                const products = await ProductService.getAll();
+                const available = products.filter(p => p.status !== 'SOLD_OUT' && (p.quantity > 0));
+                document.getElementById('availableProduceCount').textContent = available.length;
+
+                const grid = document.getElementById('featuredGrid');
+                if (available.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column:1/-1; text-align:center; padding:40px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                            <i data-lucide="package-open" style="width:40px; height:40px; color:var(--text-muted); margin-bottom:12px;"></i>
+                            <h3 style="font-size:1.1rem; font-weight:700;" data-i18n="No Produce Listed Yet">No Produce Listed Yet</h3>
+                            <p style="color:var(--text-secondary); font-size:0.9rem;" data-i18n="Check back soon as local farmers publish fresh harvest lots.">Check back soon as local farmers publish fresh harvest lots.</p>
+                        </div>
+                    `;
+                } else {
+                    grid.innerHTML = available.slice(0, 4).map(p => `
+                        <div class="buyer-product-card">
+                            <div class="buyer-card-img">
+                                <img src="${p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80'}" alt="${p.name}">
+                                <span class="badge badge-confirmed" style="position:absolute; top:12px; left:12px;" data-i18n="${p.category || 'Produce'}">${p.category || 'Produce'}</span>
+                                ${p.quantity < 100 ? `<span class="badge badge-warning" style="position:absolute; top:12px; right:12px;" data-i18n="Only ${p.quantity} ${p.unit} left">Only ${p.quantity} ${p.unit} left</span>` : ''}
+                            </div>
+                            <div class="buyer-card-body">
+                                <div class="buyer-card-farmer">
+                                    <i data-lucide="user" style="width:14px;height:14px;"></i>
+                                    <span data-i18n="${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}">${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}</span>
+                                </div>
+                                <h3 class="buyer-card-title">${p.name}</h3>
+                                <div class="buyer-card-price">
+                                    ${FarmUtils.formatCurrency(p.price)} <small>/ ${p.unit || 'kg'}</small>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+                                    <span>Available: <strong>${p.quantity} ${p.unit || 'kg'}</strong></span>
+                                    <span>Grade: <strong data-i18n="${p.qualityGrade || 'A'}">${p.qualityGrade || 'A'}</strong></span>
+                                </div>
+                                <div style="display:flex; gap:8px; margin-top:auto;">
+                                    <a href="product-details.html?id=${p.id}" class="btn btn-secondary" style="flex:1; justify-content:center; font-size:0.85rem;" data-i18n="Details">Details</a>
+                                    <button class="btn btn-primary add-cart-btn" data-id="${p.id}" style="flex:1; justify-content:center; font-size:0.85rem;">
+                                        <i data-lucide="shopping-cart"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                lucide.createIcons();
+
+                // Add to cart click
+                document.querySelectorAll('.add-cart-btn').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const pid = btn.dataset.id;
+                        const prod = products.find(p => p.id === pid);
+                        if (prod) {
+                            try {
+                                await CartService.addItem(prod, 10);
+                                FarmUtils.showToast(`Added 10 ${prod.unit || 'kg'} of ${prod.name} to cart!`, 'success');
+                                updateCartBadgeAndCount();
+                            } catch (err) {
+                                FarmUtils.showToast(err.message, 'error');
+                            }
+                        }
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('featuredGrid').innerHTML = `<p style="color:var(--danger); padding:20px;" data-i18n="Could not load products: ${err.message}">Could not load products: ${err.message}</p>`;
+            }
+
+            // Load buyer orders
+            try {
+                const orders = await OrderService.getAll();
+                const myOrders = orders.filter(o => !user || !o.buyerPhone || o.buyerPhone === user.phone || true); // show recent for demo
+                const activeOrders = myOrders.filter(o => o.status !== ORDER_STATUSES.DELIVERED && o.status !== ORDER_STATUSES.CANCELLED);
+                document.getElementById('activeOrdersCount').textContent = activeOrders.length;
+                
+                const totalSpent = myOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+                document.getElementById('totalPurchasesValue').textContent = FarmUtils.formatCurrency(totalSpent);
+
+                const container = document.getElementById('recentOrdersContainer');
+                if (myOrders.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:24px;">
+                            <i data-lucide="shopping-bag" style="width:36px; height:36px; color:var(--text-muted); margin-bottom:8px;"></i>
+                            <p style="color:var(--text-secondary); margin-bottom:12px;" data-i18n="You have not placed any orders yet.">You have not placed any orders yet.</p>
+                            <a href="marketplace.html" class="btn btn-primary btn-sm"><i data-lucide="store"></i> Browse Marketplace</a>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="Order ID">Order ID</th>
+                                        <th data-i18n="Produce">Produce</th>
+                                        <th data-i18n="Farmer">Farmer</th>
+                                        <th data-i18n="Amount">Amount</th>
+                                        <th data-i18n="Status">Status</th>
+                                        <th data-i18n="Action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${myOrders.slice(0, 3).map(o => `
+                                        <tr>
+                                            <td style="font-weight:700;">#${o.id.substring(0, 8)}</td>
+                                            <td>${o.items?.map(i => `${i.name} (${i.quantity} ${i.unit || 'kg'})`).join(', ') || 'Produce Item'}</td>
+                                            <td>${o.farmerName || 'Verified Farmer'}</td>
+                                            <td style="font-weight:700; color:var(--primary);">${FarmUtils.formatCurrency(o.totalAmount || 0)}</td>
+                                            <td><span class="status-badge badge-${FarmUtils.getStatusBadgeClass(o.status)}">${o.status}</span></td>
+                                            <td>
+                                                <a href="order-tracking.html?id=${o.id}" class="btn btn-secondary btn-sm"><i data-lucide="map-pin"></i> Track</a>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                }
+                lucide.createIcons();
+            } catch (err) {
+                console.error(err);
+            }
+
+            function updateCartBadgeAndCount() {
+                CartService.updateBadge();
+                const { itemCount } = CartService.getTotals();
+                document.getElementById('cartItemsCount').textContent = itemCount;
+            }
+            updateCartBadgeAndCount();
+        });
+    </script>
+</body>
+</html>

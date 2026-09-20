@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions | FarmLink</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .pub-nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pub-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .pub-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .pub-content {
+            max-width: 860px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-q {
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-a {
+            margin-top: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: none;
+        }
+        .faq-item.active .faq-a {
+            display: block;
+        }
+        .faq-item.active .faq-chevron {
+            transform: rotate(180deg);
+        }
+        .faq-chevron {
+            transition: transform 0.2s ease;
+        }
+    </style>
+</head>
+<body style="background:var(--surface-sunken);">
+
+    <header class="pub-nav">
+        <a href="../index.html" class="pub-brand">
+            <img src="../img/logo.png" alt="FarmLink Logo">
+            <div>
+                <strong style="font-size:1.15rem; color:var(--primary); font-weight:800;" data-i18n="FarmLink">FarmLink</strong>
+                <div style="font-size:0.75rem; color:var(--text-secondary);" data-i18n="Govt. of Maharashtra · SIH 2026">Govt. of Maharashtra · SIH 2026</div>
+            </div>
+        </a>
+
+        <div style="display:flex; align-items:center; gap:16px;">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+            <a href="../index.html" class="btn btn-secondary btn-sm" data-i18n="Login">Login</a>
+            <a href="../pages/registration.html" class="btn btn-primary btn-sm" data-i18n="Register">Register</a>
+        </div>
+    </header>
+
+    <main class="pub-content">
+        <div style="text-align:center; margin-bottom:32px;">
+            <h1 style="font-size:2.2rem; font-weight:800; color:var(--text-primary); margin-bottom:8px;" data-i18n="Frequently Asked Questions">Frequently Asked Questions</h1>
+            <p style="color:var(--text-secondary); font-size:1rem;" data-i18n="Clear answers regarding mandi rates, produce listings, logistics, and legal compliance.">Clear answers regarding mandi rates, produce listings, logistics, and legal compliance.</p>
+        </div>
+
+        <div class="card" style="padding:32px; margin-bottom:28px;">
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span data-i18n="What is FarmLink and how is it related to Govt. of Maharashtra?">What is FarmLink and how is it related to Govt. of Maharashtra?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron"></i>
+                </div>
+                <div class="faq-a" data-i18n="FarmLink is developed under Smart India Hackathon 2026 problem statement SIH26132 sponsored by the Government of Maharashtra. It establishes direct agricultural market linkage between verified farmers and commercial buyers to eliminate middlemen markups and provide transparent price discovery based on real AgmarkNet data.">FarmLink is developed under Smart India Hackathon 2026 problem statement SIH26132 sponsored by the Government of Maharashtra. It establishes direct agricultural market linkage between verified farmers and commercial buyers to eliminate middlemen markups and provide transparent price discovery based on real AgmarkNet data.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span data-i18n="Are the mandi market prices real or estimated?">Are the mandi market prices real or estimated?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron"></i>
+                </div>
+                <div class="faq-a" data-i18n="Prices are queried directly from the Government of India's Open Government Data platform (data.gov.in / AgmarkNet). When live government mandi API connectivity is not configured or data is unavailable, FarmLink honestly displays an explicit unverified state — it never fabricates or hallucinates fake rates.">Prices are queried directly from the Government of India's Open Government Data platform (data.gov.in / AgmarkNet). When live government mandi API connectivity is not configured or data is unavailable, FarmLink honestly displays an explicit unverified state — it never fabricates or hallucinates fake rates.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span data-i18n="How do farmers receive payment for their produce?">How do farmers receive payment for their produce?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron"></i>
+                </div>
+                <div class="faq-a" data-i18n="Transactions support Cash on Delivery (settled upon physical weighment at the buyer’s dock) or instant Escrow UPI/bank transfer where funds are secured at order placement and released immediately upon delivery sign-off.">Transactions support Cash on Delivery (settled upon physical weighment at the buyer’s dock) or instant Escrow UPI/bank transfer where funds are secured at order placement and released immediately upon delivery sign-off.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span data-i18n="Can farmers use voice input in their mother tongue?">Can farmers use voice input in their mother tongue?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron"></i>
+                </div>
+                <div class="faq-a" data-i18n="Yes. The Kisan Voice AI feature supports Tamil (தமிழ்), Hindi (हिन्दी), and English speech recognition, allowing farmers to list produce or search mandi rates hands-free with large, accessible buttons.">Yes. The Kisan Voice AI feature supports Tamil (தமிழ்), Hindi (हिन्दी), and English speech recognition, allowing farmers to list produce or search mandi rates hands-free with large, accessible buttons.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">
+                    <span data-i18n="How are transport and vehicle pickups arranged?">How are transport and vehicle pickups arranged?</span>
+                    <i data-lucide="chevron-down" class="faq-chevron"></i>
+                </div>
+                <div class="faq-a" data-i18n="Farmers mark their farm gate coordinate on an interactive map. Buyers choose between arranging their own carrier or selecting direct farm dispatch, where a verified commercial carrier (e.g. Mahindra Bolero Pickup or truck) collects the lot directly from the farm.">Farmers mark their farm gate coordinate on an interactive map. Buyers choose between arranging their own carrier or selecting direct farm dispatch, where a verified commercial carrier (e.g. Mahindra Bolero Pickup or truck) collects the lot directly from the farm.</div>
+            </div>
+        </div>
+
+        <div class="card" style="padding:28px; text-align:center;">
+            <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:8px;" data-i18n="Have More Questions?">Have More Questions?</h3>
+            <p style="color:var(--text-secondary); margin-bottom:16px;" data-i18n="Our agricultural coordinators are ready to assist you.">Our agricultural coordinators are ready to assist you.</p>
+            <a href="contact.html" class="btn btn-secondary" data-i18n="Contact Support Desk">Contact Support Desk</a>
+        </div>
+    </main>
+
+    <footer style="text-align:center; padding:32px 20px; color:var(--text-secondary); font-size:0.85rem; border-top:1px solid var(--border); margin-top:60px;">
+        <div data-i18n="FarmLink — Smart India Hackathon 2026 · Government of Maharashtra">FarmLink — Smart India Hackathon 2026 · Government of Maharashtra</div>
+        <div style="margin-top:8px;">
+            <a href="about.html" style="color:inherit; margin:0 8px;" data-i18n="About">About</a> · 
+            <a href="how-it-works.html" style="color:inherit; margin:0 8px;" data-i18n="How It Works">How It Works</a> · 
+            <a href="faq.html" style="color:inherit; margin:0 8px;" data-i18n="FAQ">FAQ</a> · 
+            <a href="contact.html" style="color:inherit; margin:0 8px;" data-i18n="Contact">Contact</a>
+        </div>
+    </footer>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            document.querySelectorAll('.faq-q').forEach(q => {
+                q.addEventListener('click', () => {
+                    q.closest('.faq-item').classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

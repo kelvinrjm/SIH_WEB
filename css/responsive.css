@@ -1,0 +1,1204 @@
+/* ===================================================================
+   FARM LINK — COMPREHENSIVE RESPONSIVE DESIGN ENGINE (MOBILE-FIRST)
+   SIH26132 — Farmer Market Linkage & Price Discovery | Govt. of Maharashtra
+   =================================================================== */
+
+/* -------------------------------------------------------------------
+   1. BASE MOBILE-FIRST RESET & FOUNDATION (Viewports 320px+)
+   ------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 15px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.5;
+}
+
+/* Fluid responsive media */
+img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure official logo preserves aspect ratio */
+.auth-logo-circle img,
+.brand-logo-circle img,
+#brandLogo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+}
+
+/* Touch Targets: Minimum 44px for farmer-friendly usability */
+button, 
+a.btn, 
+.btn, 
+input, 
+select, 
+textarea, 
+.role-tab, 
+.nav-item, 
+.lang-select-input, 
+.cart-qty-btn,
+.icon-btn,
+.hamburger {
+    min-height: 44px;
+}
+
+/* Normal button wrapping: NEVER break words letter-by-letter */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.3;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    padding: 10px 16px;
+    gap: 8px;
+}
+
+.btn-lg {
+    min-height: 48px;
+    padding: 12px 22px;
+}
+
+.btn-sm {
+    min-height: 38px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+}
+
+/* Responsive Containers */
+.container,
+.page-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px 14px 80px 14px; /* bottom padding reserves room for mobile bottom nav */
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.page-title {
+    font-size: clamp(1.35rem, 4vw, 1.85rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.4px;
+    color: var(--text-primary);
+}
+
+.page-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* -------------------------------------------------------------------
+   2. MOBILE NAVIGATION & APP SHELL (< 992px)
+   ------------------------------------------------------------------- */
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.main-content {
+    margin-left: 0 !important;
+    min-width: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar off-canvas mobile drawer */
+.sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: min(290px, 86vw) !important;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2100;
+    box-shadow: 4px 0 24px rgba(8, 41, 32, 0.35);
+    overflow: hidden;
+}
+
+.sidebar.open {
+    transform: translateX(0) !important;
+}
+
+/* Slim stylish scrollbar for sidebar navigation */
+.sidebar-nav {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-close {
+    display: block !important;
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: #FFFFFF;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 41, 32, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 2050;
+}
+
+.sidebar-overlay.show {
+    display: block !important;
+}
+
+/* Hamburger button visible on mobile/tablet */
+.hamburger {
+    display: grid !important;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.hamburger:hover {
+    background: var(--bg);
+}
+
+/* Topbar Mobile Alignment */
+.topbar {
+    height: 60px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar-search {
+    display: none; /* Collapsed on mobile to prevent squeezing header controls */
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* Language selector mobile optimization */
+.language-selector {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.language-selector select {
+    font-size: 0.82rem;
+    padding: 2px;
+}
+
+/* User display text hidden on small screens, avatar remains */
+.user-info-desktop,
+.user-info-small {
+    display: none;
+}
+
+/* -------------------------------------------------------------------
+   3. MOBILE BOTTOM NAVIGATION BAR (Strict Farmer / Buyer Mobile UX)
+   ------------------------------------------------------------------- */
+.mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #FFFFFF;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1800;
+    box-shadow: 0 -3px 16px rgba(13, 59, 46, 0.08);
+    padding: 0 2px;
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    flex: 1;
+    min-width: 0; /* Ensures 5 equal tabs on 360px without blowout */
+    height: 100%;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.68rem;
+    font-weight: 600;
+    transition: color 0.18s ease;
+    padding: 4px 1px;
+    text-align: center;
+}
+
+.mobile-nav-item i,
+.mobile-nav-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.mobile-nav-item span {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.15;
+}
+
+.mobile-nav-item:hover,
+.mobile-nav-item.active {
+    color: var(--primary);
+}
+
+.mobile-nav-item.active i,
+.mobile-nav-item.active svg {
+    stroke-width: 2.5;
+}
+
+.mobile-nav-highlight {
+    background: var(--primary-light);
+    color: var(--primary) !important;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+}
+
+.mobile-nav-highlight.active {
+    background: var(--primary);
+    color: #FFFFFF !important;
+}
+
+/* -------------------------------------------------------------------
+   4. ORDER STATUS FILTERS & CHIPS (NO LETTER-BY-LETTER BREAKING)
+   ------------------------------------------------------------------- */
+.filter-scroll-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-chips-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 2px 10px 2px;
+}
+
+.filter-chips-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-chip-btn,
+.filter-tab,
+.cat-pill {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    min-height: 38px;
+    padding: 8px 16px !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    border-radius: var(--radius-full) !important;
+    cursor: pointer;
+    user-select: none;
+    transition: all var(--transition);
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+    color: var(--text-secondary);
+}
+
+.filter-chip-btn:hover,
+.filter-tab:hover,
+.cat-pill:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    border-color: var(--primary-border);
+}
+
+.filter-chip-btn.active,
+.filter-chip-btn.btn-primary,
+.filter-tab.active,
+.cat-pill.active {
+    background: var(--primary) !important;
+    color: #FFFFFF !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 4px 12px rgba(0, 168, 107, 0.3) !important;
+}
+
+/* Farmer Order Card (Single Column Detailed Card) */
+.farmer-order-card {
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xs);
+    width: 100%;
+}
+
+/* -------------------------------------------------------------------
+   5. PRODUCT GRIDS: 2 PRODUCTS PER ROW ON MOBILE (MANDATORY REQUIREMENT)
+   ------------------------------------------------------------------- */
+.farmer-products-grid,
+.marketplace-grid,
+.categories-grid,
+.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+}
+
+/* 2-Column Mobile Product Card Adaptations (320px - 575px) */
+.farmer-product-card,
+.buyer-product-card {
+    border-radius: var(--radius-sm) !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-xs);
+    border: 1px solid var(--border);
+    background: #FFFFFF;
+}
+
+.product-thumb-wrap,
+.buyer-card-img {
+    height: 125px !important;
+    position: relative;
+    background: #F1F5F3;
+    overflow: hidden;
+}
+
+.product-thumb-wrap img,
+.buyer-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-body,
+.buyer-card-body {
+    padding: 10px 8px !important;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-title,
+.buyer-card-title {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin-bottom: 2px !important;
+    color: var(--text-primary);
+}
+
+.buyer-card-farmer,
+.product-meta-row {
+    font-size: 0.74rem !important;
+    margin: 2px 0 4px 0 !important;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-price-tag,
+.buyer-card-price {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: var(--primary) !important;
+    margin: 2px 0 6px 0 !important;
+}
+
+.product-price-tag small,
+.buyer-card-price small {
+    font-size: 0.72rem !important;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.product-card-actions,
+.buyer-card-body > div[style*="display:flex; gap:8px; margin-top:auto;"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    margin-top: auto !important;
+    width: 100% !important;
+}
+
+.product-card-actions .btn,
+.buyer-card-body .btn {
+    width: 100% !important;
+    padding: 6px 8px !important;
+    font-size: 0.78rem !important;
+    min-height: 34px !important;
+    justify-content: center !important;
+}
+
+/* Category cards in 2 columns on mobile */
+.category-card {
+    padding: 14px 10px !important;
+}
+.category-card-icon {
+    width: 44px !important;
+    height: 44px !important;
+}
+.category-card-title {
+    font-size: 0.9rem !important;
+}
+
+/* -------------------------------------------------------------------
+   6. FARMER QUICK SERVICES (VISUAL TOUCH CARDS)
+   ------------------------------------------------------------------- */
+.farmer-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.quick-action-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-xs);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    min-height: 90px;
+    justify-content: center;
+}
+
+.quick-action-card:hover,
+.quick-action-card:active {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.quick-action-card .quick-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    margin-bottom: 8px;
+}
+
+.quick-action-card .quick-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.quick-action-card .quick-desc {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    margin-top: 3px;
+    display: none;
+}
+
+.quick-action-highlight {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: #FFFFFF !important;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0, 168, 107, 0.35);
+}
+
+.quick-action-highlight .quick-icon {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+}
+
+.quick-action-highlight .quick-desc {
+    color: rgba(255, 255, 255, 0.88);
+}
+
+/* -------------------------------------------------------------------
+   7. STATS & DUAL COLUMN GRIDS (Mobile Stacking)
+   ------------------------------------------------------------------- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    padding: 14px 12px;
+    gap: 10px;
+}
+
+.stat-icon {
+    width: 42px;
+    height: 42px;
+}
+
+.stat-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.stat-value {
+    font-size: 1.35rem;
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+}
+
+/* Force Dual Column to stack on mobile */
+#dashboardDualCol,
+.form-row-2,
+.form-row-3,
+.form-row-auto {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+}
+
+/* Force inline multi-column styles to stack cleanly on mobile */
+[style*="grid-template-columns:1fr 1fr"],
+[style*="grid-template-columns: 1fr 1fr"],
+[style*="grid-template-columns:1fr 1fr 1fr"],
+[style*="grid-template-columns: 1fr 1fr 1fr"],
+[style*="grid-template-columns:repeat(3, 1fr)"],
+[style*="grid-template-columns: repeat(3, 1fr)"],
+[style*="grid-template-columns:1fr 1.2fr auto"],
+[style*="grid-template-columns: 1fr 1.2fr auto"] {
+    grid-template-columns: 1fr !important;
+}
+
+/* -------------------------------------------------------------------
+   8. FORMS & INPUTS (Mobile Usability)
+   ------------------------------------------------------------------- */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-control {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 16px; /* 16px prevents iOS auto-zoom on input focus */
+}
+
+.auth-card {
+    width: 100% !important;
+    max-width: 480px;
+    padding: 24px 18px;
+    margin: 12px auto;
+    border-radius: var(--radius-lg);
+}
+
+.auth-brand h1 {
+    font-size: 1.6rem;
+}
+
+/* -------------------------------------------------------------------
+   9. CART & CHECKOUT SINGLE-COLUMN FLOW
+   ------------------------------------------------------------------- */
+.cart-layout,
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+}
+
+.cart-item-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+}
+
+.cart-item-thumb {
+    width: 64px;
+    height: 64px;
+}
+
+.cart-item-info {
+    flex: 1 1 180px;
+}
+
+.cart-qty-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* -------------------------------------------------------------------
+   10. ORDER TRACKING VERTICAL TIMELINE ON MOBILE
+   ------------------------------------------------------------------- */
+.tracking-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 12px 0 12px 28px;
+}
+
+.tracking-timeline::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 13px;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.step-circle {
+    position: absolute;
+    left: -28px;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-full);
+    background: #FFFFFF;
+    border: 2px solid var(--border-dark);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    z-index: 2;
+}
+
+.timeline-step.completed .step-circle {
+    background: var(--success);
+    border-color: var(--success);
+    color: #FFFFFF;
+}
+
+.timeline-step.active .step-circle {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #FFFFFF;
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.step-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+/* -------------------------------------------------------------------
+   11. TABLES, MODALS & TOAST NOTIFICATIONS
+   ------------------------------------------------------------------- */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+}
+
+/* Modals */
+.modal {
+    padding: 12px;
+}
+
+.modal-content {
+    width: min(540px, 94vw) !important;
+    max-height: 88vh;
+    padding: 20px 16px;
+    border-radius: var(--radius);
+}
+
+.modal-content.modal-lg {
+    width: min(780px, 94vw) !important;
+}
+
+/* Toasts */
+.toast-container {
+    position: fixed;
+    right: 12px;
+    left: 12px;
+    bottom: 72px; /* Positioned above mobile bottom nav */
+    max-width: 100%;
+    min-width: 0;
+    gap: 8px;
+    z-index: 3000;
+}
+
+.toast {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+}
+
+/* ===================================================================
+   12. PROGRESSIVE ENHANCEMENT MEDIA QUERIES
+   =================================================================== */
+
+/* -------------------------------------------------------------------
+   A. Small Tablets & Landscape Phones (>= 480px)
+   ------------------------------------------------------------------- */
+@media (min-width: 480px) {
+    .farmer-quick-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .quick-action-card .quick-desc {
+        display: block;
+    }
+
+    .auth-card {
+        padding: 32px 28px;
+    }
+}
+
+/* -------------------------------------------------------------------
+   B. Medium Tablets (>= 576px)
+   ------------------------------------------------------------------- */
+@media (min-width: 576px) {
+    .farmer-products-grid,
+    .marketplace-grid,
+    .categories-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 14px !important;
+    }
+
+    .product-thumb-wrap,
+    .buyer-card-img {
+        height: 150px !important;
+    }
+
+    .product-body,
+    .buyer-card-body {
+        padding: 14px !important;
+    }
+
+    .product-card-actions,
+    .buyer-card-body > div[style*="display:flex; gap:8px; margin-top:auto;"] {
+        flex-direction: row !important;
+    }
+}
+
+/* -------------------------------------------------------------------
+   C. Large Tablets (>= 640px)
+   ------------------------------------------------------------------- */
+@media (min-width: 640px) {
+    html {
+        font-size: 15px;
+    }
+
+    .page-container {
+        padding: 22px 20px 80px 20px;
+    }
+
+    .page-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .topbar {
+        height: 66px;
+        padding: 0 20px;
+    }
+
+    .topbar-search {
+        display: flex;
+        width: min(340px, 100%);
+    }
+
+    .user-info-small {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Restore structured 2-column form rows */
+    .form-row-2 {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    [style*="grid-template-columns:1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 14px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* -------------------------------------------------------------------
+   D. Large Tablets & Small Laptops (>= 768px)
+   ------------------------------------------------------------------- */
+@media (min-width: 768px) {
+    .page-container {
+        padding-bottom: 32px; /* Remove mobile bottom nav offset */
+    }
+
+    /* Hide Mobile Bottom Nav on Tablet & Desktop */
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+
+    .toast-container {
+        left: auto;
+        right: 24px;
+        bottom: 24px;
+        max-width: 420px;
+        min-width: 280px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .farmer-quick-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    #dashboardDualCol {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px;
+    }
+
+    .farmer-products-grid,
+    .marketplace-grid,
+    .categories-grid,
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 18px !important;
+    }
+
+    .product-thumb-wrap,
+    .buyer-card-img {
+        height: 180px !important;
+    }
+
+    .form-row-3 {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    [style*="grid-template-columns:1fr 1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr 1fr"],
+    [style*="grid-template-columns:repeat(3, 1fr)"],
+    [style*="grid-template-columns: repeat(3, 1fr)"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    [style*="grid-template-columns:1fr 1.2fr auto"],
+    [style*="grid-template-columns: 1fr 1.2fr auto"] {
+        grid-template-columns: 1fr 1.2fr auto !important;
+    }
+
+    .cart-layout {
+        grid-template-columns: 1fr 340px !important;
+    }
+
+    .checkout-grid {
+        grid-template-columns: 1fr 360px !important;
+    }
+
+    /* Horizontal Order Tracking Timeline on Large Screens */
+    .tracking-timeline {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 24px 10px;
+    }
+
+    .tracking-timeline::before {
+        top: 24px;
+        left: 20px;
+        right: 20px;
+        bottom: auto;
+        height: 3px;
+        width: calc(100% - 40px);
+    }
+
+    .timeline-step {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        flex: 1;
+    }
+
+    .step-circle {
+        position: static;
+        width: 36px;
+        height: 36px;
+        margin: 0 auto;
+    }
+
+    .step-label {
+        font-size: 0.85rem;
+    }
+}
+
+/* -------------------------------------------------------------------
+   E. Standard Desktop & Workstations (>= 992px)
+   ------------------------------------------------------------------- */
+@media (min-width: 992px) {
+    :root {
+        --sidebar-w: 260px;
+    }
+
+    .app-layout {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        min-height: 100vh !important;
+        align-items: stretch !important;
+    }
+
+    .sidebar {
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: var(--sidebar-w, 260px) !important;
+        min-width: var(--sidebar-w, 260px) !important;
+        max-width: var(--sidebar-w, 260px) !important;
+        height: 100vh !important;
+        flex-shrink: 0 !important;
+        transform: none !important;
+        box-shadow: 2px 0 12px rgba(8, 41, 32, 0.08) !important;
+        z-index: 100 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+
+    .sidebar-close,
+    .sidebar-overlay,
+    .hamburger {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: auto !important;
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+        max-width: calc(100% - var(--sidebar-w, 260px)) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 100vh !important;
+    }
+
+    .topbar {
+        height: var(--topbar-h, 70px) !important;
+        padding: 0 28px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 20px !important;
+    }
+
+    .topbar-search {
+        display: flex !important;
+        flex: 0 1 460px !important;
+        width: min(460px, 100%) !important;
+        min-width: 0 !important;
+    }
+
+    .topbar-right {
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .language-selector {
+        padding: 6px 12px !important;
+        font-size: 0.85rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .page-container {
+        padding: 28px !important;
+        max-width: var(--max-content-w, 1280px) !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
+    }
+
+    /* All 7 Farmer Quick Services in 1 symmetrical row on Desktop */
+    .farmer-quick-grid {
+        grid-template-columns: repeat(7, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    .farmer-products-grid,
+    .marketplace-grid,
+    .categories-grid,
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 22px !important;
+    }
+
+    /* Filter Bar on Desktop */
+    .filter-scroll-wrapper {
+        overflow-x: visible !important;
+    }
+
+    .filter-chips-bar {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+}
+
+/* -------------------------------------------------------------------
+   F. Large Desktop & High-Resolution Displays (>= 1200px)
+   ------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+    .farmer-products-grid,
+    .marketplace-grid,
+    .categories-grid,
+    .products-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 24px !important;
+    }
+
+    .card {
+        padding: 28px;
+    }
+}
+
+/* -------------------------------------------------------------------
+   G. Ultra-Wide Displays (>= 1440px+)
+   ------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+    .page-container {
+        max-width: 1360px !important;
+    }
+}
+
+/* -------------------------------------------------------------------
+   13. PRINT STYLES
+   ------------------------------------------------------------------- */
+@media print {
+    .sidebar,
+    .topbar,
+    .mobile-bottom-nav,
+    .btn,
+    .sidebar-overlay,
+    .toast-container {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+    }
+
+    .page-container {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #CCCCCC !important;
+    }
+}

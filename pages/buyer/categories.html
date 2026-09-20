@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produce Categories | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .category-hero-card {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s, box-shadow 0.25s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .category-hero-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+        .cat-img-box {
+            height: 160px;
+            overflow: hidden;
+            position: relative;
+        }
+        .cat-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .category-hero-card:hover .cat-img-box img {
+            transform: scale(1.05);
+        }
+        .cat-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item active"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Agricultural Categories">Agricultural Categories</div>
+                <div class="topbar-right">
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:28px;">
+                    <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Browse by Category">Browse by Agricultural Sector</h1>
+                    <p style="color:var(--text-secondary); font-size:0.95rem;" data-i18n="Select an agricultural classification to explore direct farm lots, grades, and prevailing mandi trends.">Select an agricultural classification to explore direct farm lots, grades, and prevailing mandi trends.</p>
+                </div>
+
+                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:24px;" id="catGrid">
+                    <!-- Vegetables -->
+                    <a href="marketplace.html?category=Vegetables" class="category-hero-card">
+                        <div class="cat-img-box">
+                            <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80" alt="Fresh Vegetables">
+                        </div>
+                        <div class="cat-body">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.25rem; font-weight:700;" data-i18n="Vegetables">Vegetables</h3>
+                                <span class="badge badge-confirmed" id="countVegetables" data-i18n="Loading...">Loading...</span>
+                            </div>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px;" data-i18n="Tomatoes, Onions, Potatoes, Cauliflower, Chillies, Green Peas & more.">Tomatoes, Onions, Potatoes, Cauliflower, Chillies, Green Peas & more.</p>
+                            <div style="display:flex; align-items:center; gap:6px; color:var(--primary); font-weight:700; font-size:0.88rem; margin-top:auto;">
+                                <span data-i18n="Explore Listings">Explore Listings</span> <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Fruits -->
+                    <a href="marketplace.html?category=Fruits" class="category-hero-card">
+                        <div class="cat-img-box">
+                            <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?auto=format&fit=crop&w=600&q=80" alt="Fresh Fruits">
+                        </div>
+                        <div class="cat-body">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.25rem; font-weight:700;" data-i18n="Fruits">Fruits</h3>
+                                <span class="badge badge-confirmed" id="countFruits" data-i18n="Loading...">Loading...</span>
+                            </div>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px;" data-i18n="Pomegranates, Grapes, Bananas, Mangoes, Oranges, Watermelons.">Pomegranates, Grapes, Bananas, Mangoes, Oranges, Watermelons.</p>
+                            <div style="display:flex; align-items:center; gap:6px; color:var(--primary); font-weight:700; font-size:0.88rem; margin-top:auto;">
+                                <span data-i18n="Explore Listings">Explore Listings</span> <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Grains & Cereals -->
+                    <a href="marketplace.html?category=Grains" class="category-hero-card">
+                        <div class="cat-img-box">
+                            <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80" alt="Grains & Cereals">
+                        </div>
+                        <div class="cat-body">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.25rem; font-weight:700;" data-i18n="Grains & Cereals">Grains & Cereals</h3>
+                                <span class="badge badge-confirmed" id="countGrains" data-i18n="Loading...">Loading...</span>
+                            </div>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px;" data-i18n="Sharbati Wheat, Basmati Paddy, Jowar, Bajra, Maize, Barley.">Sharbati Wheat, Basmati Paddy, Jowar, Bajra, Maize, Barley.</p>
+                            <div style="display:flex; align-items:center; gap:6px; color:var(--primary); font-weight:700; font-size:0.88rem; margin-top:auto;">
+                                <span data-i18n="Explore Listings">Explore Listings</span> <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Pulses & Legumes -->
+                    <a href="marketplace.html?category=Pulses" class="category-hero-card">
+                        <div class="cat-img-box">
+                            <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80" alt="Pulses & Legumes">
+                        </div>
+                        <div class="cat-body">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.25rem; font-weight:700;" data-i18n="Pulses & Legumes">Pulses & Legumes</h3>
+                                <span class="badge badge-confirmed" id="countPulses" data-i18n="Loading...">Loading...</span>
+                            </div>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px;" data-i18n="Toor Dal, Chana (Chickpeas), Moong, Urad Dal, Masoor Dal.">Toor Dal, Chana (Chickpeas), Moong, Urad Dal, Masoor Dal.</p>
+                            <div style="display:flex; align-items:center; gap:6px; color:var(--primary); font-weight:700; font-size:0.88rem; margin-top:auto;">
+                                <span data-i18n="Explore Listings">Explore Listings</span> <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Spices & Condiments -->
+                    <a href="marketplace.html?category=Spices" class="category-hero-card">
+                        <div class="cat-img-box">
+                            <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=600&q=80" alt="Spices">
+                        </div>
+                        <div class="cat-body">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.25rem; font-weight:700;" data-i18n="Spices & Herbs">Spices & Herbs</h3>
+                                <span class="badge badge-confirmed" id="countSpices" data-i18n="Loading...">Loading...</span>
+                            </div>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px;" data-i18n="Salem Turmeric, Guntur Red Chilli, Ginger, Garlic, Cumin seeds.">Salem Turmeric, Guntur Red Chilli, Ginger, Garlic, Cumin seeds.</p>
+                            <div style="display:flex; align-items:center; gap:6px; color:var(--primary); font-weight:700; font-size:0.88rem; margin-top:auto;">
+                                <span data-i18n="Explore Listings">Explore Listings</span> <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Cash Crops -->
+                    <a href="marketplace.html?category=CashCrops" class="category-hero-card">
+                        <div class="cat-img-box">
+                            <img src="https://images.unsplash.com/photo-1594488555026-6671a539bc27?auto=format&fit=crop&w=600&q=80" alt="Cash Crops">
+                        </div>
+                        <div class="cat-body">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <h3 style="font-size:1.25rem; font-weight:700;" data-i18n="Commercial & Cash Crops">Commercial & Cash Crops</h3>
+                                <span class="badge badge-confirmed" id="countCashCrops" data-i18n="Loading...">Loading...</span>
+                            </div>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin-bottom:14px;" data-i18n="Raw Cotton bales, Sugarcane stalks, Soybean, Groundnut pods.">Raw Cotton bales, Sugarcane stalks, Soybean, Groundnut pods.</p>
+                            <div style="display:flex; align-items:center; gap:6px; color:var(--primary); font-weight:700; font-size:0.88rem; margin-top:auto;">
+                                <span data-i18n="Explore Listings">Explore Listings</span> <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            try {
+                const products = await ProductService.getAll();
+                const counts = {
+                    Vegetables: 0,
+                    Fruits: 0,
+                    Grains: 0,
+                    Pulses: 0,
+                    Spices: 0,
+                    CashCrops: 0
+                };
+
+                products.filter(p => p.status !== 'SOLD_OUT' && p.quantity > 0).forEach(p => {
+                    const cat = p.category || 'Vegetables';
+                    if (counts[cat] !== undefined) {
+                        counts[cat]++;
+                    } else if (cat.toLowerCase().includes('grain')) {
+                        counts.Grains++;
+                    } else if (cat.toLowerCase().includes('pulse')) {
+                        counts.Pulses++;
+                    } else if (cat.toLowerCase().includes('spice')) {
+                        counts.Spices++;
+                    } else {
+                        counts.Vegetables++;
+                    }
+                });
+
+                document.getElementById('countVegetables').textContent = `${counts.Vegetables} Lots`;
+                document.getElementById('countFruits').textContent = `${counts.Fruits} Lots`;
+                document.getElementById('countGrains').textContent = `${counts.Grains} Lots`;
+                document.getElementById('countPulses').textContent = `${counts.Pulses} Lots`;
+                document.getElementById('countSpices').textContent = `${counts.Spices} Lots`;
+                document.getElementById('countCashCrops').textContent = `${counts.CashCrops} Lots`;
+            } catch (err) {
+                console.error(err);
+            }
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .chat-container {
+            display: flex;
+            height: calc(100vh - 180px);
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        .chat-sidebar {
+            width: 300px;
+            border-right: 1px solid var(--border);
+            background: #FAFAFA;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .chat-item {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .chat-item:hover, .chat-item.active {
+            background: #E8F5E9;
+        }
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+        .chat-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+            font-weight: 700;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            background: #F4F7F6;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .msg {
+            max-width: 75%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+        .msg.sent {
+            align-self: flex-end;
+            background: var(--primary);
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .msg.received {
+            align-self: flex-start;
+            background: #fff;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+        }
+        .msg-time {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            margin-top: 4px;
+            text-align: right;
+        }
+        .chat-input-area {
+            padding: 16px;
+            background: #fff;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+        }
+        @media (max-width: 768px) {
+            .chat-container {
+                flex-direction: column;
+                height: 600px;
+            }
+            .chat-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                flex: none;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item active"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Chats">Chats</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary); margin-bottom: 20px;" data-i18n="Messages with Farmers">Messages with Farmers</h1>
+                
+                <div class="chat-container">
+                    <div class="chat-sidebar">
+                        <div style="padding:16px; border-bottom:1px solid var(--border); font-weight:700;" data-i18n="Conversations">Conversations</div>
+                        <div class="chat-list" id="chatList">
+                            <!-- Populated dynamically -->
+                            <div style="padding: 20px; text-align: center; color: var(--text-secondary);" data-i18n="Loading chats...">Loading chats...</div>
+                        </div>
+                    </div>
+                    <div class="chat-main" id="chatMain" style="display:none;">
+                        <div class="chat-header" id="chatHeader" data-i18n="Select a conversation">Select a conversation</div>
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Messages go here -->
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chatInput" class="form-control" placeholder="Type a message..." style="flex:1;">
+                            <button type="button" class="btn btn-primary" id="btnSend">
+                                <i data-lucide="send" style="width:18px;height:18px;"></i> Send
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chat-main" id="chatEmpty" style="align-items:center; justify-content:center; color:var(--text-secondary);">
+                        <i data-lucide="message-square" style="width:48px;height:48px; margin-bottom:16px; opacity:0.5;"></i>
+                        <p data-i18n="Select a conversation to start messaging">Select a conversation to start messaging</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            AuthService.requireRole('buyer');
+            lucide.createIcons();
+
+            const user = AuthService.getUser();
+            if (!user) return;
+
+            const chatListEl = document.getElementById('chatList');
+            const chatMainEl = document.getElementById('chatMain');
+            const chatEmptyEl = document.getElementById('chatEmpty');
+            const chatHeaderEl = document.getElementById('chatHeader');
+            const chatMessagesEl = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const btnSend = document.getElementById('btnSend');
+
+            let activeChatId = null;
+
+            async function loadChats() {
+                const chats = await ApiService.getChats(user.id);
+                chatListEl.innerHTML = '';
+                
+                if (chats.length === 0) {
+                    chatListEl.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-secondary);" data-i18n="No conversations yet.">No conversations yet.</div>';
+                    return;
+                }
+
+                chats.forEach(chat => {
+                    const el = document.createElement('div');
+                    el.className = 'chat-item';
+                    if (chat.id === activeChatId) el.classList.add('active');
+                    
+                    const lastMsg = chat.messages.length > 0 ? chat.messages[chat.messages.length - 1].text : 'No messages yet';
+                    
+                    el.innerHTML = \`
+                        <div style="font-weight:700; font-size:1rem; margin-bottom:4px;" data-i18n="\${chat.farmerName}">\${chat.farmerName}</div>
+                        <div style="font-size:0.8rem; color:var(--primary); margin-bottom:6px;" data-i18n="\${chat.productName}">\${chat.productName}</div>
+                        <div style="font-size:0.85rem; color:var(--text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" data-i18n="\${Utils.escapeHtml(lastMsg)}">\${Utils.escapeHtml(lastMsg)}</div>
+                    \`;
+                    el.onclick = () => openChat(chat);
+                    chatListEl.appendChild(el);
+                });
+            }
+
+            function openChat(chat) {
+                activeChatId = chat.id;
+                chatEmptyEl.style.display = 'none';
+                chatMainEl.style.display = 'flex';
+                
+                // Update active state in list
+                document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
+                const activeEl = Array.from(chatListEl.children).find(el => el.innerHTML.includes(chat.productName));
+                if (activeEl) activeEl.classList.add('active');
+
+                chatHeaderEl.innerHTML = \`
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:40px; height:40px; border-radius:50%; background:var(--primary); color:#fff; display:grid; place-items:center;" data-i18n="\${chat.farmerName.charAt(0)}">\${chat.farmerName.charAt(0)}</div>
+                        <div>
+                            <div style="font-size:1.05rem;" data-i18n="\${chat.farmerName}">\${chat.farmerName}</div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); font-weight:400;" data-i18n="Product: \${chat.productName}">Product: \${chat.productName}</div>
+                        </div>
+                    </div>
+                \`;
+
+                renderMessages(chat.messages);
+            }
+
+            function renderMessages(messages) {
+                chatMessagesEl.innerHTML = '';
+                messages.forEach(msg => {
+                    const isMine = msg.senderId === user.id;
+                    const date = new Date(msg.timestamp);
+                    const timeStr = date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+                    
+                    const msgEl = document.createElement('div');
+                    msgEl.className = \`msg \${isMine ? 'sent' : 'received'}\`;
+                    msgEl.innerHTML = \`
+                        <div data-i18n="\${Utils.escapeHtml(msg.text)}">\${Utils.escapeHtml(msg.text)}</div>
+                        <div class="msg-time" data-i18n="\${timeStr}">\${timeStr}</div>
+                    \`;
+                    chatMessagesEl.appendChild(msgEl);
+                });
+                chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+            }
+
+            btnSend.onclick = async () => {
+                const text = chatInput.value.trim();
+                if (!text || !activeChatId) return;
+
+                chatInput.disabled = true;
+                btnSend.disabled = true;
+
+                const msg = await ApiService.sendChatMessage(activeChatId, {
+                    senderId: user.id,
+                    text: text
+                });
+
+                chatInput.disabled = false;
+                btnSend.disabled = false;
+                chatInput.value = '';
+                chatInput.focus();
+
+                if (msg) {
+                    const chats = await ApiService.getChats(user.id);
+                    const chat = chats.find(c => c.id === activeChatId);
+                    if (chat) {
+                        renderMessages(chat.messages);
+                        loadChats();
+                    }
+                } else {
+                    Utils.showToast('Failed to send message', 'error');
+                }
+            };
+
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') btnSend.click();
+            });
+
+            loadChats();
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

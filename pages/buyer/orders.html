@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .order-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: box-shadow 0.2s;
+        }
+        .order-card:hover {
+            box-shadow: var(--shadow-sm);
+        }
+        .order-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item active"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="My Orders">My Orders</div>
+                <div class="topbar-right">
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Procurement Orders">Procurement Orders</h1>
+                        <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="Track live fulfillment status, farm dispatch, and access legal GST invoices.">Track live fulfillment status, farm dispatch, and access legal GST invoices.</p>
+                    </div>
+                    <a href="marketplace.html" class="btn btn-primary btn-sm"><i data-lucide="store"></i> New Procurement</a>
+                </div>
+
+                <!-- Status Filter Tabs (Option A: Responsive Horizontal Scrollable Chips Bar) -->
+                <div class="filter-scroll-wrapper">
+                    <div class="filter-chips-bar" role="tablist" aria-label="Filter procurement orders">
+                        <button class="btn btn-primary btn-sm filter-chip-btn active filter-tab" data-filter="ALL" data-i18n="All Orders">All Orders</button>
+                        <button class="btn btn-secondary btn-sm filter-chip-btn filter-tab" data-filter="ACTIVE" data-i18n="In Progress">In Progress</button>
+                        <button class="btn btn-secondary btn-sm filter-chip-btn filter-tab" data-filter="DELIVERED" data-i18n="Delivered">Delivered</button>
+                        <button class="btn btn-secondary btn-sm filter-chip-btn filter-tab" data-filter="CANCELLED" data-i18n="Cancelled">Cancelled</button>
+                    </div>
+                </div>
+
+                <!-- Orders Container -->
+                <div id="ordersList">
+                    <div style="text-align:center; padding:60px;">
+                        <div class="spinner"></div>
+                        <p style="color:var(--text-secondary); margin-top:14px;" data-i18n="Loading your procurement orders...">Loading your procurement orders...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/orders.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            let allOrders = [];
+            let activeFilter = 'ALL';
+
+            const buyer = FarmAuth.getCurrentUser();
+
+            async function refreshOrders(showError = false) {
+                try {
+                    allOrders = await OrderService.getAll({ role: 'buyer', userId: buyer.id });
+                    renderOrders();
+                } catch (err) {
+                    console.error(err);
+                    if (showError) {
+                        document.getElementById('ordersList').innerHTML = `<p style="color:var(--danger); padding:20px;" data-i18n="Could not load orders: ${err.message}">Could not load orders: ${err.message}</p>`;
+                    }
+                }
+            }
+
+            await refreshOrders(true);
+            const refreshTimer = window.setInterval(() => refreshOrders(), 10000);
+            window.addEventListener('beforeunload', () => window.clearInterval(refreshTimer));
+            window.addEventListener('focus', () => refreshOrders());
+
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-tab').forEach(t => {
+                        t.classList.remove('active');
+                        t.style.color = 'var(--text-secondary)';
+                        t.style.fontWeight = '600';
+                    });
+                    tab.classList.add('active');
+                    tab.style.color = 'var(--primary)';
+                    tab.style.fontWeight = '700';
+                    activeFilter = tab.dataset.filter;
+                    renderOrders();
+                });
+            });
+
+            function renderOrders() {
+                const container = document.getElementById('ordersList');
+                let list = [...allOrders];
+
+                if (activeFilter === 'ACTIVE') {
+                    list = list.filter(o => o.status !== ORDER_STATUSES.DELIVERED && o.status !== ORDER_STATUSES.CANCELLED);
+                } else if (activeFilter === 'DELIVERED') {
+                    list = list.filter(o => o.status === ORDER_STATUSES.DELIVERED);
+                } else if (activeFilter === 'CANCELLED') {
+                    list = list.filter(o => o.status === ORDER_STATUSES.CANCELLED);
+                }
+
+                if (list.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:60px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                            <i data-lucide="package-open" style="width:48px; height:48px; color:var(--text-muted); margin-bottom:14px;"></i>
+                            <h3 style="font-size:1.2rem; font-weight:700;" data-i18n="No Orders Found">No Orders Found</h3>
+                            <p style="color:var(--text-secondary); font-size:0.92rem; margin:8px auto 16px auto;" data-i18n="You do not have any orders matching the selected filter.">You do not have any orders matching the selected filter.</p>
+                            <a href="marketplace.html" class="btn btn-primary"><i data-lucide="store"></i> Browse Marketplace</a>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                    return;
+                }
+
+                container.innerHTML = list.map(o => `
+                    <div class="order-card">
+                        <div class="order-card-header">
+                            <div>
+                                <span style="font-weight:800; font-size:1.1rem; color:var(--text-primary);">#${o.id.substring(0, 12)}</span>
+                                <span style="color:var(--text-secondary); font-size:0.85rem; margin-left:10px;" data-i18n="Placed on ${FarmUtils.formatDate(o.createdAt)}">Placed on ${FarmUtils.formatDate(o.createdAt)}</span>
+                            </div>
+                            <div>
+                                <span class="status-badge badge-${FarmUtils.getStatusBadgeClass(o.status)}">${o.status}</span>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:16px;">
+                            <div>
+                                <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Farmer / FPO:">Farmer / FPO:</div>
+                                <div style="font-weight:700; font-size:1rem;" data-i18n="${o.farmerName || o.sellerName || 'Verified Maharashtra Farmer'}">${o.farmerName || o.sellerName || 'Verified Maharashtra Farmer'}</div>
+                            </div>
+                            <div>
+                                <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Items:">Items:</div>
+                                <div style="font-weight:600; font-size:0.95rem;">
+                                    ${o.items?.map(i => `${i.name} (${i.quantity} ${i.unit || 'kg'})`).join(', ') || 'Produce Lot'}
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Total Settlement:">Total Settlement:</div>
+                                <div style="font-weight:800; font-size:1.2rem; color:var(--primary);" data-i18n="${FarmUtils.formatCurrency(o.total || o.totalAmount || 0)}">${FarmUtils.formatCurrency(o.total || o.totalAmount || 0)}</div>
+                            </div>
+                        </div>
+
+                        ${o.returnStatus ? `
+                            <div style="background:var(--surface-sunken); border-radius:8px; padding:12px; margin-bottom:16px; border-left:4px solid #E65100;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div>
+                                        <div style="font-size:0.8rem; color:var(--text-secondary);" data-i18n="Return Status">Return Status</div>
+                                        <div style="font-weight:700; font-size:0.95rem; color:#E65100;" data-i18n="${o.returnStatus}">${o.returnStatus}</div>
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <div style="font-size:0.8rem; color:var(--text-secondary);" data-i18n="Refund Status">Refund Status</div>
+                                        <div style="font-weight:700; font-size:0.95rem; color:${o.refundStatus === 'REFUNDED' ? 'var(--primary)' : 'var(--text-primary)'};" data-i18n="${o.refundStatus}">${o.refundStatus}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid var(--border); padding-top:14px;">
+                            ${o.status === ORDER_STATUSES.PLACED ? `
+                                <button class="btn btn-secondary btn-cancel" data-id="${o.id}" style="color:var(--danger); border-color:rgba(211,47,47,0.3); font-size:0.85rem;" data-i18n="Cancel Order">Cancel Order</button>
+                            ` : ''}
+                            ${o.status === ORDER_STATUSES.DELIVERED && !o.returnStatus ? `
+                                <a href="returns.html?id=${o.id}" class="btn btn-secondary" style="color:#E65100; border-color:rgba(230,81,0,0.3); font-size:0.85rem;">
+                                    <i data-lucide="corner-down-left"></i> Request Return
+                                </a>
+                            ` : ''}
+                            <a href="invoice.html?id=${o.id}" class="btn btn-secondary" style="font-size:0.85rem;">
+                                <i data-lucide="file-text"></i> Invoice
+                            </a>
+                            <a href="order-tracking.html?id=${o.id}" class="btn btn-primary" style="font-size:0.85rem;">
+                                <i data-lucide="map-pin"></i> Track Logistics
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+
+                lucide.createIcons();
+
+                container.querySelectorAll('.btn-cancel').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const oid = btn.dataset.id;
+                        if (confirm('Are you sure you want to cancel this order?')) {
+                            try {
+                                await OrderService.updateStatus(oid, ORDER_STATUSES.CANCELLED, 'Cancelled by Buyer');
+                                FarmUtils.showToast('Order cancelled', 'info');
+                                await refreshOrders();
+                            } catch (err) {
+                                FarmUtils.showToast(err.message, 'error');
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

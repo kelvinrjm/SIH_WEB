@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Profile | FarmLink Field Officer</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item active">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Farmer Assistance Record">
+                    Farmer Assistance Record
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:20px;">
+                    <a href="farmers.html" style="font-size:0.88rem; font-weight:700; color:var(--officer-primary); display:inline-flex; align-items:center; gap:4px; margin-bottom:8px;">
+                        ← <span data-i18n="Back to Farmers Directory">Back to Farmers Directory</span>
+                    </a>
+                </div>
+
+                <div id="farmerDetailsContent">
+                    <div style="text-align:center; padding:60px;">
+                        <div class="spinner"></div>
+                        <p style="margin-top:12px; color:var(--text-muted);" data-i18n="Loading farmer profile...">Loading farmer profile...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!AuthService.requireRole('field_officer')) return;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const farmerId = urlParams.get('id') || 'farmer-1';
+
+            await loadFarmerProfile(farmerId);
+        });
+
+        async function loadFarmerProfile(id) {
+            const container = document.getElementById('farmerDetailsContent');
+            try {
+                const res = await ApiService.getFarmerById(id);
+                if (!res || !res.farmer) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:50px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                            <h3 data-i18n="Farmer Not Found">Farmer Not Found</h3>
+                            <p style="color:var(--text-secondary); margin:8px 0 16px 0;" data-i18n="No farmer record found for ID &quot;${id}&quot;.">No farmer record found for ID "${id}".</p>
+                            <a href="farmers.html" class="btn btn-secondary" data-i18n="Back to Farmers">Back to Farmers</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const f = res.farmer;
+                const products = res.products || [];
+                const orders = res.orders || [];
+                const initials = f.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+
+                container.innerHTML = `
+                    <!-- Farmer Hero Profile Card -->
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-lg); padding:24px 28px; margin-bottom:24px; box-shadow:var(--shadow-sm); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                        <div style="display:flex; align-items:center; gap:18px;">
+                            <div class="farmer-avatar-circle" style="width:64px; height:64px; font-size:1.5rem;">
+                                ${initials}
+                            </div>
+                            <div>
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                    <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary); margin:0;">
+                                        ${f.name}
+                                    </h1>
+                                    <span class="badge badge-field-verified">
+                                        <i data-lucide="shield-check" style="width:12px;height:12px;"></i>
+                                        ${f.farmerId || 'ASSISTED FARMER'}
+                                    </span>
+                                </div>
+                                <div style="font-size:0.9rem; color:var(--text-secondary); margin-top:4px; display:flex; gap:14px; flex-wrap:wrap;">
+                                    <span><i data-lucide="phone" style="width:13px;height:13px;display:inline;"></i> +91 ${f.phone}</span>
+                                    <span><i data-lucide="map-pin" style="width:13px;height:13px;display:inline;"></i> ${f.village ? f.village + ', ' : ''}${f.district || 'Maharashtra'}</span>
+                                    <span><i data-lucide="layers" style="width:13px;height:13px;display:inline;"></i> ${f.landAreaAcres ? f.landAreaAcres + ' Acres' : 'Smallholder'}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a href="add-produce.html?farmerId=${f.id}" class="btn btn-primary" style="background:var(--officer-primary); border-color:var(--officer-primary); font-weight:700;">
+                                <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
+                                <span data-i18n="Add Produce for Farmer">Add Produce for Farmer</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 3 Stats Cards -->
+                    <div class="officer-stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom:24px;">
+                        <div class="officer-stat-card">
+                            <div class="officer-stat-icon">
+                                <i data-lucide="package"></i>
+                            </div>
+                            <div class="officer-stat-val">${products.length}</div>
+                            <div class="officer-stat-lbl" data-i18n="Total Lots Listed">Total Lots Listed</div>
+                        </div>
+                        <div class="officer-stat-card">
+                            <div class="officer-stat-icon" style="background:#E8F5E9; color:#2E7D32;">
+                                <i data-lucide="check-circle-2"></i>
+                            </div>
+                            <div class="officer-stat-val" style="color:#2E7D32;" data-i18n="${products.filter(p => p.verificationStatus === 'VERIFIED').length}">${products.filter(p => p.verificationStatus === 'VERIFIED').length}</div>
+                            <div class="officer-stat-lbl" data-i18n="Verified Listings">Verified Listings</div>
+                        </div>
+                        <div class="officer-stat-card">
+                            <div class="officer-stat-icon" style="background:#E1F5FE; color:#0277BD;">
+                                <i data-lucide="shopping-bag"></i>
+                            </div>
+                            <div class="officer-stat-val" style="color:#0277BD;">${orders.length}</div>
+                            <div class="officer-stat-lbl" data-i18n="Buyer Orders Received">Buyer Orders Received</div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs / Sections: Produce Lots & Orders -->
+                    <div style="display:grid; grid-template-columns: 1fr; gap:24px;">
+                        <!-- Produce Lots Table -->
+                        <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary);" data-i18n="Produce Lots Listed on Behalf of ${f.name}">Produce Lots Listed on Behalf of ${f.name}</h3>
+                                <a href="add-produce.html?farmerId=${f.id}" class="btn btn-sm btn-outline" style="color:var(--officer-primary); border-color:var(--officer-primary);">
+                                    <i data-lucide="plus" style="width:14px;height:14px;"></i> Add Lot
+                                </a>
+                            </div>
+
+                            ${renderFarmerProductsTable(products)}
+                        </div>
+
+                        <!-- Orders Table -->
+                        <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                            <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:14px;" data-i18n="Orders Received by this Farmer">Orders Received by this Farmer</h3>
+                            ${renderFarmerOrdersTable(orders)}
+                        </div>
+                    </div>
+                `;
+
+                if (window.lucide) window.lucide.createIcons();
+            } catch (err) {
+                container.innerHTML = `<div class="empty-state"><h3 data-i18n="Error loading profile">Error loading profile</h3><p>${err.message}</p></div>`;
+            }
+        }
+
+        function renderFarmerProductsTable(products) {
+            if (!products.length) {
+                return `<div style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="No produce lots listed yet for this farmer.">No produce lots listed yet for this farmer.</div>`;
+            }
+            return `
+                <div class="officer-table-container">
+                    <table class="officer-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="Produce">Produce</th>
+                                <th data-i18n="Quantity">Quantity</th>
+                                <th data-i18n="Price">Price</th>
+                                <th data-i18n="Verification">Verification</th>
+                                <th data-i18n="Marketplace Status">Marketplace Status</th>
+                                <th data-i18n="Action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${products.map(p => `
+                                <tr>
+                                    <td style="font-weight:700;">
+                                        <div style="display:flex; align-items:center; gap:8px;">
+                                            <img src="${p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=100'}" style="width:32px;height:32px;border-radius:4px;object-fit:cover;">
+                                            <span>${p.name}</span>
+                                        </div>
+                                    </td>
+                                    <td>${p.quantity} ${p.unit || 'kg'}</td>
+                                    <td>₹${p.price}/${p.unit || 'kg'}</td>
+                                    <td>
+                                        <span class="badge ${p.verificationStatus === 'VERIFIED' ? 'badge-field-verified' : (p.verificationStatus === 'REJECTED' ? 'badge-rejected' : 'badge-pending')}" data-i18n="${p.verificationStatus || 'PENDING'}">${p.verificationStatus || 'PENDING'}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge ${p.status === 'AVAILABLE' ? 'badge-confirmed' : 'badge-cancelled'}">
+                                            ${p.status}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="pending-verification.html?id=${p.id}" class="btn btn-sm btn-secondary" style="font-size:0.75rem;" data-i18n="Inspect">Inspect</a>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderFarmerOrdersTable(orders) {
+            if (!orders.length) {
+                return `<div style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="No orders placed yet for this farmer's produce.">No orders placed yet for this farmer's produce.</div>`;
+            }
+            return `
+                <div class="officer-table-container">
+                    <table class="officer-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="Order ID">Order ID</th>
+                                <th data-i18n="Buyer">Buyer</th>
+                                <th data-i18n="Items">Items</th>
+                                <th data-i18n="Total">Total</th>
+                                <th data-i18n="Status">Status</th>
+                                <th data-i18n="Action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${orders.map(o => `
+                                <tr>
+                                    <td style="font-weight:700;">${o.id}</td>
+                                    <td>${o.buyerName || 'Buyer'} (+91 ${o.buyerPhone || ''})</td>
+                                    <td>${o.items?.map(it => `${it.name} (${it.quantity})`).join(', ') || 'Produce'}</td>
+                                    <td style="font-weight:700;">₹${o.total}</td>
+                                    <td>
+                                        <span class="badge badge-confirmed">${o.status}</span>
+                                    </td>
+                                    <td>
+                                        <a href="orders.html?id=${o.id}" class="btn btn-sm btn-secondary" style="font-size:0.75rem;" data-i18n="Assist Order">Assist Order</a>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

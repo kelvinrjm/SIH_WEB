@@ -1,0 +1,50 @@
+[
+  {
+    "market": "Lasalgaon APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "commodity": "Onion",
+    "variety": "Red Onion",
+    "arrivalDate": "2026-09-07",
+    "minPrice": 1800,
+    "maxPrice": 3200,
+    "modalPrice": 2800,
+    "unit": "Rs/Quintal"
+  },
+  {
+    "market": "Nashik APMC",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "commodity": "Tomato",
+    "variety": "Hybrid",
+    "arrivalDate": "2026-09-07",
+    "minPrice": 1500,
+    "maxPrice": 2800,
+    "modalPrice": 2400,
+    "unit": "Rs/Quintal"
+  },
+  {
+    "market": "Jalgaon APMC",
+    "district": "Jalgaon",
+    "state": "Maharashtra",
+    "commodity": "Banana",
+    "variety": "Grand Naine",
+    "arrivalDate": "2026-09-07",
+    "minPrice": 2200,
+    "maxPrice": 3600,
+    "modalPrice": 3100,
+    "unit": "Rs/Quintal"
+  },
+  {
+    "market": "Pune APMC",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "commodity": "Potato",
+    "variety": "Jyoti",
+    "arrivalDate": "2026-09-07",
+    "minPrice": 1600,
+    "maxPrice": 2400,
+    "modalPrice": 2100,
+    "unit": "Rs/Quintal"
+  }
+]

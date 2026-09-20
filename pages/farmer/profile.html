@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Profile | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item active"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Farmer Profile">Farmer Profile</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:800px;">
+                <div class="card" style="padding:32px; margin-bottom:24px;">
+                    <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border);">
+                        <div style="width:72px; height:72px; border-radius:var(--radius-full); background:var(--primary); color:#fff; display:grid; place-items:center; font-size:1.6rem; font-weight:800;">
+                            RP
+                        </div>
+                        <div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" class="user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</h1>
+                                <span class="status-badge badge-confirmed" data-i18n="✓ Verified Farmer">✓ Verified Farmer</span>
+                            </div>
+                            <div style="color:var(--text-secondary); font-size:0.92rem; margin-top:2px;" data-i18n="Member since August 2023 · Nashik Agri Cluster">Member since August 2023 · Nashik Agri Cluster</div>
+                        </div>
+                    </div>
+
+                    <form id="profileForm">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                            <div class="form-group">
+                                <label data-i18n="Full Name">Full Name</label>
+                                <input type="text" id="profName" class="form-control" value="Ramesh Patel" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="Mobile Number">Mobile Number</label>
+                                <input type="tel" id="profPhone" class="form-control" value="+91 98765 43210" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="Primary Farm District">Primary Farm District</label>
+                                <input type="text" id="profLocation" class="form-control" value="Nashik, Maharashtra" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="Farm Area (Acres)">Farm Area (Acres)</label>
+                                <input type="number" class="form-control" value="8.5">
+                            </div>
+                            <div class="form-group" style="grid-column:1/-1;">
+                                <label data-i18n="Farm Address / Pickup Landmark">Farm Address / Pickup Landmark</label>
+                                <input type="text" class="form-control" value="Gat No. 124, Pimpalgaon Road, Dindori Taluk, Nashik - 422209">
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="Bank / UPI Payment ID">Bank / UPI Payment ID</label>
+                                <input type="text" class="form-control" value="ramesh.patel@okhdfcbank">
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="Kisan Credit Card (Optional)">Kisan Credit Card (Optional)</label>
+                                <input type="text" class="form-control" value="KCC-MH-2024-9988">
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:flex-end; margin-top:20px;">
+                            <button type="submit" class="btn btn-primary">
+                                <i data-lucide="save"></i> Save Profile Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AuthService.requireRole('farmer');
+            const user = AuthService.getUser();
+            if (user) {
+                document.getElementById('profName').value = user.name || 'Ramesh Patel';
+                document.getElementById('profPhone').value = user.phone || '+91 98765 43210';
+                document.getElementById('profLocation').value = user.location || 'Nashik, Maharashtra';
+            }
+
+            document.getElementById('profileForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('profName').value.trim();
+                const phone = document.getElementById('profPhone').value.trim();
+                const loc = document.getElementById('profLocation').value.trim();
+
+                const updatedUser = { ...user, name, phone, location: loc };
+                AuthService.setUser(updatedUser);
+                Utils.showToast('Profile saved successfully!', 'success');
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

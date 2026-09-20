@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Benefits & Information | FarmLink</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .pub-nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pub-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .pub-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .pub-content {
+            max-width: 960px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body style="background:var(--surface-sunken);">
+
+    <header class="pub-nav">
+        <a href="../index.html" class="pub-brand">
+            <img src="../img/logo.png" alt="FarmLink Logo">
+            <div>
+                <strong style="font-size:1.15rem; color:var(--primary); font-weight:800;" data-i18n="FarmLink">FarmLink</strong>
+                <div style="font-size:0.75rem; color:var(--text-secondary);" data-i18n="Govt. of Maharashtra · SIH 2026">Govt. of Maharashtra · SIH 2026</div>
+            </div>
+        </a>
+
+        <div style="display:flex; align-items:center; gap:16px;">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+            <a href="../index.html" class="btn btn-secondary btn-sm" data-i18n="Login">Login</a>
+            <a href="../pages/registration.html" class="btn btn-primary btn-sm" data-i18n="Register">Register</a>
+        </div>
+    </header>
+
+    <main class="pub-content">
+        <div style="margin-bottom:28px;">
+            <span class="badge badge-confirmed" style="margin-bottom:6px;" data-i18n="Grower Empowerment">Grower Empowerment</span>
+            <h1 style="font-size:2rem; font-weight:800; color:var(--text-primary); margin:0;" data-i18n="Direct Selling for Maharashtra Farmers">Direct Selling for Maharashtra Farmers</h1>
+            <p style="color:var(--text-secondary); font-size:0.95rem; margin-top:4px;" data-i18n="Keep 100% of your produce value with zero middleman deductions.">Keep 100% of your produce value with zero middleman deductions.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:28px;">
+            <div class="card" style="padding:24px;">
+                <div style="width:44px; height:44px; border-radius:var(--radius-full); background:rgba(46,125,50,0.12); color:var(--primary); display:grid; place-items:center; margin-bottom:12px;">
+                    <i data-lucide="mic" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:6px;" data-i18n="Voice-Enabled Listing">Voice-Enabled Listing</h3>
+                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5; margin:0;" data-i18n="Speak in Tamil (தமிழ்), Hindi (हिन्दी), or English. Just say your crop and expected rate — our voice assistant fills the form automatically.">Speak in Tamil (தமிழ்), Hindi (हिन्दी), or English. Just say your crop and expected rate — our voice assistant fills the form automatically.</p>
+            </div>
+
+            <div class="card" style="padding:24px;">
+                <div style="width:44px; height:44px; border-radius:var(--radius-full); background:rgba(46,125,50,0.12); color:var(--primary); display:grid; place-items:center; margin-bottom:12px;">
+                    <i data-lucide="truck" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:6px;" data-i18n="Zero Transport Expenses">Zero Transport Expenses</h3>
+                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5; margin:0;" data-i18n="No more renting expensive tractor trolleys to travel to distant mandis only to face low bids. Buyers arrange direct farm-gate pickup.">No more renting expensive tractor trolleys to travel to distant mandis only to face low bids. Buyers arrange direct farm-gate pickup.</p>
+            </div>
+
+            <div class="card" style="padding:24px;">
+                <div style="width:44px; height:44px; border-radius:var(--radius-full); background:rgba(46,125,50,0.12); color:var(--primary); display:grid; place-items:center; margin-bottom:12px;">
+                    <i data-lucide="trending-up" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:6px;" data-i18n="Live APMC Benchmark">Live APMC Benchmark</h3>
+                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5; margin:0;" data-i18n="Know the exact government AgmarkNet rate before selling so nobody can underquote your harvest lot.">Know the exact government AgmarkNet rate before selling so nobody can underquote your harvest lot.</p>
+            </div>
+
+            <div class="card" style="padding:24px;">
+                <div style="width:44px; height:44px; border-radius:var(--radius-full); background:rgba(46,125,50,0.12); color:var(--primary); display:grid; place-items:center; margin-bottom:12px;">
+                    <i data-lucide="phone-call" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:6px;" data-i18n="Kisan Support Helpline">Kisan Support Helpline</h3>
+                <p style="color:var(--text-secondary); font-size:0.9rem; line-height:1.5; margin:0;">
+                    Free toll-free assistance available at <strong>1800-180-1551</strong> for regional language assistance, dispute arbitration, and guidance.
+                </p>
+            </div>
+        </div>
+
+        <div class="card" style="padding:32px; text-align:center;">
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:8px;" data-i18n="Start Selling Produce from Your Farm">Start Selling Produce from Your Farm</h2>
+            <p style="color:var(--text-secondary); margin-bottom:20px;" data-i18n="Free farmer registration with demo access enabled.">Free farmer registration with demo access enabled.</p>
+            <a href="../pages/registration.html" class="btn btn-primary btn-lg" data-i18n="Register as Farmer">Register as Farmer</a>
+        </div>
+    </main>
+
+    <footer style="text-align:center; padding:32px 20px; color:var(--text-secondary); font-size:0.85rem; border-top:1px solid var(--border); margin-top:60px;">
+        <div data-i18n="FarmLink — Smart India Hackathon 2026 · Government of Maharashtra">FarmLink — Smart India Hackathon 2026 · Government of Maharashtra</div>
+        <div style="margin-top:8px;">
+            <a href="about.html" style="color:inherit; margin:0 8px;" data-i18n="About">About</a> · 
+            <a href="how-it-works.html" style="color:inherit; margin:0 8px;" data-i18n="How It Works">How It Works</a> · 
+            <a href="faq.html" style="color:inherit; margin:0 8px;" data-i18n="FAQ">FAQ</a> · 
+            <a href="contact.html" style="color:inherit; margin:0 8px;" data-i18n="Contact">Contact</a>
+        </div>
+    </footer>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

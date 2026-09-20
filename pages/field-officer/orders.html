@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assisted Orders Fulfillment | FarmLink Field Officer</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .order-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-xs);
+        }
+        .order-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item active">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Orders Requiring Assistance">
+                    Orders Requiring Assistance
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width: 900px;">
+                <div style="margin-bottom:20px;">
+                    <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary);" data-i18n="Assisted Farmer Orders">
+                        Assisted Farmer Orders
+                    </h1>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;" data-i18n="Orders placed by verified buyers for produce belonging to your assisted farmers. Assist farmers with order confirmation, harvesting, and dispatch.">
+                        Orders placed by verified buyers for produce belonging to your assisted farmers. Assist farmers with order confirmation, harvesting, and dispatch.
+                    </p>
+                </div>
+
+                <!-- Status Tabs Filter -->
+                <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:20px;">
+                    <button class="cat-pill active" data-status="ALL" data-i18n="All Orders">All Orders</button>
+                    <button class="cat-pill" data-status="ORDER PLACED" data-i18n="Placed">Placed</button>
+                    <button class="cat-pill" data-status="CONFIRMED" data-i18n="Confirmed">Confirmed</button>
+                    <button class="cat-pill" data-status="PREPARING" data-i18n="Preparing">Preparing</button>
+                    <button class="cat-pill" data-status="OUT FOR DELIVERY" data-i18n="Out for Delivery">Out for Delivery</button>
+                    <button class="cat-pill" data-status="DELIVERED" data-i18n="Delivered">Delivered</button>
+                </div>
+
+                <div id="ordersContainer">
+                    <div style="text-align:center; padding:50px;">
+                        <div class="spinner"></div>
+                        <p style="margin-top:12px; color:var(--text-muted);" data-i18n="Loading assisted orders...">Loading assisted orders...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        let assistedOrders = [];
+        let activeStatus = 'ALL';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!AuthService.requireRole('field_officer')) return;
+
+            await loadAssistedOrders();
+
+            // Status filter clicks
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    activeStatus = btn.dataset.status;
+                    renderOrders();
+                });
+            });
+        });
+
+        async function loadAssistedOrders() {
+            try {
+                const currentUser = AuthService.getUser();
+                const [farmers, allOrders] = await Promise.all([
+                    ApiService.getFarmers({ fieldOfficerId: currentUser?.id }),
+                    ApiService.getOrders()
+                ]);
+
+                const farmerIds = new Set(farmers.map(f => f.id));
+                // Show orders belonging to farmers assisted by this officer
+                assistedOrders = allOrders.filter(o => farmerIds.has(o.sellerId));
+
+                renderOrders();
+            } catch (err) {
+                console.error('Error loading orders:', err);
+            }
+        }
+
+        function renderOrders() {
+            const container = document.getElementById('ordersContainer');
+            const filtered = activeStatus === 'ALL' 
+                ? assistedOrders 
+                : assistedOrders.filter(o => (o.status || '').toUpperCase() === activeStatus);
+
+            if (!filtered.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:60px 20px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                        <i data-lucide="shopping-bag" style="width:48px; height:48px; color:var(--text-muted); margin-bottom:12px;"></i>
+                        <h3 style="font-size:1.15rem; font-weight:700;" data-i18n="No Orders in This Status">No Orders in This Status</h3>
+                        <p style="color:var(--text-secondary); font-size:0.9rem; max-width:400px; margin:8px auto;" data-i18n="There are currently no active orders requiring assistance under this status filter.">There are currently no active orders requiring assistance under this status filter.</p>
+                    </div>
+                `;
+                if (window.lucide) window.lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = filtered.map(o => `
+                <div class="order-card">
+                    <div class="order-header-row">
+                        <div>
+                            <span style="font-weight:800; font-size:1.1rem; color:var(--text-primary);" data-i18n="Order #${o.id}">Order #${o.id}</span>
+                            <span style="font-size:0.82rem; color:var(--text-muted); margin-left:8px;" data-i18n="${FarmUtils.formatDate(o.createdAt || Date.now())}">${FarmUtils.formatDate(o.createdAt || Date.now())}</span>
+                        </div>
+                        <span class="badge badge-confirmed" style="font-weight:800; font-size:0.8rem;">
+                            ${o.status}
+                        </span>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:16px;">
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="ASSISTED FARMER (SELLER)">ASSISTED FARMER (SELLER)</div>
+                            <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary); margin-top:2px;" data-i18n="${o.sellerName || 'Farmer'}">${o.sellerName || 'Farmer'}</div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary);">
+                                Contact: +91 ${o.sellerPhone || '9876543210'}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="BUYER INFORMATION">BUYER INFORMATION</div>
+                            <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary); margin-top:2px;" data-i18n="${o.buyerName || 'Buyer'}">${o.buyerName || 'Buyer'}</div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary);">
+                                Phone: +91 ${o.buyerPhone || '9876501234'}
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="PAYMENT & TOTAL">PAYMENT & TOTAL</div>
+                            <div style="font-weight:800; font-size:1.15rem; color:var(--officer-primary); margin-top:2px;">
+                                ₹${o.total}
+                            </div>
+                            <div style="font-size:0.82rem; color:var(--text-secondary);" data-i18n="${o.paymentMethod || 'Cash on Delivery'}">${o.paymentMethod || 'Cash on Delivery'}</div>
+                        </div>
+                    </div>
+
+                    <!-- Items Summary -->
+                    <div style="background:#F8FAF9; border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:16px;">
+                        <div style="font-weight:700; font-size:0.85rem; color:var(--text-secondary); margin-bottom:6px;" data-i18n="Order Items:">Order Items:</div>
+                        ${o.items?.map(it => `
+                            <div style="display:flex; justify-content:space-between; font-size:0.88rem; padding:3px 0;">
+                                <span><strong>${it.name}</strong> × ${it.quantity} ${it.unit || 'kg'}</span>
+                                <span style="font-weight:700;">₹${it.price * it.quantity}</span>
+                            </div>
+                        `).join('') || '<div data-i18n="Produce Items">Produce Items</div>'}
+                    </div>
+
+                    <!-- Officer Status Transition Actions -->
+                    <div style="display:flex; justify-content:flex-end; gap:8px; flex-wrap:wrap; border-top:1px solid var(--border-light); padding-top:12px;" data-i18n="${renderOrderActionButtons(o)}">${renderOrderActionButtons(o)}</div>
+                </div>
+            `).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+
+            container.querySelectorAll('.update-order-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const id = btn.dataset.id;
+                    const nextStatus = btn.dataset.status;
+                    await updateStatus(id, nextStatus);
+                });
+            });
+        }
+
+        function renderOrderActionButtons(order) {
+            const st = (order.status || '').toUpperCase();
+            if (st === 'ORDER PLACED') {
+                return `
+                    <button type="button" class="btn btn-primary btn-sm update-order-btn" data-id="${order.id}" data-status="CONFIRMED" style="background:var(--officer-primary);">
+                        <i data-lucide="check"></i> Confirm Order for Farmer
+                    </button>
+                `;
+            } else if (st === 'CONFIRMED') {
+                return `
+                    <button type="button" class="btn btn-secondary btn-sm update-order-btn" data-id="${order.id}" data-status="PREPARING">
+                        <i data-lucide="package"></i> Mark Harvesting / Preparing
+                    </button>
+                `;
+            } else if (st === 'PREPARING') {
+                return `
+                    <button type="button" class="btn btn-primary btn-sm update-order-btn" data-id="${order.id}" data-status="OUT FOR DELIVERY">
+                        <i data-lucide="truck"></i> Mark Out for Delivery
+                    </button>
+                `;
+            } else if (st === 'OUT FOR DELIVERY') {
+                return `
+                    <button type="button" class="btn btn-primary btn-sm update-order-btn" data-id="${order.id}" data-status="DELIVERED" style="background:#2E7D32;">
+                        <i data-lucide="check-check"></i> Mark Delivered & Completed
+                    </button>
+                `;
+            } else {
+                return `<span style="font-size:0.85rem; color:#2E7D32; font-weight:700;"><i data-lucide="check-circle" style="width:14px;height:14px;display:inline;"></i> Order Fulfilled</span>`;
+            }
+        }
+
+        async function updateStatus(id, newStatus) {
+            try {
+                await ApiService.updateOrderStatus(id, newStatus, `Assisted by Field Officer`);
+                if (window.FarmUtils) FarmUtils.showToast(`Order status updated to ${newStatus}`, 'success');
+                await loadAssistedOrders();
+            } catch (err) {
+                alert('Error updating order: ' + err.message);
+            }
+        }
+    </script>
+</body>
+</html>

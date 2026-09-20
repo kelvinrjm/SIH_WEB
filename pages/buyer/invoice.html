@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Invoice | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background: #F1F5F3;
+            color: #1A1C19;
+            font-family: 'Inter', sans-serif;
+            padding: 40px 20px;
+        }
+        .invoice-paper {
+            background: #FFFFFF;
+            max-width: 820px;
+            margin: 0 auto;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            padding: 48px;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 24px;
+            margin-bottom: 28px;
+        }
+        .invoice-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .invoice-brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+        }
+        @media print {
+            body {
+                background: #FFFFFF;
+                padding: 0;
+            }
+            .invoice-paper {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print" style="max-width:820px; margin:0 auto 20px auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <a href="orders.html" class="btn btn-secondary"><i data-lucide="arrow-left"></i> <span data-i18n="Back to Orders">Back to Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="window.print()"><i data-lucide="printer"></i> <span data-i18n="Print Invoice">Print / Save as PDF</span></button>
+        </div>
+    </div>
+
+    <div class="invoice-paper" id="invoicePaper">
+        <div style="text-align:center; padding:60px;">
+            <div class="spinner"></div>
+            <p style="color:var(--text-secondary); margin-top:14px;" data-i18n="Loading invoice details...">Loading invoice details...</p>
+        </div>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/orders.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('id');
+
+            if (!orderId) {
+                renderError('No order reference specified.');
+                return;
+            }
+
+            try {
+                const order = await OrderService.getById(orderId);
+                if (!order) {
+                    renderError(`Order #${orderId} was not found.`);
+                    return;
+                }
+                renderInvoice(order);
+            } catch (err) {
+                renderError(err.message);
+            }
+        });
+
+        function renderInvoice(order) {
+            const paper = document.getElementById('invoicePaper');
+            const items = order.items || [];
+            const subtotal = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const logisticsFee = typeof order.transportFee !== 'undefined' ? order.transportFee : (order.totalAmount > subtotal ? (order.totalAmount - subtotal) : 0);
+            const paymentStatus = order.paymentStatus || (order.paymentMethod === 'COD' ? 'Pending (COD)' : 'Pending');
+
+            paper.innerHTML = `
+                <div class="invoice-header">
+                    <div class="invoice-brand">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                        <div>
+                            <h2 style="font-size:1.5rem; font-weight:800; color:var(--primary); margin:0;" data-i18n="FarmLink">FarmLink</h2>
+                            <div style="font-size:0.8rem; color:var(--text-secondary);" data-i18n="Direct Farmer Market Linkage Portal">Direct Farmer Market Linkage Portal</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <h1 style="font-size:1.35rem; font-weight:800; color:var(--text-primary); margin:0 0 4px 0; text-transform:uppercase;" data-i18n="Tax Invoice">Tax Invoice</h1>
+                        <div style="font-size:0.88rem; color:var(--text-secondary);">Invoice No: <strong data-i18n="INV-${order.id.substring(0, 8).toUpperCase()}">INV-${order.id.substring(0, 8).toUpperCase()}</strong></div>
+                        <div style="font-size:0.88rem; color:var(--text-secondary);">Date: <strong data-i18n="${FarmUtils.formatDate(order.createdAt)}">${FarmUtils.formatDate(order.createdAt)}</strong></div>
+                    </div>
+                </div>
+
+                <!-- Parties Info -->
+                <div class="form-row-2" style="gap:24px; margin-bottom:32px;">
+                    <div>
+                        <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase; margin-bottom:6px;" data-i18n="Seller / Farmer:">Seller / Farmer:</div>
+                        <div style="font-weight:700; font-size:1.05rem;" data-i18n="${order.farmerName || 'Verified Maharashtra Farmer'}">${order.farmerName || 'Verified Maharashtra Farmer'}</div>
+                        <div style="font-size:0.88rem; color:var(--text-secondary); line-height:1.4; margin-top:4px;">
+                            APMC Mandi Yard Linkage<br>
+                            Maharashtra Agri Cluster · 7/12 Verified<br>
+                            GST: Agricultural Exempted Produce
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.8rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase; margin-bottom:6px;" data-i18n="Billed & Shipped To:">Billed & Shipped To:</div>
+                        <div style="font-weight:700; font-size:1.05rem;" data-i18n="${order.buyerName || 'Verified Buyer'}">${order.buyerName || 'Verified Buyer'}</div>
+                        <div style="font-size:0.88rem; color:var(--text-secondary); line-height:1.4; margin-top:4px;">
+                            ${order.deliveryAddress || 'APMC Market Yard, Navi Mumbai'}<br>
+                            Contact: ${order.buyerPhone || '+91 98765 43210'}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="table-responsive" style="margin-bottom:28px;">
+                    <table class="table" style="border:1px solid var(--border);">
+                        <thead style="background:var(--surface-sunken);">
+                            <tr>
+                                <th style="padding:12px 16px;">#</th>
+                                <th style="padding:12px 16px;" data-i18n="Commodity / Harvest Lot">Commodity / Harvest Lot</th>
+                                <th style="padding:12px 16px; text-align:right;" data-i18n="Quantity">Quantity</th>
+                                <th style="padding:12px 16px; text-align:right;" data-i18n="Rate (₹)">Rate (₹)</th>
+                                <th style="padding:12px 16px; text-align:right;" data-i18n="Amount (₹)">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${items.map((it, idx) => `
+                                <tr>
+                                    <td style="padding:12px 16px;">${idx + 1}</td>
+                                    <td style="padding:12px 16px; font-weight:700;">${t(it.name)}</td>
+                                    <td style="padding:12px 16px; text-align:right;">${it.quantity} ${it.unit || 'kg'}</td>
+                                    <td style="padding:12px 16px; text-align:right;">${FarmUtils.formatCurrency(it.price)}</td>
+                                    <td style="padding:12px 16px; text-align:right; font-weight:700;">${FarmUtils.formatCurrency(it.price * it.quantity)}</td>
+                                </tr>
+                            `).join('') || '<tr><td colspan="5" style="text-align:center;">No items recorded</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Totals Calculation -->
+                <div style="display:flex; justify-content:flex-end; margin-bottom:36px;">
+                    <div style="width:100%; max-width:340px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
+                            <span style="color:var(--text-secondary);" data-i18n="Commodity Subtotal:">Commodity Subtotal:</span>
+                            <span style="font-weight:700;" data-i18n="${FarmUtils.formatCurrency(subtotal)}">${FarmUtils.formatCurrency(subtotal)}</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
+                            <span style="color:var(--text-secondary);" data-i18n="Agri Cess (Exempt):">Agri Cess (Exempt):</span>
+                            <span style="font-weight:700;">₹0.00</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
+                            <span style="color:var(--text-secondary);" data-i18n="Transport / Delivery Fee:">Transport / Delivery Fee:</span>
+                            <span style="font-weight:700;" data-i18n="${logisticsFee === 0 ? 'FREE' : FarmUtils.formatCurrency(logisticsFee)}">${logisticsFee === 0 ? 'FREE' : FarmUtils.formatCurrency(logisticsFee)}</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
+                            <span style="color:var(--text-secondary);" data-i18n="Payment Status:">Payment Status:</span>
+                            <span style="font-weight:700; color:${paymentStatus === 'Successful' ? 'var(--primary)' : 'inherit'};" data-i18n="${paymentStatus}">${paymentStatus}</span>
+                        </div>
+                        <div style="border-top:2px solid var(--border); padding-top:10px; margin-top:8px; display:flex; justify-content:space-between; align-items:baseline;">
+                            <span style="font-weight:800; font-size:1.15rem;" data-i18n="Grand Total:">Grand Total:</span>
+                            <span style="font-weight:800; font-size:1.45rem; color:var(--primary);" data-i18n="${FarmUtils.formatCurrency(order.totalAmount || subtotal)}">${FarmUtils.formatCurrency(order.totalAmount || subtotal)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer & Disclaimers -->
+                <div style="border-top:1px dashed var(--border); padding-top:20px; font-size:0.82rem; color:var(--text-secondary); line-height:1.5;">
+                    <p style="margin:0 0 6px 0;"><strong data-i18n="Declaration:">Declaration:</strong> This is a computer-generated tax invoice issued through the FarmLink Farmer Direct Marketplace (SIH26132 — Govt. of Maharashtra). Raw agricultural produce is exempt from GST under Notification No. 12/2017 - Central Tax (Rate).</p>
+                    <p style="margin:0;" data-i18n="Settlement Method: Direct Farmer Escrow / Cash at APMC Mandi Weighment.">Settlement Method: Direct Farmer Escrow / Cash at APMC Mandi Weighment.</p>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        function renderError(msg) {
+            document.getElementById('invoicePaper').innerHTML = `
+                <div style="text-align:center; padding:40px;">
+                    <i data-lucide="alert-circle" style="width:40px; height:40px; color:var(--danger); margin-bottom:12px;"></i>
+                    <h3 data-i18n="Error Loading Invoice">Error Loading Invoice</h3>
+                    <p style="color:var(--text-secondary);">${msg}</p>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

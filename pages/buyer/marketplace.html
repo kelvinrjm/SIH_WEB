@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .filter-bar {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cat-pill {
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+        .cat-pill:hover, .cat-pill.active {
+            background: var(--primary);
+            color: #FFFFFF;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item active"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Direct Farm Marketplace">Direct Farm Marketplace</div>
+                <div class="topbar-right">
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Live Farm Produce">Live Farm Produce</h1>
+                        <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="Direct harvest inventory published by verified Maharashtra farmers.">Direct harvest inventory published by verified Maharashtra farmers.</p>
+                    </div>
+                    <div style="font-size:0.9rem; color:var(--text-secondary);">
+                        Showing <strong id="productCountDisplay" style="color:var(--text-primary);">0</strong> available lots
+                    </div>
+                </div>
+
+                <!-- Category Pills -->
+                <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom:16px;">
+                    <button class="cat-pill active" data-category="ALL" data-i18n="All Categories">All Categories</button>
+                    <button class="cat-pill" data-category="Vegetables" data-i18n="Vegetables">Vegetables</button>
+                    <button class="cat-pill" data-category="Fruits" data-i18n="Fruits">Fruits</button>
+                    <button class="cat-pill" data-category="Grains" data-i18n="Grains & Cereals">Grains & Cereals</button>
+                    <button class="cat-pill" data-category="Pulses" data-i18n="Pulses & Legumes">Pulses & Legumes</button>
+                    <button class="cat-pill" data-category="Spices" data-i18n="Spices & Herbs">Spices & Herbs</button>
+                </div>
+
+                <!-- Search & Filters Bar -->
+                <div class="filter-bar">
+                    <div style="flex:1; min-width:220px; position:relative;">
+                        <input type="text" id="marketSearch" class="form-control" placeholder="Search crops by name, variety, or farmer..." style="padding-left:36px;">
+                        <i data-lucide="search" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--text-muted);"></i>
+                    </div>
+
+                    <div class="filter-group">
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin:0;" data-i18n="Sort:">Sort:</label>
+                        <select id="marketSort" class="form-control" style="width:auto; padding:8px 12px; font-size:0.88rem;">
+                            <option value="newest">Newest First</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="stock-desc">Highest Stock</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin:0;" data-i18n="Grade:">Grade:</label>
+                        <select id="marketGrade" class="form-control" style="width:auto; padding:8px 12px; font-size:0.88rem;">
+                            <option value="ALL">All Grades</option>
+                            <option value="A">Grade A (Premium)</option>
+                            <option value="B">Grade B (Standard)</option>
+                            <option value="C">Grade C (Processing)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="marketplace-grid" id="marketGrid">
+                    <div style="grid-column:1/-1; text-align:center; padding:60px;">
+                        <div class="spinner"></div>
+                        <p style="color:var(--text-secondary); margin-top:14px;" data-i18n="Loading verified farm listings...">Loading verified farm listings...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            let allProducts = [];
+            let activeCategory = 'ALL';
+
+            // Check URL query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryCategory = urlParams.get('category');
+            if (queryCategory) {
+                activeCategory = queryCategory;
+                document.querySelectorAll('.cat-pill').forEach(pill => {
+                    pill.classList.toggle('active', pill.dataset.category.toLowerCase() === queryCategory.toLowerCase());
+                });
+            }
+
+            try {
+                allProducts = await ProductService.getAll();
+                renderMarketplace();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('marketGrid').innerHTML = `<p style="color:var(--danger); padding:20px;" data-i18n="Could not load products: ${err.message}">Could not load products: ${err.message}</p>`;
+            }
+
+            // Category pill click
+            document.querySelectorAll('.cat-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    activeCategory = pill.dataset.category;
+                    renderMarketplace();
+                });
+            });
+
+            // Filter changes
+            document.getElementById('marketSearch').addEventListener('input', FarmUtils.debounce(renderMarketplace, 250));
+            document.getElementById('marketSort').addEventListener('change', renderMarketplace);
+            document.getElementById('marketGrade').addEventListener('change', renderMarketplace);
+
+            function getFilteredProducts() {
+                const search = (document.getElementById('marketSearch').value || '').toLowerCase().trim();
+                const sort = document.getElementById('marketSort').value;
+                const grade = document.getElementById('marketGrade').value;
+
+                let list = allProducts.filter(p => p.status !== 'SOLD_OUT' && (p.quantity > 0));
+
+                if (activeCategory !== 'ALL') {
+                    list = list.filter(p => (p.category || '').toLowerCase() === activeCategory.toLowerCase());
+                }
+
+                if (grade !== 'ALL') {
+                    list = list.filter(p => (p.qualityGrade || 'A') === grade);
+                }
+
+                if (search) {
+                    list = list.filter(p => 
+                        p.name.toLowerCase().includes(search) || 
+                        (p.variety || '').toLowerCase().includes(search) || 
+                        (p.sellerName || '').toLowerCase().includes(search) ||
+                        (p.location || '').toLowerCase().includes(search)
+                    );
+                }
+
+                if (sort === 'price-asc') {
+                    list.sort((a, b) => a.price - b.price);
+                } else if (sort === 'price-desc') {
+                    list.sort((a, b) => b.price - a.price);
+                } else if (sort === 'stock-desc') {
+                    list.sort((a, b) => b.quantity - a.quantity);
+                } else {
+                    list.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+                }
+
+                return list;
+            }
+
+            function renderMarketplace() {
+                const filtered = getFilteredProducts();
+                document.getElementById('productCountDisplay').textContent = filtered.length;
+
+                const grid = document.getElementById('marketGrid');
+                if (filtered.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column:1/-1; text-align:center; padding:60px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                            <i data-lucide="search-x" style="width:48px; height:48px; color:var(--text-muted); margin-bottom:14px;"></i>
+                            <h3 style="font-size:1.2rem; font-weight:700;" data-i18n="No Matching Produce Found">No Matching Produce Found</h3>
+                            <p style="color:var(--text-secondary); font-size:0.92rem; max-width:400px; margin:8px auto 16px auto;" data-i18n="Try adjusting your filters, searching for a different crop name, or switching categories.">Try adjusting your filters, searching for a different crop name, or switching categories.</p>
+                            <button class="btn btn-secondary" onclick="resetFilters()" data-i18n="Clear Filters">Clear Filters</button>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                    return;
+                }
+
+                const favorites = FarmStorage.get('favorites', []);
+
+                grid.innerHTML = filtered.map(p => {
+                    const isFav = favorites.includes(p.id);
+                    const imgUrl = p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80';
+                    return `
+                        <div class="buyer-product-card">
+                            <div class="buyer-card-img">
+                                <img src="${imgUrl}" alt="${p.name}">
+                                <span class="badge badge-confirmed" style="position:absolute; top:12px; left:12px;" data-i18n="Grade ${p.qualityGrade || 'A'}">Grade ${p.qualityGrade || 'A'}</span>
+                                <button class="fav-toggle-btn" data-id="${p.id}" style="position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.9); border:none; border-radius:var(--radius-full); width:34px; height:34px; display:grid; place-items:center; cursor:pointer;" title="Save Produce">
+                                    <i data-lucide="heart" style="width:18px; height:18px; color:${isFav ? '#E53935' : '#666'}; fill:${isFav ? '#E53935' : 'none'};"></i>
+                                </button>
+                            </div>
+                            <div class="buyer-card-body">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <div class="buyer-card-farmer" style="margin-bottom:0;">
+                                        <i data-lucide="map-pin" style="width:14px;height:14px; color:var(--primary);"></i>
+                                        <span data-i18n="${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}">${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}</span>
+                                    </div>
+                                    ${(p.verification?.ai?.status === 'VERIFIED')
+                                        ? `<span class="badge" style="background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; font-size:0.7rem; font-weight:700; padding:2px 7px; border-radius:10px;"><i data-lucide="shield-check" style="width:11px;height:11px;display:inline;margin-right:2px;"></i>AI VERIFIED</span>`
+                                        : (p.listingSource === 'FIELD_OFFICER' || p.verificationStatus === 'VERIFIED')
+                                        ? `<span class="badge" style="background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; font-size:0.7rem; font-weight:700; padding:2px 7px; border-radius:10px;"><i data-lucide="shield-check" style="width:11px;height:11px;display:inline;margin-right:2px;"></i>FIELD VERIFIED</span>`
+                                        : `<span class="badge" style="background:#E3F2FD; color:#0D47A1; border:1px solid #90CAF9; font-size:0.7rem; font-weight:700; padding:2px 7px; border-radius:10px;"><i data-lucide="sprout" style="width:11px;height:11px;display:inline;margin-right:2px;"></i>FARMER LISTED</span>`
+                                    }
+                                </div>
+                                <h3 class="buyer-card-title">${p.name}</h3>
+                                <div class="buyer-card-price">
+                                    ${FarmUtils.formatCurrency(p.price)} <small>/ ${p.unit || 'kg'}</small>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+                                    <span>Stock: <strong>${p.quantity} ${p.unit || 'kg'}</strong></span>
+                                    <span>Harvest: <strong data-i18n="${p.harvestDate ? FarmUtils.formatDate(p.harvestDate) : 'Fresh'}">${p.harvestDate ? FarmUtils.formatDate(p.harvestDate) : 'Fresh'}</strong></span>
+                                </div>
+
+                                <div style="display:flex; gap:8px; margin-top:auto;">
+                                    <a href="product-details.html?id=${p.id}" class="btn btn-secondary" style="flex:1; justify-content:center; font-size:0.85rem;" data-i18n="Details">Details</a>
+                                    <button class="btn btn-primary add-cart-btn" data-id="${p.id}" style="flex:1; justify-content:center; font-size:0.85rem;">
+                                        <i data-lucide="shopping-cart"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                lucide.createIcons();
+
+                // Add to cart click
+                grid.querySelectorAll('.add-cart-btn').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const pid = btn.dataset.id;
+                        const prod = allProducts.find(p => p.id === pid);
+                        if (prod) {
+                            try {
+                                await CartService.addItem(prod, 10);
+                                FarmUtils.showToast(`Added 10 ${prod.unit || 'kg'} of ${prod.name} to cart!`, 'success');
+                                CartService.updateBadge();
+                            } catch (err) {
+                                FarmUtils.showToast(err.message, 'error');
+                            }
+                        }
+                    });
+                });
+
+                // Favorites toggle
+                grid.querySelectorAll('.fav-toggle-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const pid = btn.dataset.id;
+                        let favs = FarmStorage.get('favorites', []);
+                        if (favs.includes(pid)) {
+                            favs = favs.filter(id => id !== pid);
+                            FarmUtils.showToast('Removed from saved produce', 'info');
+                        } else {
+                            favs.push(pid);
+                            FarmUtils.showToast('Added to saved produce', 'success');
+                        }
+                        FarmStorage.set('favorites', favs);
+                        renderMarketplace();
+                    });
+                });
+            }
+
+            window.resetFilters = () => {
+                document.getElementById('marketSearch').value = '';
+                document.getElementById('marketSort').value = 'newest';
+                document.getElementById('marketGrade').value = 'ALL';
+                activeCategory = 'ALL';
+                document.querySelectorAll('.cat-pill').forEach(p => {
+                    p.classList.toggle('active', p.dataset.category === 'ALL');
+                });
+                renderMarketplace();
+            };
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

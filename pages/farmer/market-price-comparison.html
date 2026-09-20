@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandi vs FarmLink Net Return | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item active"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Net Realization Calculator">Net Realization Calculator</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:920px;">
+                <div style="margin-bottom:24px;">
+                    <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Mandi Yard vs FarmLink Direct Return">Mandi Yard vs FarmLink Direct Return</h1>
+                    <p style="color:var(--text-secondary); font-size:0.95rem;" data-i18n="Calculate exactly how much money you save by cutting out middleman cuts and mandi transport expenses.">Calculate exactly how much money you save by cutting out middleman cuts and mandi transport expenses.</p>
+                </div>
+
+                <!-- Calculator Controls -->
+                <div class="card" style="padding:24px; margin-bottom:24px;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                        <div class="form-group">
+                            <label data-i18n="Lot Quantity (kg)">Lot Quantity (kg)</label>
+                            <input type="number" id="calcQty" class="form-control" value="500" min="10" step="10">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="Prevailing Mandi Price (₹ / kg)">Prevailing Mandi Price (₹ / kg)</label>
+                            <input type="number" id="calcPrice" class="form-control" value="28" min="1" step="0.5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Cards -->
+                <div class="comparison-grid">
+                    <!-- Traditional Mandi -->
+                    <div class="card" style="padding:24px; border:1px solid rgba(211,47,47,0.3); background:#FFFDFD;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                            <h3 style="font-size:1.15rem; font-weight:800; color:var(--danger); margin:0;" data-i18n="Traditional APMC Mandi">Traditional APMC Mandi</h3>
+                            <span class="badge" style="background:#FFEBEE; color:#C62828;" data-i18n="High Deductions">High Deductions</span>
+                        </div>
+
+                        <div class="calc-row">
+                            <span data-i18n="Gross Sale Value:">Gross Sale Value:</span>
+                            <strong id="mandiGross">₹14,000</strong>
+                        </div>
+                        <div class="calc-row" style="color:var(--danger);">
+                            <span data-i18n="Tractor / Tempo Transport:">Tractor / Tempo Transport:</span>
+                            <span id="mandiTransport">-₹900</span>
+                        </div>
+                        <div class="calc-row" style="color:var(--danger);">
+                            <span data-i18n="Hamali (Unloading / Weighing):">Hamali (Unloading / Weighing):</span>
+                            <span id="mandiHamali">-₹350</span>
+                        </div>
+                        <div class="calc-row" style="color:var(--danger);">
+                            <span data-i18n="Commission Agent Cut (6%):">Commission Agent Cut (6%):</span>
+                            <span id="mandiCommission">-₹840</span>
+                        </div>
+                        <div class="calc-row" style="color:var(--danger);">
+                            <span data-i18n="Weight & Spoilage Loss (2%):">Weight & Spoilage Loss (2%):</span>
+                            <span id="mandiLoss">-₹280</span>
+                        </div>
+
+                        <div style="margin-top:20px; padding-top:14px; border-top:2px solid var(--border); display:flex; justify-content:space-between; align-items:baseline;">
+                            <span style="font-weight:800;" data-i18n="Net Money in Pocket:">Net Money in Pocket:</span>
+                            <strong id="mandiNet" style="font-size:1.45rem; color:#C62828;">₹11,630</strong>
+                        </div>
+                        <div style="font-size:0.82rem; color:var(--text-secondary); text-align:right; margin-top:4px;" id="mandiRatePerKg" data-i18n="Effective: ₹23.26 / kg">Effective: ₹23.26 / kg</div>
+                    </div>
+
+                    <!-- FarmLink Direct -->
+                    <div class="card" style="padding:24px; border:2px solid var(--primary); background:linear-gradient(180deg, #FFFFFF, rgba(46, 125, 50, 0.04));">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                            <h3 style="font-size:1.15rem; font-weight:800; color:var(--primary); margin:0;" data-i18n="FarmLink Direct Sourcing">FarmLink Direct Sourcing</h3>
+                            <span class="badge badge-confirmed" data-i18n="Zero Brokerage">Zero Brokerage</span>
+                        </div>
+
+                        <div class="calc-row">
+                            <span data-i18n="Gross Sale Value:">Gross Sale Value:</span>
+                            <strong id="directGross">₹14,000</strong>
+                        </div>
+                        <div class="calc-row" style="color:var(--primary);">
+                            <span data-i18n="Farm Gate Pickup Logistics:">Farm Gate Pickup Logistics:</span>
+                            <span data-i18n="FREE (Buyer Arranges)">FREE (Buyer Arranges)</span>
+                        </div>
+                        <div class="calc-row" style="color:var(--primary);">
+                            <span data-i18n="Hamali & Unloading:">Hamali & Unloading:</span>
+                            <span>₹0 (Nil)</span>
+                        </div>
+                        <div class="calc-row" style="color:var(--primary);">
+                            <span data-i18n="Middleman Commission:">Middleman Commission:</span>
+                            <span data-i18n="0% (Eliminated)">0% (Eliminated)</span>
+                        </div>
+                        <div class="calc-row" style="color:var(--primary);">
+                            <span data-i18n="Digital Tare Weighment:">Digital Tare Weighment:</span>
+                            <span data-i18n="100% Accurate">100% Accurate</span>
+                        </div>
+
+                        <div style="margin-top:20px; padding-top:14px; border-top:2px solid var(--primary); display:flex; justify-content:space-between; align-items:baseline;">
+                            <span style="font-weight:800;" data-i18n="Net Money in Pocket:">Net Money in Pocket:</span>
+                            <strong id="directNet" style="font-size:1.45rem; color:var(--primary);">₹14,000</strong>
+                        </div>
+                        <div style="font-size:0.82rem; color:var(--primary); font-weight:700; text-align:right; margin-top:4px;" id="directRatePerKg">
+                            Effective: ₹28.00 / kg (+20.4% Gain)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gain Announcement Banner -->
+                <div class="card" style="padding:20px; margin-top:24px; background:rgba(46, 125, 50, 0.1); border:1px solid var(--primary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <div style="font-size:0.85rem; color:var(--primary-dark); font-weight:700; text-transform:uppercase;" data-i18n="Your Direct Profit Advantage">Your Direct Profit Advantage</div>
+                        <div style="font-size:1.5rem; font-weight:800; color:var(--primary);" id="extraProfitDisplay" data-i18n="+₹2,370 Extra Earnings">+₹2,370 Extra Earnings</div>
+                    </div>
+                    <a href="add-product-info.html" class="btn btn-primary btn-lg">
+                        <i data-lucide="plus-circle"></i> Sell Produce at Direct Rates
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            const qtyInput = document.getElementById('calcQty');
+            const priceInput = document.getElementById('calcPrice');
+
+            function recalculate() {
+                const qty = Math.max(10, parseFloat(qtyInput.value) || 100);
+                const price = Math.max(1, parseFloat(priceInput.value) || 20);
+
+                const gross = qty * price;
+                const transport = Math.round(gross * 0.065);
+                const hamali = Math.round(qty * 0.7);
+                const commission = Math.round(gross * 0.06);
+                const loss = Math.round(gross * 0.02);
+
+                const mandiNet = gross - (transport + hamali + commission + loss);
+                const directNet = gross;
+                const diff = directNet - mandiNet;
+
+                document.getElementById('mandiGross').textContent = FarmUtils.formatCurrency(gross);
+                document.getElementById('mandiTransport').textContent = '-' + FarmUtils.formatCurrency(transport);
+                document.getElementById('mandiHamali').textContent = '-' + FarmUtils.formatCurrency(hamali);
+                document.getElementById('mandiCommission').textContent = '-' + FarmUtils.formatCurrency(commission);
+                document.getElementById('mandiLoss').textContent = '-' + FarmUtils.formatCurrency(loss);
+                document.getElementById('mandiNet').textContent = FarmUtils.formatCurrency(mandiNet);
+                document.getElementById('mandiRatePerKg').textContent = `Effective: ₹${(mandiNet / qty).toFixed(2)} / kg`;
+
+                document.getElementById('directGross').textContent = FarmUtils.formatCurrency(directNet);
+                document.getElementById('directNet').textContent = FarmUtils.formatCurrency(directNet);
+                const percentGain = ((diff / mandiNet) * 100).toFixed(1);
+                document.getElementById('directRatePerKg').textContent = `Effective: ₹${price.toFixed(2)} / kg (+${percentGain}% Gain)`;
+
+                document.getElementById('extraProfitDisplay').textContent = `+${FarmUtils.formatCurrency(diff)} Extra Earnings`;
+            }
+
+            qtyInput.addEventListener('input', recalculate);
+            priceInput.addEventListener('input', recalculate);
+            recalculate();
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

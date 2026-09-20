@@ -1,0 +1,160 @@
+===================================================================
+FARMLINK FRONTEND API INTEGRATION GUIDE & STEPS
+===================================================================
+
+Base URL: http://localhost:5000 (or relative path /api/...)
+
+-------------------------------------------------------------------
+1. CHECK SERVER HEALTH
+-------------------------------------------------------------------
+Endpoint: GET /api/health
+Purpose: Verifies backend server health and active AI service statuses.
+Headers: None required
+
+Example JavaScript Fetch:
+  async function checkServerHealth() {
+    try {
+      const response = await fetch('http://localhost:5000/api/health');
+      const data = await response.json();
+      console.log('Server Health Status:', data);
+    } catch (error) {
+      console.error('Health check failed:', error);
+    }
+  }
+
+Sample Success Response (200 OK):
+  {
+    "ok": true,
+    "port": 5000,
+    "photoProvider": "Cloudflare Workers AI",
+    "visionModel": "@cf/meta/llama-4-scout-17b-16e-instruct",
+    "marketProvider": "data.gov.in (AgmarkNet)",
+    "marketResource": "9ef84268-d588-465a-a308-a864a43d0070",
+    "cloudflareConfigured": true,
+    "govConfigured": false,
+    "groqConfigured": true
+  }
+
+
+-------------------------------------------------------------------
+2. PRODUCE PHOTO VERIFICATION
+-------------------------------------------------------------------
+Endpoint: POST /api/verify-produce
+Purpose: Validates if uploaded crop photos match the selected product using Cloudflare Workers AI.
+Headers:
+  Content-Type: application/json
+
+Request Body (JSON):
+  {
+    "product": "Tomato",
+    "images": [
+      "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+    ]
+  }
+
+Parameters Details:
+  - product (string, required): Name of crop (e.g. "Tomato", "Onion")
+  - images (array of strings, required): Max 6 Base64 Data URLs (PNG, JPEG, WebP). Max 2MB per image.
+
+Example JavaScript Fetch:
+  async function verifyProduce(productName, base64Images) {
+    try {
+      const response = await fetch('http://localhost:5000/api/verify-produce', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product: productName, images: base64Images })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Verification failed');
+      console.log('Produce Verified:', data.valid, data);
+    } catch (error) {
+      console.error('Error during produce verification:', error.message);
+    }
+  }
+
+Sample Success Response (200 OK):
+  {
+    "success": true,
+    "valid": true,
+    "verified": true,
+    "matchesProduct": true,
+    "detectedProduct": "tomato",
+    "category": "vegetable",
+    "confidence": 0.98,
+    "uncertain": false,
+    "provider": "Cloudflare Workers AI",
+    "product": "Tomato",
+    "message": "Produce verified"
+  }
+
+
+-------------------------------------------------------------------
+3. MARKET PRICE DISCOVERY
+-------------------------------------------------------------------
+Endpoint: GET /api/market-discovery
+Purpose: Retrieves latest mandi market commodity prices (AgmarkNet data), price differentials, and AI advice.
+
+Query Parameters:
+  - product (string, required): Commodity name (e.g., "Tomato")
+  - location (string, required): District, State (e.g., "Virudhunagar, Tamil Nadu")
+  - quantity (number, optional): Listed quantity (e.g., 500)
+  - unit (string, optional): "kg", "gram", or "quintal" (default: "kg")
+  - expectedPrice (number, optional): Expected price per kg (e.g., 25)
+
+Example JavaScript Fetch:
+  async function getMarketPrices(product, location, quantity = 0, expectedPrice = 0) {
+    const params = new URLSearchParams({
+      product: product,
+      location: location,
+      quantity: quantity,
+      unit: 'kg',
+      expectedPrice: expectedPrice
+    });
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/market-discovery?${params.toString()}`);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to fetch prices');
+      console.log('Market Discovery Result:', data);
+    } catch (error) {
+      console.error('Market discovery fetch error:', error.message);
+    }
+  }
+
+Sample Success Response (200 OK):
+  {
+    "success": true,
+    "product": "Tomato",
+    "requestedLocation": "Virudhunagar, Tamil Nadu",
+    "matchedLocation": "Virudhunagar Main Mandi",
+    "locationType": "exact",
+    "isExactLocation": true,
+    "found": true,
+    "price": {
+      "value": 25,
+      "unit": "kg",
+      "status": "verified",
+      "date": "31/08/2026"
+    },
+    "minimumPrice": 22,
+    "modalPrice": 25,
+    "maximumPrice": 28,
+    "market": "Virudhunagar Main Mandi",
+    "nearbyMarkets": [
+      {
+        "name": "Virudhunagar Wholesale Market",
+        "location": "Virudhunagar, Tamil Nadu",
+        "price": 24.5,
+        "unit": "kg",
+        "date": "31/08/2026"
+      }
+    ],
+    "calculation": {
+      "quantityKg": 500,
+      "estimatedMarketValue": 12500,
+      "expectedPrice": 25,
+      "differencePerKg": 0,
+      "potentialDifference": 0
+    },
+    "recommendation": "Your expected price matches current modal rate in Virudhunagar Main Mandi."
+  }

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Products | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item active"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div class="topbar-search">
+                    <i data-lucide="search" style="width:18px;height:18px;color:var(--text-muted);"></i>
+                    <input type="text" id="filterSearchInput" placeholder="Filter your products...">
+                </div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                    <a href="notifications.html" class="icon-btn"><i data-lucide="bell"></i><span class="notif-dot"></span></a>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title" data-i18n="My Products">My Products</h1>
+                        <p class="page-subtitle" data-i18n="Manage all your listed agricultural produce.">Manage all your listed agricultural produce.</p>
+                    </div>
+                    <a href="add-product.html" class="btn btn-primary btn-lg">
+                        <i data-lucide="plus"></i>
+                        <span data-i18n="Add Product">Add Product</span>
+                    </a>
+                </div>
+
+                <!-- Filters Bar -->
+                <div class="card" style="margin-bottom:24px; padding:16px 20px; display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <label style="font-weight:700; font-size:0.88rem;" data-i18n="Status:">Status:</label>
+                        <select id="statusFilter" class="form-control" style="width:auto; padding:6px 12px;">
+                            <option value="all" data-i18n="All">All</option>
+                            <option value="available" data-i18n="Available">Available</option>
+                            <option value="sold_out" data-i18n="Sold Out">Sold Out</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <label style="font-weight:700; font-size:0.88rem;" data-i18n="Category:">Category:</label>
+                        <select id="categoryFilter" class="form-control" style="width:auto; padding:6px 12px;">
+                            <option value="all">All</option>
+                            <option value="vegetable">Vegetables</option>
+                            <option value="fruit">Fruits</option>
+                        </select>
+                    </div>
+                    <div style="margin-left:auto;">
+                        <span id="productCountBadge" style="font-size:0.88rem; color:var(--text-secondary); font-weight:600;" data-i18n="Showing 4 products">Showing 4 products</span>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="card" style="padding:0; overflow:hidden;">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="Product">Product</th>
+                                    <th data-i18n="Location">Location</th>
+                                    <th data-i18n="Available Stock">Available Stock</th>
+                                    <th data-i18n="Price">Price</th>
+                                    <th data-i18n="Freshness">Freshness</th>
+                                    <th data-i18n="Status">Status</th>
+                                    <th data-i18n="Actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- Rendered dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        let allProducts = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = AuthService.requireRole('farmer');
+            const farmerId = (user && user.id) ? (user.id === 'usr-farmer-1' ? 'farmer-1' : user.id) : 'farmer-1';
+            allProducts = await ProductService.getAll({ sellerId: farmerId });
+            renderProducts();
+
+            document.getElementById('statusFilter').addEventListener('change', renderProducts);
+            document.getElementById('categoryFilter').addEventListener('change', renderProducts);
+            document.getElementById('filterSearchInput').addEventListener('input', renderProducts);
+        });
+
+        function renderProducts() {
+            const status = document.getElementById('statusFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            const search = document.getElementById('filterSearchInput').value.trim().toLowerCase();
+
+            let filtered = allProducts.filter(p => {
+                const matchStatus = status === 'all' || p.status.toLowerCase() === status.toLowerCase();
+                const matchCategory = category === 'all' || (p.category || '').toLowerCase() === category.toLowerCase();
+                const matchSearch = !search || (p.name + ' ' + p.location).toLowerCase().includes(search);
+                return matchStatus && matchCategory && matchSearch;
+            });
+
+            document.getElementById('productCountBadge').textContent = `Showing ${filtered.length} products`;
+            const tbody = document.getElementById('productsTableBody');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="padding:30px;"><div class="empty-state"><h3 data-i18n="No products found">No products found</h3><p data-i18n="Try adjusting your search or filter settings.">Try adjusting your search or filter settings.</p></div></td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(p => {
+                const freshness = ProductService.calculateFreshness(p.harvestDate, p.estimatedShelfLifeDays);
+                const isAvailable = p.status === 'AVAILABLE';
+                return `
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:12px;">
+                                <img src="${p.image || p.images[0]}" alt="${Utils.escapeHtml(p.name)}" style="width:44px; height:44px; border-radius:8px; object-fit:cover; border:1px solid var(--border);" onerror="this.src='https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=100';">
+                                <div>
+                                    <div style="font-weight:700; color:var(--text-primary); font-size:0.95rem;" data-i18n="${Utils.escapeHtml(p.name)}">${Utils.escapeHtml(p.name)}</div>
+                                    <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="${p.grade || 'Grade A'} · Harvested ${Utils.formatDate(p.harvestDate)}">${p.grade || 'Grade A'} · Harvested ${Utils.formatDate(p.harvestDate)}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-size:0.88rem; color:var(--text-primary);" data-i18n="${Utils.escapeHtml(p.location)}">${Utils.escapeHtml(p.location)}</div>
+                            ${p.fieldOfficerName ? `<div style="font-size:0.78rem; color:var(--primary); font-weight:600;" data-i18n="Assisted by ${Utils.escapeHtml(p.fieldOfficerName)}">Assisted by ${Utils.escapeHtml(p.fieldOfficerName)}</div>` : ''}
+                        </td>
+                        <td>
+                            <span style="font-weight:700; font-size:0.92rem;">${p.quantity} ${p.unit}</span>
+                        </td>
+                        <td>
+                            <span class="product-price-tag" style="font-weight:800; font-size:0.95rem;">${Utils.formatCurrency(p.price)}<small style="font-size:0.75rem; color:var(--text-secondary);">/${p.unit}</small></span>
+                        </td>
+                        <td>
+                            <span class="freshness-clock ${freshness.cssClass}" style="font-size:0.78rem;">
+                                <i data-lucide="clock" style="width:13px;height:13px;"></i>
+                                ${freshness.daysLeft}d shelf life
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge ${isAvailable ? 'badge-available' : 'badge-sold-out'}">
+                                ${p.status}
+                            </span>
+                        </td>
+                        <td>
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleStatus('${p.id}')" data-i18n="${isAvailable ? 'Mark Sold' : 'Mark Available'}">${isAvailable ? 'Mark Sold' : 'Mark Available'}</button>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')" title="Delete product">
+                                    <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        async function toggleStatus(id) {
+            const product = allProducts.find(p => p.id === id);
+            if (!product) return;
+            const nextStatus = product.status === 'AVAILABLE' ? 'SOLD_OUT' : 'AVAILABLE';
+            await ProductService.save({ ...product, status: nextStatus });
+            product.status = nextStatus;
+            Utils.showToast(`Product marked as ${nextStatus}`, 'success');
+            renderProducts();
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm('Are you sure you want to remove this product listing?')) return;
+            await ProductService.delete(id);
+            allProducts = allProducts.filter(p => p.id !== id);
+            Utils.showToast('Product deleted', 'success');
+            renderProducts();
+        }
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer Profile | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item active">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Officer Profile & Credentials">
+                    Officer Profile & Credentials
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width: 800px;">
+                <!-- Profile Header Card -->
+                <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px 24px; margin-bottom:24px; box-shadow:var(--shadow-sm); display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+                    <div class="farmer-avatar-circle" style="width:72px; height:72px; font-size:1.6rem;">
+                        FO
+                    </div>
+                    <div style="flex:1; min-width:220px;">
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                            <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary); margin:0;" class="user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</h1>
+                            <span class="badge badge-field-verified">
+                                <i data-lucide="shield-check" style="width:12px;height:12px;"></i> AUTHORIZED FIELD OFFICER
+                            </span>
+                        </div>
+                        <div style="font-size:0.9rem; color:var(--text-secondary); margin-top:4px;">
+                            Officer ID: <strong style="color:var(--text-primary);" id="profileOfficerId">FO-MH-2026-08</strong> · 
+                            Station: <span id="profileZone" data-i18n="Nashik & Dindori Division">Nashik & Dindori Division</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credential & Station Details Card -->
+                <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:24px;">
+                    <h2 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:16px;" data-i18n="Assistance Node Information">Assistance Node Information</h2>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:18px;">
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="OFFICER NAME">OFFICER NAME</div>
+                            <div style="font-weight:700; font-size:0.98rem; margin-top:2px;" class="user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="OFFICIAL PHONE">OFFICIAL PHONE</div>
+                            <div style="font-weight:700; font-size:0.98rem; margin-top:2px;" id="profilePhone">+91 98765 99999</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="ASSIGNED JURISDICTION">ASSIGNED JURISDICTION</div>
+                            <div style="font-weight:700; font-size:0.98rem; margin-top:2px;" data-i18n="Nashik District, Maharashtra">Nashik District, Maharashtra</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;" data-i18n="PLATFORM ROLE">PLATFORM ROLE</div>
+                            <div style="font-weight:700; font-size:0.98rem; margin-top:2px; color:var(--officer-primary);" data-i18n="FIELD_OFFICER (Assistance Authority)">FIELD_OFFICER (Assistance Authority)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assistance Responsibilities Box -->
+                <div style="background:#F4FBF5; border:1px solid var(--officer-border); border-radius:var(--radius); padding:20px; margin-bottom:24px;">
+                    <h3 style="font-size:1rem; font-weight:800; color:#1B5E20; margin-bottom:8px;">
+                        <i data-lucide="info" style="width:16px;height:16px;display:inline;vertical-align:middle;"></i>
+                        Role Scope & Data Traceability
+                    </h3>
+                    <ul style="font-size:0.88rem; color:#2E7D32; padding-left:18px; line-height:1.6; margin:0;">
+                        <li data-i18n="Assisting farmers with produce digital listing, photography, and live mandi price benchmarking.">Assisting farmers with produce digital listing, photography, and live mandi price benchmarking.</li>
+                        <li>The Field Officer does <strong data-i18n="NOT">NOT</strong> own produce. All lots belong directly to the assisted farmer (<code>sellerId = farmerId</code>).</li>
+                        <li>Verifications are tracked under your Officer ID (<code>FO-MH-2026-08</code>) for transparency and trust.</li>
+                    </ul>
+                </div>
+
+                <!-- Account Actions -->
+                <div style="display:flex; justify-content:flex-end; gap:12px;">
+                    <a href="settings.html" class="btn btn-secondary" data-i18n="Settings">Settings</a>
+                    <button type="button" class="btn btn-danger logout-btn">
+                        <i data-lucide="log-out"></i> Log Out
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!AuthService.requireRole('field_officer')) return;
+
+            const u = AuthService.getUser();
+            if (u) {
+                if (u.officerId) document.getElementById('profileOfficerId').textContent = u.officerId;
+                if (u.assignedZone) document.getElementById('profileZone').textContent = u.assignedZone;
+                if (u.phone) document.getElementById('profilePhone').textContent = u.phone;
+            }
+        });
+    </script>
+</body>
+</html>

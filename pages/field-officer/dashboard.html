@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer Dashboard | FarmLink Assisted Portal</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/chatbot.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                    <span class="nav-badge" id="pendingBadge" style="background:#E65100;">0</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                    <span class="nav-badge" id="officerOrdersBadge">0</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar Header -->
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div class="topbar-search" style="max-width:340px;">
+                    <i data-lucide="search" style="width:18px;height:18px;color:var(--text-muted);"></i>
+                    <input type="text" id="officerGlobalSearch" placeholder="Search farmers, produce, IDs..." data-i18n-placeholder="Search farmers, produce, IDs...">
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+
+                    <a href="notifications.html" class="btn btn-icon" title="Notifications">
+                        <i data-lucide="bell" style="width:18px;height:18px;"></i>
+                    </a>
+
+                    <a href="profile.html" class="btn btn-icon" title="Officer Profile">
+                        <i data-lucide="user-check" style="width:18px;height:18px;"></i>
+                    </a>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <!-- Welcome Banner -->
+                <div style="background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%); color:#FFFFFF; border-radius:var(--radius-lg); padding:24px 28px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.18); padding:3px 10px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; margin-bottom:8px;">
+                            <i data-lucide="shield-check" style="width:13px;height:13px;"></i>
+                            <span data-i18n="Authorized Assistance Node">Authorized Assistance Node</span> · <span id="officerZoneDisplay" data-i18n="Nashik Division">Nashik Division</span>
+                        </div>
+                        <h1 style="font-size:1.6rem; font-weight:800; color:#FFFFFF; line-height:1.2;">
+                            <span data-i18n="Field Officer Portal">Field Officer Portal</span> — <span class="user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</span>
+                        </h1>
+                        <p style="color:#C8E6C9; font-size:0.92rem; margin-top:4px;" data-i18n="Assisting farmers with digital listings, verification, and price discovery.">
+                            Assisting farmers with digital listings, verification, and price discovery.
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <a href="add-farmer.html" class="btn" style="background:#FFFFFF; color:var(--officer-primary); font-weight:700;">
+                            <i data-lucide="user-plus" style="width:16px;height:16px;"></i>
+                            <span data-i18n="Add Farmer">Add Farmer</span>
+                        </a>
+                        <a href="add-produce.html" class="btn" style="background:#A5D6A7; color:#0D3311; font-weight:800;">
+                            <i data-lucide="plus-circle" style="width:16px;height:16px;"></i>
+                            <span data-i18n="Add Produce">Add Produce</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 6 Real Metric Statistics Cards -->
+                <div class="officer-stats-grid">
+                    <div class="officer-stat-card">
+                        <div class="officer-stat-icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div class="officer-stat-val" id="statFarmersAssisted">0</div>
+                        <div class="officer-stat-lbl" data-i18n="Farmers Assisted">Farmers Assisted</div>
+                    </div>
+
+                    <div class="officer-stat-card">
+                        <div class="officer-stat-icon" style="background:#FFF3E0; color:#E65100;">
+                            <i data-lucide="shield-alert"></i>
+                        </div>
+                        <div class="officer-stat-val" id="statPendingVerification" style="color:#E65100;">0</div>
+                        <div class="officer-stat-lbl" data-i18n="Pending Verification">Pending Verification</div>
+                    </div>
+
+                    <div class="officer-stat-card">
+                        <div class="officer-stat-icon" style="background:#E8F5E9; color:#2E7D32;">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+                        <div class="officer-stat-val" id="statVerifiedListings" style="color:#2E7D32;">0</div>
+                        <div class="officer-stat-lbl" data-i18n="Verified Listings">Verified Listings</div>
+                    </div>
+
+                    <div class="officer-stat-card">
+                        <div class="officer-stat-icon">
+                            <i data-lucide="calendar"></i>
+                        </div>
+                        <div class="officer-stat-val" id="statTodayListings">0</div>
+                        <div class="officer-stat-lbl" data-i18n="Today's Listings">Today's Listings</div>
+                    </div>
+
+                    <div class="officer-stat-card">
+                        <div class="officer-stat-icon">
+                            <i data-lucide="package"></i>
+                        </div>
+                        <div class="officer-stat-val" id="statActiveListings">0</div>
+                        <div class="officer-stat-lbl" data-i18n="Active Listings">Active Listings</div>
+                    </div>
+
+                    <div class="officer-stat-card">
+                        <div class="officer-stat-icon" style="background:#E1F5FE; color:#0277BD;">
+                            <i data-lucide="shopping-bag"></i>
+                        </div>
+                        <div class="officer-stat-val" id="statAssistedOrders" style="color:#0277BD;">0</div>
+                        <div class="officer-stat-lbl" data-i18n="Orders Requiring Assistance">Orders Requiring Assistance</div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Navigation Hub -->
+                <div style="margin-bottom:24px;">
+                    <h2 style="font-size:1.15rem; font-weight:800; margin-bottom:12px; color:var(--text-primary);" data-i18n="Operational Actions">
+                        Operational Actions
+                    </h2>
+                    <div class="officer-actions-grid">
+                        <a href="add-farmer.html" class="officer-action-btn">
+                            <i data-lucide="user-plus"></i>
+                            <span data-i18n="Add Farmer">Add Farmer</span>
+                        </a>
+                        <a href="farmers.html" class="officer-action-btn">
+                            <i data-lucide="users"></i>
+                            <span data-i18n="Farmers">Farmers</span>
+                        </a>
+                        <a href="add-produce.html" class="officer-action-btn">
+                            <i data-lucide="plus-circle"></i>
+                            <span data-i18n="Add Produce">Add Produce</span>
+                        </a>
+                        <a href="listings.html" class="officer-action-btn">
+                            <i data-lucide="package"></i>
+                            <span data-i18n="My Listings">My Listings</span>
+                        </a>
+                        <a href="pending-verification.html" class="officer-action-btn">
+                            <i data-lucide="shield-alert" style="color:#E65100;"></i>
+                            <span data-i18n="Pending Verification">Pending Verification</span>
+                        </a>
+                        <a href="verified-listings.html" class="officer-action-btn">
+                            <i data-lucide="shield-check" style="color:#2E7D32;"></i>
+                            <span data-i18n="Verified Listings">Verified Listings</span>
+                        </a>
+                        <a href="orders.html" class="officer-action-btn">
+                            <i data-lucide="shopping-bag"></i>
+                            <span data-i18n="Orders">Orders</span>
+                        </a>
+                        <a href="help.html" class="officer-action-btn">
+                            <i data-lucide="help-circle"></i>
+                            <span data-i18n="Help">Help</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2-Column Responsive Layout: Recent Listings & Recent Assisted Farmers -->
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:20px;">
+                    <!-- Recent Assisted Listings -->
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                            <h3 style="font-size:1.1rem; font-weight:800; color:var(--text-primary);" data-i18n="Recent Produce Entries">
+                                Recent Produce Entries
+                            </h3>
+                            <a href="listings.html" style="font-size:0.85rem; font-weight:700; color:var(--officer-primary);" data-i18n="View All →">View All →</a>
+                        </div>
+                        <div id="recentListingsContainer">
+                            <div style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="Loading recent produce...">Loading recent produce...</div>
+                        </div>
+                    </div>
+
+                    <!-- Assisted Farmers Quick List -->
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                            <h3 style="font-size:1.1rem; font-weight:800; color:var(--text-primary);" data-i18n="Assisted Farmers">
+                                Assisted Farmers
+                            </h3>
+                            <a href="farmers.html" style="font-size:0.85rem; font-weight:700; color:var(--officer-primary);" data-i18n="Manage All →">Manage All →</a>
+                        </div>
+                        <div id="recentFarmersContainer">
+                            <div style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="Loading farmers directory...">Loading farmers directory...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How-to-Use Videos Section -->
+                <div style="margin-top:32px; margin-bottom:28px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                        <div>
+                            <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-primary);" data-i18n="Officer Tutorials">Officer Tutorials</h2>
+                            <p style="color:var(--text-secondary); font-size:0.88rem; margin:0;" data-i18n="Learn how to assist farmers and verify produce.">Learn how to assist farmers and verify produce.</p>
+                        </div>
+                    </div>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="background:#000; height:160px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; position:relative;">
+                                <i data-lucide="play-circle" style="width:48px;height:48px; opacity:0.8;"></i>
+                                <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; font-size:0.75rem;">2:30</div>
+                            </div>
+                            <div style="padding:16px;">
+                                <h3 style="font-size:1rem; font-weight:700; margin-bottom:4px;" data-i18n="Physical Verification Process">Physical Verification Process</h3>
+                                <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Step-by-step guide to physical inspection of produce.">Step-by-step guide to physical inspection of produce.</p>
+                            </div>
+                        </div>
+                        <div class="card" style="padding:0; overflow:hidden;">
+                            <div style="background:#000; height:160px; display:flex; align-items:center; justify-content:center; color:#fff; cursor:pointer; position:relative;">
+                                <i data-lucide="play-circle" style="width:48px;height:48px; opacity:0.8;"></i>
+                                <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; font-size:0.75rem;">1:45</div>
+                            </div>
+                            <div style="padding:16px;">
+                                <h3 style="font-size:1rem; font-weight:700; margin-bottom:4px;" data-i18n="Assisting New Farmers">Assisting New Farmers</h3>
+                                <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="How to register and onboard a new farmer.">How to register and onboard a new farmer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script src="../../js/chatbot.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Role enforcement
+            if (!AuthService.requireRole('field_officer')) return;
+
+            const currentUser = AuthService.getUser();
+            if (currentUser?.assignedZone) {
+                document.getElementById('officerZoneDisplay').textContent = currentUser.assignedZone;
+            }
+
+            await loadOfficerDashboardData();
+
+            // Global search redirect
+            const searchInput = document.getElementById('officerGlobalSearch');
+            if (searchInput) {
+                searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && searchInput.value.trim()) {
+                        window.location.href = `listings.html?search=${encodeURIComponent(searchInput.value.trim())}`;
+                    }
+                });
+            }
+        });
+
+        async function loadOfficerDashboardData() {
+            try {
+                const currentUser = AuthService.getUser();
+                const officerId = currentUser?.id || 'usr-officer-1';
+
+                // Fetch farmers, products, and orders concurrently
+                const [farmers, allProducts, allOrders] = await Promise.all([
+                    ApiService.getFarmers({ fieldOfficerId: officerId }),
+                    ApiService.getProducts(),
+                    ApiService.getOrders()
+                ]);
+
+                // Filter products assisted by this officer
+                const officerProducts = allProducts.filter(p => 
+                    p.fieldOfficerId === officerId || 
+                    p.listingSource === 'FIELD_OFFICER' || 
+                    farmers.some(f => f.id === p.sellerId)
+                );
+
+                // Calculations
+                const farmersCount = farmers.length;
+                const pendingListings = officerProducts.filter(p => p.verificationStatus === 'PENDING');
+                const verifiedListings = officerProducts.filter(p => p.verificationStatus === 'VERIFIED');
+                const activeListings = officerProducts.filter(p => p.status === 'AVAILABLE');
+                
+                const startOfDay = new Date();
+                startOfDay.setHours(0, 0, 0, 0);
+                const todayListings = officerProducts.filter(p => new Date(p.createdAt || 0) >= startOfDay);
+
+                // Assisted farmers' order count
+                const assistedFarmerIds = new Set(farmers.map(f => f.id));
+                const assistedOrders = allOrders.filter(o => assistedFarmerIds.has(o.sellerId));
+
+                // Update UI Metrics
+                document.getElementById('statFarmersAssisted').textContent = farmersCount;
+                document.getElementById('statPendingVerification').textContent = pendingListings.length;
+                document.getElementById('statVerifiedListings').textContent = verifiedListings.length;
+                document.getElementById('statTodayListings').textContent = todayListings.length;
+                document.getElementById('statActiveListings').textContent = activeListings.length;
+                document.getElementById('statAssistedOrders').textContent = assistedOrders.length;
+
+                // Nav badges
+                const pBadge = document.getElementById('pendingBadge');
+                if (pBadge) {
+                    pBadge.textContent = pendingListings.length;
+                    pBadge.style.display = pendingListings.length > 0 ? 'inline-block' : 'none';
+                }
+                const oBadge = document.getElementById('officerOrdersBadge');
+                if (oBadge) {
+                    oBadge.textContent = assistedOrders.length;
+                    oBadge.style.display = assistedOrders.length > 0 ? 'inline-block' : 'none';
+                }
+
+                renderRecentListings(officerProducts.slice(0, 5));
+                renderRecentFarmers(farmers.slice(0, 4));
+            } catch (err) {
+                console.error('Error loading officer dashboard:', err);
+            }
+        }
+
+        function renderRecentListings(products) {
+            const container = document.getElementById('recentListingsContainer');
+            if (!products.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:24px; color:var(--text-muted);">
+                        <i data-lucide="inbox" style="width:36px;height:36px;margin-bottom:8px;opacity:0.5;"></i>
+                        <p data-i18n="No assisted produce listings created yet.">No assisted produce listings created yet.</p>
+                        <a href="add-produce.html" class="btn btn-sm btn-primary" style="margin-top:10px; background:var(--officer-primary);">
+                            <i data-lucide="plus"></i> <span data-i18n="Add Produce">Add Produce</span>
+                        </a>
+                    </div>
+                `;
+                if (window.lucide) window.lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = products.map(p => {
+                let badgeClass = 'badge-pending';
+                let badgeLabel = 'PENDING';
+                if (p.verificationStatus === 'VERIFIED') {
+                    badgeClass = 'badge-field-verified';
+                    badgeLabel = 'FIELD VERIFIED';
+                } else if (p.verificationStatus === 'REJECTED') {
+                    badgeClass = 'badge-rejected';
+                    badgeLabel = 'REJECTED';
+                }
+
+                return `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-light); gap:10px;">
+                        <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+                            <img src="${p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=100'}" alt="${p.name}" style="width:42px; height:42px; border-radius:var(--radius-sm); object-fit:cover; flex-shrink:0;">
+                            <div style="min-width:0;">
+                                <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                                    ${p.name}
+                                </div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary);">
+                                    ${p.sellerName || 'Farmer'} · ${p.quantity} ${p.unit || 'kg'} · ₹${p.price}/${p.unit || 'kg'}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align:right; flex-shrink:0;">
+                            <span class="badge ${badgeClass}" style="font-size:0.72rem;" data-i18n="${badgeLabel}">${badgeLabel}</span>
+                            <div style="margin-top:4px;">
+                                <a href="pending-verification.html?id=${p.id}" style="font-size:0.78rem; font-weight:700; color:var(--officer-primary);" data-i18n="Inspect →">Inspect →</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        function renderRecentFarmers(farmers) {
+            const container = document.getElementById('recentFarmersContainer');
+            if (!farmers.length) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:24px; color:var(--text-muted);">
+                        <i data-lucide="user-x" style="width:36px;height:36px;margin-bottom:8px;opacity:0.5;"></i>
+                        <p data-i18n="No assisted farmers registered yet.">No assisted farmers registered yet.</p>
+                        <a href="add-farmer.html" class="btn btn-sm btn-primary" style="margin-top:10px; background:var(--officer-primary);">
+                            <i data-lucide="user-plus"></i> <span data-i18n="Add Farmer">Add Farmer</span>
+                        </a>
+                    </div>
+                `;
+                if (window.lucide) window.lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = farmers.map(f => {
+                const initials = f.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+                return `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border-light); gap:10px;">
+                        <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+                            <div class="farmer-avatar-circle" style="width:38px;height:38px;font-size:0.9rem;">
+                                ${initials}
+                            </div>
+                            <div style="min-width:0;">
+                                <div style="font-weight:700; font-size:0.92rem; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                                    ${f.name}
+                                </div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary);" data-i18n="${f.village || f.district || 'Maharashtra'} · +91 ${f.phone}">${f.village || f.district || 'Maharashtra'} · +91 ${f.phone}</div>
+                            </div>
+                        </div>
+                        <div style="flex-shrink:0;">
+                            <a href="add-produce.html?farmerId=${f.id}" class="btn btn-sm btn-secondary" style="font-size:0.75rem; padding:4px 8px;" title="Add Produce for this farmer">
+                                <i data-lucide="plus" style="width:12px;height:12px;"></i> Produce
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

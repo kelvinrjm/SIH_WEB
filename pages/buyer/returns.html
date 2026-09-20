@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Return | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .return-form-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item"><i data-lucide="shopping-cart"></i><span data-i18n="My Cart">My Cart</span></a>
+                <a href="orders.html" class="nav-item active"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Request Return">Request Return</div>
+            
+                <div class="topbar-right">
+                    <!-- Language Selector -->
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:24px;">
+                    <a href="orders.html" style="color:var(--primary); font-weight:600; font-size:0.9rem; display:inline-flex; align-items:center; gap:4px;">
+                        <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Back to Orders
+                    </a>
+                </div>
+
+                <div class="return-form-card">
+                    <h2 style="font-size:1.4rem; font-weight:800; margin-bottom:12px;" data-i18n="Request Return/Refund">Request Return/Refund</h2>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; margin-bottom:24px;" data-i18n="Please provide the reason for your return. Note that quality discrepancies require photographic evidence.">Please provide the reason for your return. Note that quality discrepancies require photographic evidence.</p>
+                    
+                    <form id="returnForm">
+                        <div class="form-group">
+                            <label data-i18n="Order ID">Order ID</label>
+                            <input type="text" id="orderIdField" class="form-control" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="Reason for Return">Reason for Return</label>
+                            <select id="returnReason" class="form-control" required>
+                                <option value="">Select a reason</option>
+                                <option value="Quality not as described">Quality not as described</option>
+                                <option value="Damaged during transit">Damaged during transit</option>
+                                <option value="Incorrect produce delivered">Incorrect produce delivered</option>
+                                <option value="Weight discrepancy">Weight discrepancy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="Description">Description</label>
+                            <textarea id="returnDesc" class="form-control" rows="4" placeholder="Please describe the issue in detail..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="Upload Evidence (Photos/Videos)">Upload Evidence (Photos/Videos)</label>
+                            <input type="file" id="returnEvidence" class="form-control" multiple accept="image/*,video/*" required>
+                            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;" data-i18n="Upload clear photos of the damage or discrepancy.">Upload clear photos of the damage or discrepancy.</p>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" id="btnSubmitReturn" style="width:100%; justify-content:center; padding:12px; font-weight:700; margin-top:16px;">
+                            <i data-lucide="corner-down-left"></i> Submit Return Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/orders.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('id');
+
+            if (!orderId) {
+                window.location.href = 'orders.html';
+                return;
+            }
+
+            try {
+                const order = await OrderService.getById(orderId);
+                if (!order) {
+                    FarmUtils.showToast('Order not found', 'error');
+                    return;
+                }
+                if (order.status !== ORDER_STATUSES.DELIVERED) {
+                    FarmUtils.showToast('You can only return delivered orders.', 'warning');
+                    setTimeout(() => {
+                        window.location.href = 'orders.html';
+                    }, 1500);
+                    return;
+                }
+                if (order.returnStatus) {
+                    FarmUtils.showToast('Return request already exists for this order.', 'warning');
+                    setTimeout(() => {
+                        window.location.href = 'orders.html';
+                    }, 1500);
+                    return;
+                }
+            } catch(e) {
+                console.error(e);
+            }
+
+            document.getElementById('orderIdField').value = orderId;
+
+            document.getElementById('returnForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btnSubmitReturn');
+                btn.disabled = true;
+                btn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;border-top-color:#fff;"></span> Submitting...`;
+
+                try {
+                    const reason = document.getElementById('returnReason').value;
+                    const description = document.getElementById('returnDesc').value;
+                    
+                    await OrderService.requestReturn(orderId, reason, description);
+                    
+                    FarmUtils.showToast('Return request submitted successfully.', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'orders.html';
+                    }, 1500);
+                } catch (err) {
+                    FarmUtils.showToast(err.message || 'Failed to submit return request.', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="corner-down-left"></i> Submit Return Request`;
+                    lucide.createIcons();
+                }
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

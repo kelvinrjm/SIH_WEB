@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Help & Support | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .faq-answer {
+            margin-top: 10px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            display: none;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .faq-chevron {
+            transform: rotate(180deg);
+        }
+        .faq-chevron {
+            transition: transform 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item active"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Help & Support">Help & Support</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:860px;">
+                <div style="margin-bottom:24px;">
+                    <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Farmer Assistance Center">Farmer Assistance Center</h1>
+                    <p style="color:var(--text-secondary); font-size:0.95rem;" data-i18n="Quick guidance, government helplines, and FAQs for using the FarmLink platform.">Quick guidance, government helplines, and FAQs for using the FarmLink platform.</p>
+                </div>
+
+                <!-- Emergency & Helpline Banner -->
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+                    <div class="card" style="padding:20px; background:linear-gradient(135deg, rgba(46, 125, 50, 0.08), rgba(27, 94, 32, 0.04)); border:1px solid rgba(46, 125, 50, 0.2);">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+                            <div style="width:40px; height:40px; border-radius:var(--radius-full); background:var(--primary); color:#fff; display:grid; place-items:center;">
+                                <i data-lucide="phone-call" style="width:20px; height:20px;"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;" data-i18n="Kisan Call Center">Kisan Call Center</div>
+                                <div style="font-size:1.2rem; font-weight:800; color:var(--primary);"><a href="tel:18001801551" style="color:inherit; text-decoration:none;">1800-180-1551</a></div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Toll-free 24/7 agricultural helpline by Ministry of Agriculture.">Toll-free 24/7 agricultural helpline by Ministry of Agriculture.</p>
+                    </div>
+
+                    <div class="card" style="padding:20px; background:linear-gradient(135deg, rgba(2, 136, 209, 0.08), rgba(1, 87, 155, 0.04)); border:1px solid rgba(2, 136, 209, 0.2);">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+                            <div style="width:40px; height:40px; border-radius:var(--radius-full); background:var(--info); color:#fff; display:grid; place-items:center;">
+                                <i data-lucide="message-circle" style="width:20px; height:20px;"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;" data-i18n="FarmLink WhatsApp Desk">FarmLink WhatsApp Desk</div>
+                                <div style="font-size:1.2rem; font-weight:800; color:var(--text-primary);">+91 91234 56789</div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Direct regional coordinator support for mandi linkage & logistics.">Direct regional coordinator support for mandi linkage & logistics.</p>
+                    </div>
+                </div>
+
+                <!-- Voice Assistant Guide -->
+                <div class="card" style="padding:24px; margin-bottom:24px;">
+                    <div style="display:flex; align-items:flex-start; gap:16px;">
+                        <div style="width:44px; height:44px; border-radius:var(--radius-full); background:rgba(46, 125, 50, 0.12); color:var(--primary); display:grid; place-items:center; flex-shrink:0;">
+                            <i data-lucide="mic" style="width:24px; height:24px;"></i>
+                        </div>
+                        <div>
+                            <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:6px;" data-i18n="Voice-Enabled Product Listing">Voice-Enabled Product Listing</h3>
+                            <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5;">
+                                You can speak in <strong data-i18n="English, Tamil (தமிழ்), or Hindi (हिन्दी)">English, Tamil (தமிழ்), or Hindi (हिन्दी)</strong> to add your produce or check market rates. Click the microphone icon next to any input in the <em>Add Product</em> page or speak:
+                            </p>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+                                <span class="badge" style="background:var(--surface-sunken); border:1px solid var(--border); padding:6px 12px; font-size:0.85rem;" data-i18n="&quot;Tomato 200 kg at 30 rupees&quot;">"Tomato 200 kg at 30 rupees"</span>
+                                <span class="badge" style="background:var(--surface-sunken); border:1px solid var(--border); padding:6px 12px; font-size:0.85rem;">"தக்காளி 200 கிலோ 30 ரூபாய்"</span>
+                                <span class="badge" style="background:var(--surface-sunken); border:1px solid var(--border); padding:6px 12px; font-size:0.85rem;">"प्याज 500 किलो 25 रुपये"</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frequently Asked Questions -->
+                <div class="card" style="padding:28px; margin-bottom:24px;">
+                    <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:16px;" data-i18n="Frequently Asked Questions">Frequently Asked Questions</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="How do I list my crops for sale?">How do I list my crops for sale?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Click <strong data-i18n="Add Product">Add Product</strong> in the sidebar menu. Fill in the crop details, upload a photo or use your device camera, set your expected price, and click <strong data-i18n="Publish Produce">Publish Produce</strong>. Your listing becomes instantly visible to verified buyers across the state.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="How does the Market Price discovery work?">How does the Market Price discovery work?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer" data-i18n="FarmLink queries live APMC / Mandi market prices published by the Ministry of Agriculture (AgmarkNet). If live mandi data is temporarily unavailable or your district API key is not configured, the portal displays an explicit unverified state with a retry option — ensuring you are never misled by fake rates.">FarmLink queries live APMC / Mandi market prices published by the Ministry of Agriculture (AgmarkNet). If live mandi data is temporarily unavailable or your district API key is not configured, the portal displays an explicit unverified state with a retry option — ensuring you are never misled by fake rates.</div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="What should I do when I receive an order or buyer request?">What should I do when I receive an order or buyer request?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Open the <strong data-i18n="Orders">Orders</strong> page or <strong data-i18n="Buyer Requests">Buyer Requests</strong> page. You can review the buyer's requested quantity, proposed price, delivery destination, and contact number. Click <strong data-i18n="Confirm">Confirm</strong> to accept, or <strong data-i18n="Decline">Decline</strong> if you cannot fulfill the order.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="How does payment and delivery work?">How does payment and delivery work?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Direct farmer-to-buyer transactions support both online escrow and Cash on Delivery (COD). Once you mark the order as <em>Out for Delivery</em>, the buyer tracks logistics in real-time, and settlement occurs upon delivery verification.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Ticket / Feedback -->
+                <div class="card" style="padding:28px;">
+                    <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:8px;" data-i18n="Send a Message to Support">Send a Message to Support</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; margin-bottom:20px;" data-i18n="Need assistance with a dispute, verification, or logistics transport? Send a ticket below.">Need assistance with a dispute, verification, or logistics transport? Send a ticket below.</p>
+                    <form id="supportForm">
+                        <div class="form-group" style="margin-bottom:16px;">
+                            <label data-i18n="Subject">Subject</label>
+                            <input type="text" id="supSubject" class="form-control" placeholder="e.g. Question regarding Nashik APMC price" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom:20px;">
+                            <label data-i18n="Your Message / Issue Details">Your Message / Issue Details</label>
+                            <textarea id="supMsg" class="form-control" rows="4" placeholder="Describe the issue you are facing..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i data-lucide="send"></i> Submit Support Request</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            // FAQ accordion click handler
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.addEventListener('click', () => {
+                    const item = q.closest('.faq-item');
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Support form
+            document.getElementById('supportForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                FarmUtils.showToast('Support ticket submitted. A coordinator will reach you shortly.', 'success');
+                document.getElementById('supportForm').reset();
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

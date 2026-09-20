@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Step 4: Review & Publish | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+        .step-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .step-pill.active {
+            color: var(--primary);
+        }
+        .step-pill.completed {
+            color: var(--text-primary);
+        }
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--surface-sunken);
+            border: 2px solid var(--border);
+            display: grid;
+            place-items: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+        .step-pill.active .step-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+        }
+        .step-pill.completed .step-circle {
+            background: rgba(46, 125, 50, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .review-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .review-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item active"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Review Listing">Review Listing</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:840px;">
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step-pill completed">
+                        <div class="step-circle">✓</div>
+                        <span data-i18n="Crop Details">Crop Details</span>
+                    </div>
+                    <div class="step-pill completed">
+                        <div class="step-circle">✓</div>
+                        <span data-i18n="Photos">Photos</span>
+                    </div>
+                    <div class="step-pill completed">
+                        <div class="step-circle">✓</div>
+                        <span data-i18n="Location">Location</span>
+                    </div>
+                    <div class="step-pill active">
+                        <div class="step-circle">4</div>
+                        <span data-i18n="Review & Publish">Review & Publish</span>
+                    </div>
+                </div>
+
+                <div class="card" style="padding:32px;">
+                    <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:8px;" data-i18n="Step 4: Final Confirmation">Step 4: Final Confirmation</h2>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; margin-bottom:24px;" data-i18n="Please review your listing specifications before publishing to Maharashtra buyers.">Please review your listing specifications before publishing to Maharashtra buyers.</p>
+
+                    <!-- Produce Summary Card -->
+                    <div style="background:var(--surface-sunken); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:24px;">
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Produce / Crop:">Produce / Crop:</span>
+                            <strong id="revName" style="color:var(--text-primary);" data-i18n="Red Tomato">Red Tomato</strong>
+                        </div>
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Category & Variety:">Category & Variety:</span>
+                            <span id="revCategory" data-i18n="Vegetables (Vaishali)">Vegetables (Vaishali)</span>
+                        </div>
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Quality Grade:">Quality Grade:</span>
+                            <span class="status-badge badge-confirmed" id="revGrade" data-i18n="Grade A">Grade A</span>
+                        </div>
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Total Harvest Volume:">Total Harvest Volume:</span>
+                            <strong id="revQty" style="font-size:1.05rem;">500 kg</strong>
+                        </div>
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Expected Price:">Expected Price:</span>
+                            <strong id="revPrice" style="color:var(--primary); font-size:1.15rem;">₹28 / kg</strong>
+                        </div>
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Estimated Lot Value:">Estimated Lot Value:</span>
+                            <strong id="revTotalValue" style="color:var(--primary); font-size:1.15rem;">₹14,000</strong>
+                        </div>
+                        <div class="review-row">
+                            <span style="color:var(--text-secondary);" data-i18n="Farm Location:">Farm Location:</span>
+                            <span id="revLocation" data-i18n="Dindori Village, Nashik, Maharashtra">Dindori Village, Nashik, Maharashtra</span>
+                        </div>
+                    </div>
+
+                    <!-- Mandi Benchmark Guidance Box -->
+                    <div class="card" style="padding:16px 20px; background:rgba(46, 125, 50, 0.05); border:1px solid rgba(46, 125, 50, 0.2); margin-bottom:24px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i data-lucide="scale" style="width:20px; height:20px; color:var(--primary);"></i>
+                            <div style="font-size:0.92rem; color:var(--text-primary);">
+                                <strong data-i18n="Mandi Parity Note:">Mandi Parity Note:</strong> Your expected price aligns well with current APMC modal price trends for this commodity.
+                            </div>
+                        </div>
+                    </div>
+
+                    <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; font-size:0.9rem; color:var(--text-secondary); margin-bottom:28px;">
+                        <input type="checkbox" id="termsCheck" checked style="width:18px; height:18px; accent-color:var(--primary); margin-top:2px;">
+                        <span data-i18n="I confirm that this produce is farm-grown by me and accurately matches the quality grade declared above.">I confirm that this produce is farm-grown by me and accurately matches the quality grade declared above.</span>
+                    </label>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:20px;">
+                        <a href="add-product-location.html" class="btn btn-secondary">
+                            <i data-lucide="arrow-left"></i> Previous
+                        </a>
+                        <button type="button" class="btn btn-primary btn-lg" id="btnPublishFinal">
+                            <i data-lucide="check-circle"></i> Publish Produce to Marketplace
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            const draft = JSON.parse(sessionStorage.getItem('farmlink_add_product_draft') || '{}');
+            const user = FarmAuth.getCurrentUser();
+
+            // Populate fields
+            document.getElementById('revName').textContent = draft.name || 'Produce Item';
+            document.getElementById('revCategory').textContent = `${draft.category || 'Produce'} (${draft.variety || 'Standard'})`;
+            document.getElementById('revGrade').textContent = `Grade ${draft.qualityGrade || 'A'}`;
+            document.getElementById('revQty').textContent = `${draft.quantity || 100} ${draft.unit || 'kg'}`;
+            document.getElementById('revPrice').textContent = `${FarmUtils.formatCurrency(draft.price || 25)} / ${draft.unit || 'kg'}`;
+            document.getElementById('revTotalValue').textContent = FarmUtils.formatCurrency((draft.price || 25) * (draft.quantity || 100));
+            document.getElementById('revLocation').textContent = draft.location || 'Nashik, Maharashtra';
+
+            document.getElementById('btnPublishFinal').addEventListener('click', async () => {
+                if (!document.getElementById('termsCheck').checked) {
+                    FarmUtils.showToast('Please confirm produce accuracy checkbox', 'info');
+                    return;
+                }
+
+                const btn = document.getElementById('btnPublishFinal');
+                btn.disabled = true;
+                btn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;"></span> Publishing to Marketplace...`;
+
+                const productPayload = {
+                    name: draft.name || 'Red Tomato',
+                    category: draft.category || 'Vegetables',
+                    variety: draft.variety || 'Desi',
+                    qualityGrade: draft.qualityGrade || 'A',
+                    organic: Boolean(draft.organic),
+                    quantity: Number(draft.quantity) || 100,
+                    unit: draft.unit || 'kg',
+                    price: Number(draft.price) || 25,
+                    images: draft.images || ['https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80'],
+                    image: draft.image || (draft.images && draft.images[0]) || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80',
+                    location: draft.location || 'Nashik, Maharashtra',
+                    latitude: draft.latitude || 19.9975,
+                    longitude: draft.longitude || 73.7898,
+                    sellerId: user?.id || 'farmer-1',
+                    sellerName: user?.name || 'Ramesh Patel',
+                    sellerPhone: user?.phone || '+91 98765 43210',
+                    harvestDate: draft.harvestDate || new Date().toISOString().split('T')[0],
+                    expiryDate: '2026-09-30',
+                    description: draft.description || 'Farm-fresh harvest lot',
+                    status: 'AVAILABLE',
+                    verificationToken: draft.verificationToken || null
+                };
+
+                try {
+                    const created = await ProductService.create(productPayload);
+                    sessionStorage.removeItem('farmlink_add_product_draft');
+                    FarmUtils.showToast('Produce lot published successfully!', 'success');
+                    window.location.href = `product-published.html?id=${created.id}&name=${encodeURIComponent(productPayload.name)}&qty=${productPayload.quantity}&unit=${productPayload.unit}&price=${productPayload.price}`;
+                } catch (err) {
+                    console.error(err);
+                    FarmUtils.showToast(err.message || 'Failed to publish produce', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="check-circle"></i> Publish Produce to Marketplace`;
+                    lucide.createIcons();
+                }
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

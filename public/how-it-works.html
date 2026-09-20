@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works | FarmLink</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .pub-nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pub-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .pub-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .pub-content {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .step-card {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .step-num-big {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            background: var(--primary);
+            color: #FFFFFF;
+            font-size: 1.3rem;
+            font-weight: 800;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body style="background:var(--surface-sunken);">
+
+    <header class="pub-nav">
+        <a href="../index.html" class="pub-brand">
+            <img src="../img/logo.png" alt="FarmLink Logo">
+            <div>
+                <strong style="font-size:1.15rem; color:var(--primary); font-weight:800;" data-i18n="FarmLink">FarmLink</strong>
+                <div style="font-size:0.75rem; color:var(--text-secondary);" data-i18n="Govt. of Maharashtra · SIH 2026">Govt. of Maharashtra · SIH 2026</div>
+            </div>
+        </a>
+
+        <div style="display:flex; align-items:center; gap:16px;">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+            <a href="../index.html" class="btn btn-secondary btn-sm" data-i18n="Login">Login</a>
+            <a href="../pages/registration.html" class="btn btn-primary btn-sm" data-i18n="Register">Register</a>
+        </div>
+    </header>
+
+    <main class="pub-content">
+        <div style="text-align:center; margin-bottom:36px;">
+            <h1 style="font-size:2.2rem; font-weight:800; color:var(--text-primary); margin-bottom:8px;" data-i18n="How FarmLink Operates">How FarmLink Operates</h1>
+            <p style="color:var(--text-secondary); font-size:1.05rem; max-width:600px; margin:0 auto;" data-i18n="A simple, transparent 4-step workflow connecting cultivators directly with retail merchants and commercial bulk buyers.">A simple, transparent 4-step workflow connecting cultivators directly with retail merchants and commercial bulk buyers.</p>
+        </div>
+
+        <!-- Farmer Path -->
+        <div style="margin-bottom:48px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+                <span class="badge badge-confirmed" style="font-size:0.85rem;" data-i18n="Farmer Experience">Farmer Experience</span>
+                <h2 style="font-size:1.4rem; font-weight:800; margin:0;" data-i18n="For Farmers & Sellers">For Farmers & Sellers</h2>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big">1</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="List Produce using Voice or Form">List Produce using Voice or Form</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Speak naturally in Marathi, Tamil, Hindi, or English (e.g. &quot;500 kg Tomato in Nashik at 25 rupees&quot;) or fill the guided form.">Speak naturally in Marathi, Tamil, Hindi, or English (e.g. "500 kg Tomato in Nashik at 25 rupees") or fill the guided form.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big">2</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Upload Real Lot Photos">Upload Real Lot Photos</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Take photos of your produce from camera or gallery with instant magic-byte validation to prove quality grade and firmness.">Take photos of your produce from camera or gallery with instant magic-byte validation to prove quality grade and firmness.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big">3</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Compare Live Mandi Benchmark">Compare Live Mandi Benchmark</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Check real AgmarkNet modal prices from your nearest APMC market yard so you price your crop competitively with zero middleman deductions.">Check real AgmarkNet modal prices from your nearest APMC market yard so you price your crop competitively with zero middleman deductions.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big">4</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Confirm Order & Get Direct Settlement">Confirm Order & Get Direct Settlement</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Receive instant notifications when buyers place orders. Dispatch the lot from your farm gate and receive direct payment upon delivery.">Receive instant notifications when buyers place orders. Dispatch the lot from your farm gate and receive direct payment upon delivery.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buyer Path -->
+        <div style="margin-bottom:48px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+                <span class="badge badge-info" style="font-size:0.85rem;" data-i18n="Buyer Experience">Buyer Experience</span>
+                <h2 style="font-size:1.4rem; font-weight:800; margin:0;" data-i18n="For Commercial & Retail Buyers">For Commercial & Retail Buyers</h2>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big" style="background:var(--info);">1</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Browse Verified Farm Lots">Browse Verified Farm Lots</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Filter by district, agricultural sector, variety, and quality grade (Grade A / B / C) across Maharashtra.">Filter by district, agricultural sector, variety, and quality grade (Grade A / B / C) across Maharashtra.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big" style="background:var(--info);">2</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Stock-Validated Cart & 3-Step Checkout">Stock-Validated Cart & 3-Step Checkout</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Real-time stock reservation prevents overselling. Select delivery destination and choose between Cash on Delivery (COD) or Escrow.">Real-time stock reservation prevents overselling. Select delivery destination and choose between Cash on Delivery (COD) or Escrow.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big" style="background:var(--info);">3</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Live 5-Stage Logistics Tracking">Live 5-Stage Logistics Tracking</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Follow consignment status in real-time from farm packaging to transit vehicle arrival at your godown.">Follow consignment status in real-time from farm packaging to transit vehicle arrival at your godown.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num-big" style="background:var(--info);">4</div>
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;" data-i18n="Download Legal Tax Invoices">Download Legal Tax Invoices</h3>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5; margin:0;" data-i18n="Instant computer-generated APMC mandi settlement bills and GST tax invoices for commercial accounting.">Instant computer-generated APMC mandi settlement bills and GST tax invoices for commercial accounting.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="padding:32px; text-align:center;">
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:8px;" data-i18n="Start Transacting Directly">Start Transacting Directly</h2>
+            <p style="color:var(--text-secondary); margin-bottom:20px;" data-i18n="Join thousands of farmers and buyers across Maharashtra.">Join thousands of farmers and buyers across Maharashtra.</p>
+            <a href="../pages/registration.html" class="btn btn-primary btn-lg" data-i18n="Create an Account">Create an Account</a>
+        </div>
+    </main>
+
+    <footer style="text-align:center; padding:32px 20px; color:var(--text-secondary); font-size:0.85rem; border-top:1px solid var(--border); margin-top:60px;">
+        <div data-i18n="FarmLink — Smart India Hackathon 2026 · Government of Maharashtra">FarmLink — Smart India Hackathon 2026 · Government of Maharashtra</div>
+        <div style="margin-top:8px;">
+            <a href="about.html" style="color:inherit; margin:0 8px;" data-i18n="About">About</a> · 
+            <a href="how-it-works.html" style="color:inherit; margin:0 8px;" data-i18n="How It Works">How It Works</a> · 
+            <a href="faq.html" style="color:inherit; margin:0 8px;" data-i18n="FAQ">FAQ</a> · 
+            <a href="contact.html" style="color:inherit; margin:0 8px;" data-i18n="Contact">Contact</a>
+        </div>
+    </footer>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

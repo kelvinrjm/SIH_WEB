@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | FarmLink</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            display: grid;
+            place-items: center;
+        }
+        .password-toggle-btn:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+    <div class="auth-card" style="width:min(540px, 100%);">
+        <!-- Language Selector -->
+        <div class="auth-lang-bar">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+        </div>
+
+        <header class="auth-brand">
+            <div class="auth-logo-circle">
+                <img src="../img/logo.png" alt="FarmLink Logo">
+            </div>
+            <h1 data-i18n="Create an Account">Create an Account</h1>
+            <p data-i18n="Join the farmer-to-market direct network">Join the farmer-to-market direct network</p>
+        </header>
+
+        <form id="regForm" novalidate>
+            <!-- Role Selection -->
+            <div class="form-group">
+                <label data-i18n="I want to:">I want to:</label>
+                <div class="role-tabs">
+                    <button type="button" class="role-tab active" id="tabFarmer" data-role="farmer">
+                        <i data-lucide="sprout" style="width:18px;height:18px;"></i>
+                        <span data-i18n="Sell Produce (Farmer)">Sell Produce (Farmer)</span>
+                    </button>
+                    <button type="button" class="role-tab" id="tabBuyer" data-role="buyer">
+                        <i data-lucide="shopping-bag" style="width:18px;height:18px;"></i>
+                        <span data-i18n="Buy Produce (Buyer)">Buy Produce (Buyer)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1. Full Name -->
+            <div class="form-group">
+                <label for="fullNameInput" data-i18n="Full Name">Full Name</label>
+                <input type="text" id="fullNameInput" class="form-control" placeholder="e.g. Ramesh Patel" required>
+                <div class="form-error-msg hidden" id="nameError"></div>
+            </div>
+
+            <!-- 2. Phone Number -->
+            <div class="form-group">
+                <label for="regMobileInput" data-i18n="Mobile Number">Mobile Number</label>
+                <div style="position:relative; display:flex; align-items:center;">
+                    <span style="position:absolute; left:14px; font-weight:700; color:var(--text-secondary); font-size:0.95rem;">+91</span>
+                    <input type="tel" id="regMobileInput" class="form-control" style="padding-left:52px;" placeholder="98765 43210" maxlength="10" required>
+                </div>
+                <div class="form-error-msg hidden" id="regPhoneError"></div>
+            </div>
+
+            <!-- 3 & 4. District & State (Required fields) -->
+            <div class="form-row-2">
+                <div class="form-group">
+                    <label for="districtInput" data-i18n="District">District</label>
+                    <input type="text" id="districtInput" class="form-control" placeholder="e.g. Nashik" value="Nashik" required>
+                    <div class="form-error-msg hidden" id="districtError"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stateInput" data-i18n="State">State</label>
+                    <input type="text" id="stateInput" class="form-control" placeholder="e.g. Maharashtra" value="Maharashtra" required>
+                    <div class="form-error-msg hidden" id="stateError"></div>
+                </div>
+            </div>
+
+            <!-- 5. Password -->
+            <div class="form-group" style="margin-top:4px;">
+                <label for="regPasswordInput" data-i18n="Password">Password (minimum 6 characters)</label>
+                <div class="password-container">
+                    <input type="password" id="regPasswordInput" class="form-control" placeholder="••••••••" required>
+                    <button type="button" class="password-toggle-btn" id="regTogglePasswordBtn" title="Toggle password visibility">
+                        <i data-lucide="eye" id="regEyeIcon" style="width:18px; height:18px;"></i>
+                    </button>
+                </div>
+                <div class="form-error-msg hidden" id="passwordError"></div>
+            </div>
+
+            <!-- Submit Button -> Proceed to OTP -->
+            <button type="submit" class="btn btn-primary btn-full btn-lg" style="margin-top:16px;">
+                <span data-i18n="Continue to Verification">Continue to Verification</span>
+                <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+            </button>
+
+            <div class="text-center" style="margin-top:20px; font-size:0.9rem;">
+                <span data-i18n="Already have an account?">Already have an account?</span>
+                <a href="../index.html" style="color:var(--primary); font-weight:700;" data-i18n="Login">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/validation.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        let selectedRole = 'farmer';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const tabFarmer = document.getElementById('tabFarmer');
+            const tabBuyer = document.getElementById('tabBuyer');
+
+            tabFarmer.addEventListener('click', () => {
+                selectedRole = 'farmer';
+                tabFarmer.classList.add('active');
+                tabBuyer.classList.remove('active');
+            });
+
+            tabBuyer.addEventListener('click', () => {
+                selectedRole = 'buyer';
+                tabBuyer.classList.add('active');
+                tabFarmer.classList.remove('active');
+            });
+
+            // Password show/hide
+            const passInput = document.getElementById('regPasswordInput');
+            const toggleBtn = document.getElementById('regTogglePasswordBtn');
+            const eyeIcon = document.getElementById('regEyeIcon');
+
+            toggleBtn.addEventListener('click', () => {
+                const isPass = passInput.type === 'password';
+                passInput.type = isPass ? 'text' : 'password';
+                eyeIcon.setAttribute('data-lucide', isPass ? 'eye-off' : 'eye');
+                if (window.lucide) window.lucide.createIcons();
+            });
+
+            // Form validation & submission
+            const regForm = document.getElementById('regForm');
+            regForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Clear previous errors
+                document.querySelectorAll('.form-error-msg').forEach(el => {
+                    el.classList.add('hidden');
+                    el.textContent = '';
+                });
+
+                const name = document.getElementById('fullNameInput').value.trim();
+                const phone = document.getElementById('regMobileInput').value.trim().replace(/\D/g, '');
+                const district = document.getElementById('districtInput').value.trim();
+                const state = document.getElementById('stateInput').value.trim();
+                const password = document.getElementById('regPasswordInput').value;
+
+                let hasError = false;
+
+                if (!name) {
+                    showErr('nameError', 'Full Name is required.');
+                    hasError = true;
+                }
+                if (!phone || phone.length < 10) {
+                    showErr('regPhoneError', 'Valid 10-digit mobile number is required.');
+                    hasError = true;
+                }
+                if (!district) {
+                    showErr('districtError', 'District is required.');
+                    hasError = true;
+                }
+                if (!state) {
+                    showErr('stateError', 'State is required.');
+                    hasError = true;
+                }
+                if (!password || password.length < 6) {
+                    showErr('passwordError', 'Password must be at least 6 characters.');
+                    hasError = true;
+                }
+
+                if (hasError) return;
+
+                // Store pending registration data for OTP verification
+                const pendingRegistration = {
+                    name,
+                    phone,
+                    district,
+                    state,
+                    password,
+                    role: selectedRole
+                };
+                sessionStorage.setItem('farmlink_pending_reg', JSON.stringify(pendingRegistration));
+
+                // Navigate to OTP verification page
+                window.location.href = `otp-verification.html?phone=${phone}&role=${selectedRole}`;
+            });
+
+            function showErr(id, msg) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.textContent = msg;
+                    el.classList.remove('hidden');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

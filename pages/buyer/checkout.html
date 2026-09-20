@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 28px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .step-num {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--primary);
+            color: #FFFFFF;
+            font-weight: 800;
+            display: grid;
+            place-items: center;
+            font-size: 0.95rem;
+        }
+        .payment-opt {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+        .payment-opt:hover, .payment-opt.active {
+            border-color: var(--primary);
+            background: rgba(46, 125, 50, 0.04);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item"><i data-lucide="shopping-cart"></i><span data-i18n="My Cart">My Cart</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Checkout">Checkout & Settlement</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:24px;">
+                    <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Complete Procurement">Complete Procurement</h1>
+                    <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="Direct farmer-to-buyer transaction with verified logistics and escrow security.">Direct farmer-to-buyer transaction with verified logistics and escrow security.</p>
+                </div>
+
+                <form id="checkoutForm">
+                    <div class="checkout-grid">
+                        <!-- Left: 3 Steps -->
+                        <div>
+                            <!-- Step 1: Delivery Address -->
+                            <div class="card" style="padding:24px; margin-bottom:20px;">
+                                <div class="step-header">
+                                    <div class="step-num">1</div>
+                                    <h3 style="font-size:1.2rem; font-weight:700; margin:0;" data-i18n="Delivery Destination & Contact">Delivery Destination & Contact</h3>
+                                </div>
+                                <div class="form-row-2">
+                                    <div class="form-group">
+                                        <label data-i18n="Buyer / Company Name">Buyer / Company Name</label>
+                                        <input type="text" id="custName" class="form-control" value="Priya Sharma" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-i18n="Mobile Number (For Delivery OTP)">Mobile Number (For Delivery OTP)</label>
+                                        <input type="tel" id="custPhone" class="form-control" value="+91 98765 43210" required>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top:14px;">
+                                    <label data-i18n="Delivery Address / APMC Godown">Delivery Address / APMC Godown</label>
+                                    <input type="text" id="custAddress" class="form-control" placeholder="Godown 14, APMC Market Yard" value="Gala No. 42, APMC Market Yard" required>
+                                </div>
+                                <div class="form-row-3" style="margin-top:14px;">
+                                    <div class="form-group">
+                                        <label data-i18n="City / Mandi">City / Mandi</label>
+                                        <input type="text" id="custCity" class="form-control" value="Navi Mumbai" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-i18n="District">District</label>
+                                        <input type="text" id="custDistrict" class="form-control" value="Thane" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label data-i18n="PIN Code">PIN Code</label>
+                                        <input type="text" id="custPin" class="form-control" value="400703" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Logistics Mode -->
+                            <div class="card" style="padding:24px; margin-bottom:20px;">
+                                <div class="step-header">
+                                    <div class="step-num">2</div>
+                                    <h3 style="font-size:1.2rem; font-weight:700; margin:0;" data-i18n="Logistics & Transport">Logistics & Transport</h3>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:10px;">
+                                    <label class="payment-opt active" style="margin:0;">
+                                        <input type="radio" name="logisticsMode" value="DIRECT_DISPATCH" checked style="accent-color:var(--primary); width:18px; height:18px;">
+                                        <div style="flex:1;">
+                                            <div style="font-weight:700; font-size:0.95rem;" data-i18n="Direct Farm Gate Dispatch (Standard 24-48 hrs)">Direct Farm Gate Dispatch (Standard 24-48 hrs)</div>
+                                            <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Direct carrier assigned from farmer location to your godown.">Direct carrier assigned from farmer location to your godown.</div>
+                                        </div>
+                                    </label>
+                                    <label class="payment-opt" style="margin:0;">
+                                        <input type="radio" name="logisticsMode" value="SELF_PICKUP" style="accent-color:var(--primary); width:18px; height:18px;">
+                                        <div style="flex:1;">
+                                            <div style="font-weight:700; font-size:0.95rem;" data-i18n="Self-Pickup from Farm Gate">Self-Pickup from Farm Gate</div>
+                                            <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="You arrange your own transport directly from farmer's coordinate.">You arrange your own transport directly from farmer's coordinate.</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Payment Method -->
+                            <div class="card" style="padding:24px; margin-bottom:20px;">
+                                <div class="step-header">
+                                    <div class="step-num">3</div>
+                                    <h3 style="font-size:1.2rem; font-weight:700; margin:0;" data-i18n="Payment Settlement">Payment Settlement</h3>
+                                </div>
+                                    <label class="payment-opt active" style="margin:0;">
+                                        <input type="radio" name="paymentMethod" value="COD" checked style="accent-color:var(--primary); width:18px; height:18px;">
+                                        <div style="flex:1;">
+                                            <div style="font-weight:700; font-size:0.95rem;" data-i18n="Cash on Delivery (COD) / Weighment Settlement">Cash on Delivery (COD) / Weighment Settlement</div>
+                                            <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Pay upon physical inspection & final electronic weighment at unloading.">Pay upon physical inspection & final electronic weighment at unloading.</div>
+                                        </div>
+                                    </label>
+                                    <label class="payment-opt" style="margin:0;">
+                                        <input type="radio" name="paymentMethod" value="UPI_ESCROW" style="accent-color:var(--primary); width:18px; height:18px;">
+                                        <div style="flex:1;">
+                                            <div style="font-weight:700; font-size:0.95rem;" data-i18n="Instant UPI / Mandi Escrow (Direct Bank-to-Bank)">Instant UPI / Mandi Escrow (Direct Bank-to-Bank)</div>
+                                            <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Funds held securely and released instantly upon delivery confirmation.">Funds held securely and released instantly upon delivery confirmation.</div>
+                                        </div>
+                                    </label>
+                                    <label class="payment-opt" style="margin:0;">
+                                        <input type="radio" name="paymentMethod" value="GPAY" style="accent-color:var(--primary); width:18px; height:18px;">
+                                        <div style="flex:1;">
+                                            <div style="font-weight:700; font-size:0.95rem;" data-i18n="Google Pay">Google Pay</div>
+                                            <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Pay seamlessly using your GPay UPI app.">Pay seamlessly using your GPay UPI app.</div>
+                                        </div>
+                                    </label>
+                                    <label class="payment-opt" style="margin:0;">
+                                        <input type="radio" name="paymentMethod" value="BANK_TRANSFER" style="accent-color:var(--primary); width:18px; height:18px;">
+                                        <div style="flex:1;">
+                                            <div style="font-weight:700; font-size:0.95rem;" data-i18n="Direct Bank Transfer (NEFT/RTGS)">Direct Bank Transfer (NEFT/RTGS)</div>
+                                            <div style="font-size:0.85rem; color:var(--text-secondary);" data-i18n="Transfer funds directly to the farmer's verified bank account.">Transfer funds directly to the farmer's verified bank account.</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Order Summary Sidebar -->
+                        <div class="card" style="padding:24px; position:sticky; top:20px;">
+                            <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:16px;" data-i18n="Procurement Summary">Procurement Summary</h3>
+                            <div id="checkoutItemsList" style="margin-bottom:16px; max-height:260px; overflow-y:auto;">
+                                <!-- Rendered via JS -->
+                            </div>
+
+                            <div style="border-top:1px solid var(--border); padding-top:14px; margin-top:14px;">
+                                <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.92rem; color:var(--text-secondary);">
+                                    <span data-i18n="Produce Total:">Produce Total:</span>
+                                    <span style="font-weight:700; color:var(--text-primary);" id="chkSubtotal">₹0</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.92rem; color:var(--text-secondary);">
+                                    <span>Transport (<span id="chkDistance">120</span> km @ ₹2/km):</span>
+                                    <span style="font-weight:700; color:var(--primary);" id="chkDelivery" data-i18n="FREE">FREE</span>
+                                </div>
+                                <div style="border-top:1px solid var(--border); padding-top:12px; display:flex; justify-content:space-between; align-items:baseline;">
+                                    <span style="font-size:1.1rem; font-weight:800;" data-i18n="Payable Amount:">Payable Amount:</span>
+                                    <span style="font-size:1.6rem; font-weight:800; color:var(--primary);" id="chkTotal">₹0</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="btnPlaceOrder" style="width:100%; justify-content:center; padding:14px; font-weight:700; font-size:1.05rem; margin-top:20px;">
+                                <i data-lucide="check-circle"></i> Confirm & Place Order
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/orders.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+
+            const cart = CartService.getCart();
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            const buyerUser = FarmAuth.getCurrentUser();
+            const sellerLocation = cart[0]?.location || 'Nashik, Maharashtra';
+            
+            // Dynamic distance-based transport fee
+            const { subtotal, deliveryFee, total, distanceKm } = CartService.getTotals(buyerUser.location, sellerLocation);
+            
+            document.getElementById('chkSubtotal').textContent = FarmUtils.formatCurrency(subtotal);
+            document.getElementById('chkDistance').textContent = distanceKm;
+            document.getElementById('chkDelivery').textContent = deliveryFee === 0 ? 'FREE' : FarmUtils.formatCurrency(deliveryFee);
+            document.getElementById('chkTotal').textContent = FarmUtils.formatCurrency(total);
+
+            // Populate items list
+            const list = document.getElementById('checkoutItemsList');
+            list.innerHTML = cart.map(item => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.9rem;">
+                    <div>
+                        <div style="font-weight:700;">${item.name}</div>
+                        <div style="font-size:0.8rem; color:var(--text-secondary);" data-i18n="${item.quantity} ${item.unit || 'kg'} × ${FarmUtils.formatCurrency(item.price)}">${item.quantity} ${item.unit || 'kg'} × ${FarmUtils.formatCurrency(item.price)}</div>
+                    </div>
+                    <div style="font-weight:700; color:var(--text-primary);" data-i18n="${FarmUtils.formatCurrency(item.price * item.quantity)}">${FarmUtils.formatCurrency(item.price * item.quantity)}</div>
+                </div>
+            `).join('');
+
+            // Highlight selected radio options
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    const name = radio.name;
+                    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+                        r.closest('.payment-opt').classList.toggle('active', r.checked);
+                    });
+                });
+            });
+
+            // Form Submit
+            document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btnPlaceOrder');
+                btn.disabled = true;
+                btn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;"></span> Transmitting Order...`;
+
+                const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                
+                // Simulate Payment Processing for online methods
+                let paymentStatus = 'Pending';
+                if (paymentMethod !== 'COD') {
+                    btn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;"></span> Processing Payment...`;
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    // Simulate success
+                    paymentStatus = 'Successful';
+                    btn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;"></span> Transmitting Order...`;
+                }
+
+                const buyer = FarmAuth.getCurrentUser();
+                const primarySellerId = cart[0]?.sellerId;
+                if (!primarySellerId) {
+                    FarmUtils.showToast('This product is missing its farmer details. Please return to the marketplace and add it again.', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="check-circle"></i> Confirm & Place Order`;
+                    lucide.createIcons();
+                    return;
+                }
+                const orderPayload = {
+                    buyerId: buyer.id,
+                    buyerName: document.getElementById('custName').value,
+                    buyerPhone: document.getElementById('custPhone').value,
+                    sellerId: primarySellerId,
+                    sellerName: cart[0]?.sellerName || 'Verified Farmer',
+                    sellerPhone: cart[0]?.sellerPhone || '',
+                    deliveryAddress: {
+                        text: document.getElementById('custAddress').value,
+                        city: document.getElementById('custCity').value,
+                        state: document.getElementById('custDistrict').value,
+                        pin: document.getElementById('custPin').value,
+                        mobile: document.getElementById('custPhone').value
+                    },
+                    paymentMethod: paymentMethod,
+                    paymentStatus: paymentStatus,
+                    logisticsMode: document.querySelector('input[name="logisticsMode"]:checked').value,
+                    transportFee: deliveryFee,
+                    distanceKm: distanceKm,
+                    items: cart.map(item => ({
+                        productId: item.id,
+                        name: item.name,
+                        price: item.price,
+                        quantity: item.quantity,
+                        unit: item.unit || 'kg',
+                        sellerId: item.sellerId,
+                        sellerName: item.sellerName || 'Verified Farmer'
+                    })),
+                    totalAmount: total,
+                    status: ORDER_STATUSES.PLACED,
+                    farmerName: cart[0]?.sellerName || 'Verified Farmer'
+                };
+
+
+                try {
+                    const createdOrder = await OrderService.create(orderPayload);
+                    CartService.clearCart();
+                    FarmUtils.showToast('Order placed successfully!', 'success');
+                    window.location.href = `order-success.html?id=${createdOrder.id}`;
+                } catch (err) {
+                    console.error(err);
+                    FarmUtils.showToast(err.message || 'Failed to place order', 'error');
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="check-circle"></i> Confirm & Place Order`;
+                    lucide.createIcons();
+                }
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

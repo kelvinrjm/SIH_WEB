@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer SOP & Assistance Guide | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item active">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Field Officer SOP & Manual">
+                    Field Officer SOP & Manual
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width: 860px;">
+                <div style="margin-bottom:24px;">
+                    <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary); margin-bottom:4px;" data-i18n="Field Assistance Manual">
+                        Field Assistance Manual & SOP
+                    </h1>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;" data-i18n="Standard operational procedures for onboarding farmers, verifying crops, capturing photographs, and assisting with market fulfillment.">
+                        Standard operational procedures for onboarding farmers, verifying crops, capturing photographs, and assisting with market fulfillment.
+                    </p>
+                </div>
+
+                <!-- SOP Accordion / Sections -->
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <h3 style="font-size:1.1rem; font-weight:800; color:var(--officer-primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="users"></i> 1. Farmer Registration & Identity Verification
+                        </h3>
+                        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;" data-i18n="Field Officers must verify the farmer's active phone number and location before registering. Search existing records to avoid duplicate registrations. The farmer must understand that they are the legal owner and seller of the produce listed.">Field Officers must verify the farmer's active phone number and location before registering. Search existing records to avoid duplicate registrations. The farmer must understand that they are the legal owner and seller of the produce listed.</p>
+                    </div>
+
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <h3 style="font-size:1.1rem; font-weight:800; color:var(--officer-primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="type"></i> 2. Crop & Produce Name Direct Input
+                        </h3>
+                        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;">
+                            Always type the exact produce name (e.g. <em>Tomato, Onion, Coconut, Rice, Groundnut</em>) into the standard text box. Do not constrain the farmer to predefined crop categories. The multilingual dictionary automatically resolves localized names in English, Tamil, and Hindi.
+                        </p>
+                    </div>
+
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <h3 style="font-size:1.1rem; font-weight:800; color:var(--officer-primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="camera"></i> 3. Photography & AI Vision Verification Rules
+                        </h3>
+                        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;" data-i18n="Take at least 1–3 clear, well-lit photos of the actual harvested crop. Avoid extreme blur, shadows, or stock photography. Cloudflare Workers AI will inspect the produce for freshness and quality grading.">Take at least 1–3 clear, well-lit photos of the actual harvested crop. Avoid extreme blur, shadows, or stock photography. Cloudflare Workers AI will inspect the produce for freshness and quality grading.</p>
+                    </div>
+
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <h3 style="font-size:1.1rem; font-weight:800; color:var(--officer-primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="trending-up"></i> 4. AgmarkNet Mandi Rate Guidance
+                        </h3>
+                        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;">
+                            Use the "Check Live Mandi Rate" tool to show the farmer prevailing minimum, modal, and maximum prices in the nearest APMC yard. <strong data-i18n="Never overwrite">Never overwrite</strong> the farmer's desired selling price without their explicit agreement.
+                        </p>
+                    </div>
+
+                    <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+                        <h3 style="font-size:1.1rem; font-weight:800; color:var(--officer-primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                            <i data-lucide="shield-check"></i> 5. Verification Decisions & Marketplace Badging
+                        </h3>
+                        <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.6; margin:0;">
+                            Once verified, the listing is tagged with <strong data-i18n="FIELD VERIFIED">FIELD VERIFIED</strong> and displayed in the shared Buyer Marketplace. If rejecting a listing, select or record a clear constructive reason so the farmer can remedy the issue.
+                        </p>
+                    </div>
+
+                    <!-- Hotline Support Card -->
+                    <div style="background:#F4FBF5; border:1px solid #A5D6A7; border-radius:var(--radius); padding:20px;">
+                        <h3 style="font-size:1.05rem; font-weight:800; color:#1B5E20; margin-bottom:6px;">
+                            <i data-lucide="phone-call" style="width:16px;height:16px;display:inline;vertical-align:middle;"></i>
+                            Regional Field Officer Helpline
+                        </h3>
+                        <p style="font-size:0.88rem; color:#2E7D32; margin-bottom:10px;" data-i18n="For technical assistance, mandi API discrepancies, or farmer dispute escalations:">For technical assistance, mandi API discrepancies, or farmer dispute escalations:</p>
+                        <div style="font-weight:700; font-size:0.95rem; color:#1B5E20;" data-i18n="Toll-Free Assistance: 1800-FARM-LINK (1800-3276-5465) · Nashik Divisional Desk: ext. 08">Toll-Free Assistance: 1800-FARM-LINK (1800-3276-5465) · Nashik Divisional Desk: ext. 08</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!AuthService.requireRole('field_officer')) return;
+        });
+    </script>
+</body>
+</html>

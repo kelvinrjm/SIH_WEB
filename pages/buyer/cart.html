@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item active">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Procurement Cart">Procurement Cart</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" id="cartContainer">
+                <!-- Populated via JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            renderCart();
+        });
+
+        function renderCart() {
+            const container = document.getElementById('cartContainer');
+            const cart = CartService.getCart();
+            CartService.updateBadge();
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:80px 20px; background:#fff; border-radius:var(--radius-lg); border:1px solid var(--border); max-width:600px; margin:40px auto;">
+                        <div style="width:72px; height:72px; border-radius:var(--radius-full); background:var(--surface-sunken); display:grid; place-items:center; margin:0 auto 18px auto; color:var(--text-muted);">
+                            <i data-lucide="shopping-cart" style="width:36px; height:36px;"></i>
+                        </div>
+                        <h2 style="font-size:1.4rem; font-weight:800; color:var(--text-primary); margin-bottom:8px;" data-i18n="Your Procurement Cart is Empty">Your Procurement Cart is Empty</h2>
+                        <p style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:24px;" data-i18n="Explore our direct farm marketplace to add fresh harvest lots from certified Maharashtra farmers.">Explore our direct farm marketplace to add fresh harvest lots from certified Maharashtra farmers.</p>
+                        <a href="marketplace.html" class="btn btn-primary" style="padding:12px 28px; font-weight:700;">
+                            <i data-lucide="store"></i> Browse Marketplace
+                        </a>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const { subtotal, deliveryFee, total, itemCount } = CartService.getTotals();
+
+            container.innerHTML = `
+                <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Procurement Cart">Procurement Cart</h1>
+                        <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="${itemCount} units selected from direct farm lots">${itemCount} units selected from direct farm lots</p>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="clearAllCart()" style="color:var(--danger); border-color:rgba(211, 47, 47, 0.3);">
+                        <i data-lucide="trash-2"></i> Clear Cart
+                    </button>
+                </div>
+
+                <div class="cart-layout">
+                    <!-- Left: Cart Items -->
+                    <div class="cart-items-card">
+                        ${cart.map(item => `
+                            <div class="cart-item-row" data-id="${item.id}">
+                                <div class="cart-item-thumb">
+                                    <img src="${item.image || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80'}" alt="${item.name}">
+                                </div>
+                                <div class="cart-item-info" style="flex:1;">
+                                    <div class="cart-item-title">${item.name}</div>
+                                    <div class="cart-item-seller" data-i18n="Farmer: ${item.sellerName || 'Verified Farmer'} · ${item.location || 'Maharashtra'}">Farmer: ${item.sellerName || 'Verified Farmer'} · ${item.location || 'Maharashtra'}</div>
+                                    <div class="cart-item-price" data-i18n="${FarmUtils.formatCurrency(item.price)} / ${item.unit || 'kg'}">${FarmUtils.formatCurrency(item.price)} / ${item.unit || 'kg'}</div>
+                                </div>
+                                <div class="cart-qty-control">
+                                    <button class="cart-qty-btn btn-minus" data-id="${item.id}">-</button>
+                                    <span class="cart-qty-val" style="min-width:32px; text-align:center; font-weight:700;">${item.quantity}</span>
+                                    <button class="cart-qty-btn btn-plus" data-id="${item.id}">+</button>
+                                </div>
+                                <div style="font-weight:800; font-size:1.1rem; color:var(--text-primary); min-width:80px; text-align:right;" data-i18n="${FarmUtils.formatCurrency(item.price * item.quantity)}">${FarmUtils.formatCurrency(item.price * item.quantity)}</div>
+                                <button class="btn btn-icon btn-remove" data-id="${item.id}" style="color:var(--text-muted); border:none;" title="Remove Item">
+                                    <i data-lucide="trash-2" style="width:18px; height:18px;"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Right: Summary Card -->
+                    <div class="card" style="padding:24px; position:sticky; top:20px;">
+                        <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:16px;" data-i18n="Order Summary">Order Summary</h3>
+                        
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:0.95rem; color:var(--text-secondary);">
+                            <span data-i18n="Produce Subtotal">Produce Subtotal</span>
+                            <span style="font-weight:700; color:var(--text-primary);" data-i18n="${FarmUtils.formatCurrency(subtotal)}">${FarmUtils.formatCurrency(subtotal)}</span>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:0.95rem; color:var(--text-secondary);">
+                            <span data-i18n="Logistics & Farm Pickup">Logistics & Farm Pickup</span>
+                            <span style="font-weight:700; color:${deliveryFee === 0 ? 'var(--primary)' : 'var(--text-primary)'};" data-i18n="${deliveryFee === 0 ? 'FREE (Over ₹1,000)' : FarmUtils.formatCurrency(deliveryFee)}">${deliveryFee === 0 ? 'FREE (Over ₹1,000)' : FarmUtils.formatCurrency(deliveryFee)}</span>
+                        </div>
+
+                        <div style="border-top:1px solid var(--border); margin:16px 0; padding-top:16px; display:flex; justify-content:space-between; align-items:baseline;">
+                            <span style="font-size:1.1rem; font-weight:800;" data-i18n="Estimated Total">Estimated Total</span>
+                            <span style="font-size:1.5rem; font-weight:800; color:var(--primary);" data-i18n="${FarmUtils.formatCurrency(total)}">${FarmUtils.formatCurrency(total)}</span>
+                        </div>
+
+                        <a href="checkout.html" class="btn btn-primary" style="width:100%; justify-content:center; padding:14px; font-weight:700; font-size:1rem; margin-top:8px;">
+                            Proceed to Checkout <i data-lucide="arrow-right"></i>
+                        </a>
+
+                        <div style="margin-top:18px; font-size:0.8rem; color:var(--text-secondary); text-align:center; display:flex; align-items:center; justify-content:center; gap:6px;">
+                            <i data-lucide="shield-check" style="width:16px; height:16px; color:var(--primary);"></i>
+                            <span data-i18n="Direct Farmer Escrow Guarantee">Direct Farmer Escrow Guarantee</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            lucide.createIcons();
+
+            // Quantity event handlers
+            container.querySelectorAll('.btn-minus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    const item = cart.find(i => i.id === id);
+                    if (item) {
+                        CartService.updateQuantity(id, item.quantity - 1);
+                        renderCart();
+                    }
+                });
+            });
+
+            container.querySelectorAll('.btn-plus').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    const item = cart.find(i => i.id === id);
+                    if (item) {
+                        try {
+                            CartService.updateQuantity(id, item.quantity + 1);
+                            renderCart();
+                        } catch (err) {
+                            FarmUtils.showToast(err.message, 'error');
+                        }
+                    }
+                });
+            });
+
+            container.querySelectorAll('.btn-remove').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = btn.dataset.id;
+                    CartService.removeItem(id);
+                    FarmUtils.showToast('Item removed from cart', 'info');
+                    renderCart();
+                });
+            });
+        }
+
+        window.clearAllCart = () => {
+            if (confirm('Are you sure you want to empty your procurement cart?')) {
+                CartService.clearCart();
+                renderCart();
+            }
+        };
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

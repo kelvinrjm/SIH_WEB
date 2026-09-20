@@ -1,0 +1,207 @@
+/* ===================================================================
+   FARM LINK — FARMER EXPERIENCE STYLES
+   =================================================================== */
+
+/* Voice Pulse */
+.voice-pulsing {
+    animation: voicePulse 1.2s infinite ease-in-out;
+    color: var(--danger) !important;
+}
+
+@keyframes voicePulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.4); }
+    50% { transform: scale(1.18); box-shadow: 0 0 0 8px rgba(229, 57, 53, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+}
+
+/* Image Upload Preview Grid */
+.image-upload-zone {
+    border: 2px dashed var(--border-dark);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    background: var(--bg);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.image-upload-zone:hover {
+    border-color: var(--primary);
+    background: var(--primary-lighter);
+}
+
+.image-previews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.preview-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+}
+
+.preview-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-remove-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    background: rgba(229, 57, 53, 0.9);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Freshness Clock Badge */
+.freshness-clock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.freshness-fresh {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.freshness-aging {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.freshness-warning {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+/* Map Picker Modal Layout */
+#mapContainer {
+    width: 100%;
+    height: 380px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin: 12px 0;
+}
+
+/* Product Cards for Farmer */
+.farmer-products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.farmer-product-card {
+    background: #FFFFFF;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.farmer-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.product-thumb-wrap {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: #F1F5F3;
+    overflow: hidden;
+}
+
+.product-thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-body {
+    padding: 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.product-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.product-price-tag {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.product-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+/* Logistics Pooling Card */
+.freight-pool-card {
+    background: linear-gradient(135deg, #0D3B2E 0%, #155E45 100%);
+    color: #FFFFFF;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.freight-progress-bar {
+    width: 100%;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.freight-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: var(--radius-full);
+}

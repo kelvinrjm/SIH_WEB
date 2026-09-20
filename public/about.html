@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About FarmLink | Smart Market Linkage</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .pub-nav {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pub-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .pub-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .pub-content {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body style="background:var(--surface-sunken);">
+
+    <header class="pub-nav">
+        <a href="../index.html" class="pub-brand">
+            <img src="../img/logo.png" alt="FarmLink Logo">
+            <div>
+                <strong style="font-size:1.15rem; color:var(--primary); font-weight:800;" data-i18n="FarmLink">FarmLink</strong>
+                <div style="font-size:0.75rem; color:var(--text-secondary);" data-i18n="Govt. of Maharashtra · SIH 2026">Govt. of Maharashtra · SIH 2026</div>
+            </div>
+        </a>
+
+        <div style="display:flex; align-items:center; gap:16px;">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+            <a href="../index.html" class="btn btn-secondary btn-sm" data-i18n="Login">Login</a>
+            <a href="../pages/registration.html" class="btn btn-primary btn-sm" data-i18n="Register">Register</a>
+        </div>
+    </header>
+
+    <main class="pub-content">
+        <!-- Hero -->
+        <div class="card" style="padding:48px 40px; text-align:center; background:linear-gradient(135deg, #1B5E20, #2E7D32); color:#fff; border-radius:var(--radius-lg); margin-bottom:32px;">
+            <span style="background:rgba(255,255,255,0.2); padding:4px 14px; border-radius:var(--radius-full); font-size:0.8rem; font-weight:700; text-transform:uppercase;" data-i18n="SIH26132 Initiative">SIH26132 Initiative</span>
+            <h1 style="font-size:2.4rem; font-weight:800; margin:16px 0 12px 0; color:#fff;" data-i18n="Eliminating Middleman Exploitation">Eliminating Middleman Exploitation</h1>
+            <p style="font-size:1.1rem; color:rgba(255,255,255,0.9); max-width:680px; margin:0 auto 24px auto; line-height:1.6;" data-i18n="FarmLink connects Maharashtra’s farmers directly with wholesale buyers, retailers, and institutions, benchmarked against real APMC AgmarkNet indices.">FarmLink connects Maharashtra’s farmers directly with wholesale buyers, retailers, and institutions, benchmarked against real APMC AgmarkNet indices.</p>
+            <div style="display:flex; justify-content:center; gap:12px;">
+                <a href="../pages/registration.html" class="btn btn-secondary btn-lg" style="background:#fff; color:var(--primary); border:none; font-weight:700;" data-i18n="Join as Farmer">Join as Farmer</a>
+                <a href="how-it-works.html" class="btn btn-secondary btn-lg" style="background:transparent; color:#fff; border:2px solid #fff;" data-i18n="How It Works">How It Works</a>
+            </div>
+        </div>
+
+        <!-- Mission & Values Grid -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:32px;">
+            <div class="card" style="padding:28px;">
+                <div style="width:48px; height:48px; border-radius:var(--radius-full); background:rgba(46,125,50,0.12); color:var(--primary); display:grid; place-items:center; margin-bottom:16px;">
+                    <i data-lucide="scale" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:8px;" data-i18n="Fair Market Pricing">Fair Market Pricing</h3>
+                <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5;" data-i18n="Live integration with Government AgmarkNet mandi data ensures farmers have authentic price discovery before negotiating lot prices.">Live integration with Government AgmarkNet mandi data ensures farmers have authentic price discovery before negotiating lot prices.</p>
+            </div>
+
+            <div class="card" style="padding:28px;">
+                <div style="width:48px; height:48px; border-radius:var(--radius-full); background:rgba(2,136,209,0.12); color:var(--info); display:grid; place-items:center; margin-bottom:16px;">
+                    <i data-lucide="truck" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:8px;" data-i18n="Direct Farm Gate Pickup">Direct Farm Gate Pickup</h3>
+                <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5;" data-i18n="Buyers arrange or sponsor vehicle transport directly from farm gate GPS coordinates, eliminating multi-stage transportation loss.">Buyers arrange or sponsor vehicle transport directly from farm gate GPS coordinates, eliminating multi-stage transportation loss.</p>
+            </div>
+
+            <div class="card" style="padding:28px;">
+                <div style="width:48px; height:48px; border-radius:var(--radius-full); background:rgba(245,124,0,0.12); color:var(--warning); display:grid; place-items:center; margin-bottom:16px;">
+                    <i data-lucide="shield-check" style="width:24px; height:24px;"></i>
+                </div>
+                <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:8px;" data-i18n="Verified Land Records">Verified Land Records</h3>
+                <p style="color:var(--text-secondary); font-size:0.92rem; line-height:1.5;" data-i18n="Sellers are verified against 7/12 land records and PM-KISAN registries, providing institutional buyers with guaranteed traceability.">Sellers are verified against 7/12 land records and PM-KISAN registries, providing institutional buyers with guaranteed traceability.</p>
+            </div>
+        </div>
+
+        <div class="card" style="padding:32px; text-align:center;">
+            <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:8px;" data-i18n="Ready to Experience Smart Market Linkage?">Ready to Experience Smart Market Linkage?</h2>
+            <p style="color:var(--text-secondary); margin-bottom:20px;" data-i18n="Start selling or buying farm produce directly with zero brokerage.">Start selling or buying farm produce directly with zero brokerage.</p>
+            <a href="../pages/registration.html" class="btn btn-primary btn-lg" data-i18n="Create Free Account">Create Free Account</a>
+        </div>
+    </main>
+
+    <footer style="text-align:center; padding:32px 20px; color:var(--text-secondary); font-size:0.85rem; border-top:1px solid var(--border); margin-top:60px;">
+        <div data-i18n="FarmLink — Smart India Hackathon 2026 · Government of Maharashtra">FarmLink — Smart India Hackathon 2026 · Government of Maharashtra</div>
+        <div style="margin-top:8px;">
+            <a href="about.html" style="color:inherit; margin:0 8px;" data-i18n="About">About</a> · 
+            <a href="how-it-works.html" style="color:inherit; margin:0 8px;" data-i18n="How It Works">How It Works</a> · 
+            <a href="faq.html" style="color:inherit; margin:0 8px;" data-i18n="FAQ">FAQ</a> · 
+            <a href="contact.html" style="color:inherit; margin:0 8px;" data-i18n="Contact">Contact</a>
+        </div>
+    </footer>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

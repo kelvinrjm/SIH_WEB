@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Step 2: Produce Photos | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            position: relative;
+        }
+        .step-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .step-pill.active {
+            color: var(--primary);
+        }
+        .step-pill.completed {
+            color: var(--text-primary);
+        }
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--surface-sunken);
+            border: 2px solid var(--border);
+            display: grid;
+            place-items: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+        .step-pill.active .step-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+        }
+        .step-pill.completed .step-circle {
+            background: rgba(46, 125, 50, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .upload-drop-zone {
+            border: 2px dashed var(--primary-border);
+            border-radius: var(--radius-lg);
+            background: var(--surface-sunken);
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .upload-drop-zone:hover {
+            border-color: var(--primary);
+            background: rgba(46, 125, 50, 0.04);
+        }
+        .photos-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+        .preview-box {
+            position: relative;
+            height: 120px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .preview-remove-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.65);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item active"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Produce Photos">Produce Photos</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:840px;">
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step-pill completed">
+                        <div class="step-circle">✓</div>
+                        <span data-i18n="Crop Details">Crop Details</span>
+                    </div>
+                    <div class="step-pill active">
+                        <div class="step-circle">2</div>
+                        <span data-i18n="Photos">Photos</span>
+                    </div>
+                    <div class="step-pill">
+                        <div class="step-circle">3</div>
+                        <span data-i18n="Location">Location</span>
+                    </div>
+                    <div class="step-pill">
+                        <div class="step-circle">4</div>
+                        <span data-i18n="Review & Publish">Review & Publish</span>
+                    </div>
+                </div>
+
+                <div class="card" style="padding:32px;">
+                    <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:8px;" data-i18n="Step 2: Upload Produce Photos">Step 2: Upload Produce Photos</h2>
+                    <p style="color:var(--text-secondary); font-size:0.92rem; margin-bottom:24px;" data-i18n="Upload 1 to 6 high-resolution photos of your harvest lot. Clear photos help buyers verify grade and freshness.">Upload 1 to 6 high-resolution photos of your harvest lot. Clear photos help buyers verify grade and freshness.</p>
+
+                    <input type="file" id="photoFileInput" accept="image/jpeg,image/png,image/webp" multiple style="display:none;">
+
+                    <div class="upload-drop-zone" id="dropZone">
+                        <div style="width:52px; height:52px; border-radius:var(--radius-full); background:rgba(46,125,50,0.12); color:var(--primary); display:grid; place-items:center; margin:0 auto 12px auto;">
+                            <i data-lucide="camera" style="width:28px; height:28px;"></i>
+                        </div>
+                        <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:6px;" data-i18n="Upload or Take Photo">Upload or Take Photo</h3>
+                        <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Supports JPG, JPEG, PNG, WebP up to 2MB each (Max 6 photos)">Supports JPG, JPEG, PNG, WebP up to 2MB each (Max 6 photos)</p>
+                        <button type="button" class="btn btn-secondary btn-sm" style="margin-top:14px;" onclick="document.getElementById('photoFileInput').click()" data-i18n="Browse Files">Browse Files</button>
+                    </div>
+
+                    <div class="photos-preview-grid" id="previewGrid">
+                        <!-- Previews rendered via JS -->
+                    </div>
+
+                    <div id="photoVerificationPanel" style="margin-top:20px;"></div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:20px; border-top:1px solid var(--border);">
+                        <a href="add-product-info.html" class="btn btn-secondary">
+                            <i data-lucide="arrow-left"></i> Previous
+                        </a>
+                        <button type="button" class="btn btn-primary" id="btnNextLocation">
+                            Next: Farm Location <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/photo-verification.js"></script>
+    <script src="../../js/validation.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            let draft = JSON.parse(sessionStorage.getItem('farmlink_add_product_draft') || '{}');
+            let images = draft.images || [
+                'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80'
+            ];
+
+            let photoVerifier = null;
+            const verifierContainer = document.getElementById('photoVerificationPanel');
+            if (verifierContainer && window.PhotoVerificationPanel) {
+                photoVerifier = new PhotoVerificationPanel(verifierContainer);
+                if (draft.name) photoVerifier.setCrop(draft.name);
+                if (images.length && draft.name) {
+                    photoVerifier.setImages(images);
+                    photoVerifier.verify(draft.name, images);
+                }
+            }
+
+            renderPreviews();
+
+            const fileInput = document.getElementById('photoFileInput');
+            const dropZone = document.getElementById('dropZone');
+
+            dropZone.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON') fileInput.click();
+            });
+
+            fileInput.addEventListener('change', async (e) => {
+                const files = Array.from(e.target.files);
+                for (const file of files) {
+                    if (images.length >= 6) {
+                        FarmUtils.showToast('Maximum 6 photos allowed per product', 'info');
+                        break;
+                    }
+                    if (file.size > 2 * 1024 * 1024) {
+                        FarmUtils.showToast(`${file.name} exceeds 2MB limit`, 'error');
+                        continue;
+                    }
+
+                    try {
+                        const base64 = await readFileAsBase64(file);
+                        images.push(base64);
+                    } catch (err) {
+                        FarmUtils.showToast('Could not read image: ' + err.message, 'error');
+                    }
+                }
+                renderPreviews();
+                triggerVerification();
+            });
+
+            function readFileAsBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            function triggerVerification() {
+                if (photoVerifier) {
+                    photoVerifier.setImages(images);
+                    if (draft.name && images.length > 0) {
+                        photoVerifier.verify(draft.name, images);
+                    }
+                }
+            }
+
+            function renderPreviews() {
+                const grid = document.getElementById('previewGrid');
+                grid.innerHTML = images.map((img, idx) => `
+                    <div class="preview-box">
+                        <img src="${img}" alt="Produce Photo ${idx + 1}">
+                        <button type="button" class="preview-remove-btn" data-idx="${idx}" title="Remove photo">
+                            <i data-lucide="x" style="width:16px; height:16px;"></i>
+                        </button>
+                    </div>
+                `).join('');
+
+                lucide.createIcons();
+
+                grid.querySelectorAll('.preview-remove-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(btn.dataset.idx);
+                        images.splice(idx, 1);
+                        renderPreviews();
+                        triggerVerification();
+                    });
+                });
+            }
+
+            document.getElementById('btnNextLocation').addEventListener('click', async () => {
+                if (images.length === 0) {
+                    FarmUtils.showToast('Please add at least 1 photo of your produce', 'error');
+                    return;
+                }
+
+                if (photoVerifier && photoVerifier.getState() === 'REJECTED') {
+                    FarmUtils.showToast(`Photo does not appear to match "${draft.name || 'produce'}". Please upload clear harvest photos.`, 'error');
+                    return;
+                }
+
+                draft.images = images;
+                draft.image = images[0];
+                if (photoVerifier && photoVerifier.getResult()) {
+                    draft.verification = photoVerifier.getResult();
+                    draft.freshnessScore = draft.verification.freshnessScore;
+                    draft.shelfLife = draft.verification.estimatedShelfLifeDays;
+                    draft.verificationToken = draft.verification.verificationToken;
+                }
+                sessionStorage.setItem('farmlink_add_product_draft', JSON.stringify(draft));
+                window.location.href = 'add-product-location.html';
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

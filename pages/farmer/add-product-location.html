@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Step 3: Location | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+        .step-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .step-pill.active {
+            color: var(--primary);
+        }
+        .step-pill.completed {
+            color: var(--text-primary);
+        }
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--surface-sunken);
+            border: 2px solid var(--border);
+            display: grid;
+            place-items: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+        .step-pill.active .step-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #FFFFFF;
+        }
+        .step-pill.completed .step-circle {
+            background: rgba(46, 125, 50, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        #farmMap {
+            height: 280px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item active"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Farm Location">Farm Location</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:840px;">
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step-pill completed">
+                        <div class="step-circle">✓</div>
+                        <span data-i18n="Crop Details">Crop Details</span>
+                    </div>
+                    <div class="step-pill completed">
+                        <div class="step-circle">✓</div>
+                        <span data-i18n="Photos">Photos</span>
+                    </div>
+                    <div class="step-pill active">
+                        <div class="step-circle">3</div>
+                        <span data-i18n="Location">Location</span>
+                    </div>
+                    <div class="step-pill">
+                        <div class="step-circle">4</div>
+                        <span data-i18n="Review & Publish">Review & Publish</span>
+                    </div>
+                </div>
+
+                <div class="card" style="padding:32px;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+                        <div>
+                            <h2 style="font-size:1.35rem; font-weight:800; margin-bottom:4px;" data-i18n="Step 3: Farm Coordinate & Pickup Logistics">Step 3: Farm Coordinate & Pickup Logistics</h2>
+                            <p style="color:var(--text-secondary); font-size:0.92rem;" data-i18n="Mark your farm gate on the map so logistics partners can arrange direct pickups.">Mark your farm gate on the map so logistics partners can arrange direct pickups.</p>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-sm" id="btnGetGps">
+                            <i data-lucide="navigation"></i> Detect My GPS
+                        </button>
+                    </div>
+
+                    <!-- Leaflet Map Container -->
+                    <div id="farmMap"></div>
+
+                    <form id="stepLocationForm">
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                            <div class="form-group">
+                                <label data-i18n="Farm Village / Cluster">Farm Village / Cluster</label>
+                                <input type="text" id="farmVillage" class="form-control" value="Dindori Village, Gat No. 104" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="District">District</label>
+                                <select id="farmDistrict" class="form-control">
+                                    <option value="Nashik" selected>Nashik (Maharashtra)</option>
+                                    <option value="Pune">Pune</option>
+                                    <option value="Nagpur">Nagpur</option>
+                                    <option value="Jalgaon">Jalgaon</option>
+                                    <option value="Kolhapur">Kolhapur</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:16px;">
+                            <div class="form-group">
+                                <label data-i18n="Nearest APMC Mandi Benchmark">Nearest APMC Mandi Benchmark</label>
+                                <input type="text" id="farmMandi" class="form-control" value="Nashik APMC Market Yard">
+                            </div>
+                            <div class="form-group">
+                                <label data-i18n="Vehicle Accessibility at Farm Gate">Vehicle Accessibility at Farm Gate</label>
+                                <select id="farmAccess" class="form-control">
+                                    <option value="bolero" selected>Mahindra Bolero / Pickup (Up to 2 Tons)</option>
+                                    <option value="tempo">Tempo 407 (Up to 4 Tons)</option>
+                                    <option value="truck">Heavy Truck 10-Wheeler (Up to 15 Tons)</option>
+                                    <option value="tractor">Tractor Trolley Only</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:28px; padding-top:20px; border-top:1px solid var(--border);">
+                            <a href="add-product-photos.html" class="btn btn-secondary">
+                                <i data-lucide="arrow-left"></i> Previous
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                Next: Review Listing <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('farmer');
+            lucide.createIcons();
+
+            let lat = 19.9975; // Default Nashik
+            let lng = 73.7898;
+
+            const map = L.map('farmMap').setView([lat, lng], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 18,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+            marker.on('dragend', () => {
+                const pos = marker.getLatLng();
+                lat = pos.lat;
+                lng = pos.lng;
+            });
+
+            // GPS detection
+            document.getElementById('btnGetGps').addEventListener('click', () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        pos => {
+                            lat = pos.coords.latitude;
+                            lng = pos.coords.longitude;
+                            map.setView([lat, lng], 14);
+                            marker.setLatLng([lat, lng]);
+                            FarmUtils.showToast('Location updated from device GPS!', 'success');
+                        },
+                        err => {
+                            FarmUtils.showToast('GPS unavailable. You can drag the pin on map.', 'info');
+                        }
+                    );
+                }
+            });
+
+            const draft = JSON.parse(sessionStorage.getItem('farmlink_add_product_draft') || '{}');
+
+            document.getElementById('stepLocationForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                draft.latitude = lat;
+                draft.longitude = lng;
+                draft.location = `${document.getElementById('farmVillage').value.trim()}, ${document.getElementById('farmDistrict').value}, Maharashtra`;
+                draft.nearestMandi = document.getElementById('farmMandi').value.trim();
+                draft.vehicleAccess = document.getElementById('farmAccess').value;
+
+                sessionStorage.setItem('farmlink_add_product_draft', JSON.stringify(draft));
+                window.location.href = 'add-product-review.html';
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

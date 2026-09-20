@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Login | Farm Market</title>
+    <style>
+        :root { --green: #176b45; --deep: #0b3f2d; --lime: #d7ef8f; --paper: #fffdf5; --muted: #667c70; --error: #b3261e; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; color: #173b2c; font-family: Arial, sans-serif; background: linear-gradient(135deg, var(--deep), #4b8d51); }
+        .panel { width: min(470px, 100%); padding: clamp(27px, 6vw, 48px); background: var(--paper); border-radius: 22px; box-shadow: 0 25px 70px rgba(0,0,0,.25); animation: appear .55s ease both; }
+        .mark { color: var(--green); font-size: 2.4rem; }
+        h1 { margin: 12px 0 7px; font: 2.35rem Georgia, serif; } .subtitle { margin: 0 0 30px; color: var(--muted); line-height: 1.5; }
+        label { display: block; margin: 18px 0 7px; font-weight: 700; font-size: .9rem; }
+        input { width: 100%; padding: 14px; border: 1px solid #c7d7ca; border-radius: 9px; color: #173b2c; font-size: 1rem; outline: none; }
+        input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23,107,69,.14); }
+        .password-wrap { display: flex; gap: 8px; } .password-wrap input { flex: 1; }
+        .show { border: 1px solid #c7d7ca; border-radius: 9px; background: #eef6df; color: var(--green); cursor: pointer; padding: 0 12px; }
+        .error { min-height: 19px; margin: 5px 0 0; color: var(--error); font-size: .8rem; }
+        .button { width: 100%; margin-top: 12px; padding: 14px; border: 0; border-radius: 9px; background: var(--green); color: white; font-weight: 700; font-size: 1rem; cursor: pointer; transition: .2s; }
+        .button:hover { background: #0e5034; transform: translateY(-2px); } .back { display: block; margin-top: 17px; color: var(--green); text-align: center; font-size: .9rem; text-decoration: none; }
+        .otp-area { display: none; margin-top: 23px; padding-top: 18px; border-top: 1px solid #dce7d9; } .otp-area.visible { display: block; }
+        .otp-hint { margin: 0 0 10px; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+        @media (min-width: 700px) { .panel { padding: 48px; } }
+        @media (max-width: 480px) { body { padding: 14px; } .panel { padding: 25px 20px; border-radius: 16px; } h1 { font-size: 2rem; } .subtitle { margin-bottom: 22px; } input { font-size: .95rem; } .password-wrap { gap: 6px; } .show { padding: 0 10px; } }
+        @keyframes appear { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <main class="panel">
+        <div class="mark" aria-hidden="true">🌾</div><h1 data-i18n="Seller Login">Seller Login</h1><p class="subtitle" data-i18n="Login to access your farmer account">Login to access your farmer account</p>
+        <form id="loginForm" novalidate>
+            <label for="username" data-i18n="Username">Username</label>
+            <input id="username" type="text" autocomplete="username" placeholder="Enter your username">
+            <p class="error" id="usernameError" aria-live="polite"></p>
+            <label for="mobile" data-i18n="Mobile Number">Mobile Number</label>
+            <input id="mobile" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="Enter 10-digit mobile number">
+            <p class="error" id="mobileError" aria-live="polite"></p>
+            <label for="password" data-i18n="Password">Password</label>
+            <div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="8+ chars, letter, number &amp; special character"><button class="show" type="button" id="showPassword" aria-label="Show password" data-i18n="Show">Show</button></div>
+            <p class="error" id="passwordError" aria-live="polite"></p>
+            <button class="button" type="submit" id="loginButton" data-i18n="Login &amp; Generate OTP">Login &amp; Generate OTP</button>
+            <div class="otp-area" id="otpArea"><label for="otp" data-i18n="Enter OTP">Enter OTP</label><p class="otp-hint" id="otpHint"></p><input id="otp" inputmode="numeric" maxlength="6" placeholder="6-digit OTP"><p class="error" id="otpError" aria-live="polite"></p><button class="button" type="button" id="verifyButton" data-i18n="Verify OTP">Verify OTP</button></div>
+        </form>
+        <a class="back" href="index.html" data-i18n="&#8592; Back to Selection">&#8592; Back to Selection</a>
+    </main>
+    <script>
+        const form = document.getElementById('loginForm');
+        const username = document.getElementById('username');
+        const mobile = document.getElementById('mobile');
+        const password = document.getElementById('password');
+        const otp = document.getElementById('otp');
+        let generatedOtp = '';
+        const setError = (id, message) => { document.getElementById(id).textContent = message; };
+        const validUsername = () => username.value.trim() ? '' : 'Username is required';
+        const validMobile = () => /^\d{10}$/.test(mobile.value.trim()) ? '' : 'Please enter a valid 10-digit mobile number';
+        const validPassword = () => /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(password.value) ? '' : 'Password needs 8 characters, 1 letter, 1 number and 1 special character';
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); setError('usernameError', validUsername()); setError('mobileError', validMobile());
+            setError('passwordError', password.value ? validPassword() : 'Password is required');
+            if (validUsername() || validMobile() || !password.value || validPassword()) return;
+            generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+            document.getElementById('otpArea').classList.add('visible'); document.getElementById('otpHint').textContent = 'Demo OTP for +91 ' + mobile.value + ': ' + generatedOtp + '. Real SMS requires a backend SMS service.'; document.getElementById('otp').focus();
+        });
+        document.getElementById('verifyButton').addEventListener('click', () => { setError('otpError', otp.value === generatedOtp ? '' : 'Please enter the correct 6-digit OTP'); if (otp.value === generatedOtp) { localStorage.setItem('farmLinkUser', 'seller'); setTimeout(() => window.location.href = 'seller.html', 1500); } });
+        document.getElementById('showPassword').addEventListener('click', (event) => { password.type = password.type === 'password' ? 'text' : 'password'; event.target.textContent = password.type === 'password' ? 'Show' : 'Hide'; });
+        username.addEventListener('input', () => setError('usernameError', validUsername())); mobile.addEventListener('input', () => setError('mobileError', validMobile())); password.addEventListener('input', () => setError('passwordError', password.value ? validPassword() : 'Password is required'));
+    </script>
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+</body>
+</html>

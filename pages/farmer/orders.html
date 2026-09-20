@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Orders | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/farmer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Farmer Portal">Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="products.html" class="nav-item"><i data-lucide="package"></i><span data-i18n="My Products">My Products</span></a>
+                <a href="add-product.html" class="nav-item"><i data-lucide="plus-circle"></i><span data-i18n="Add Product">Add Product</span></a>
+                <a href="orders.html" class="nav-item active"><i data-lucide="shopping-bag"></i><span data-i18n="Orders">Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="buyer-requests.html" class="nav-item"><i data-lucide="handshake"></i><span data-i18n="Buyer Requests">Buyer Requests</span></a>
+                <a href="market-price.html" class="nav-item"><i data-lucide="trending-up"></i><span data-i18n="Market Price">Market Price</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">RP</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Ramesh Patel">Ramesh Patel</div>
+                        <div class="user-role user-role-display" data-i18n="Farmer / Seller">Farmer / Seller</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem; color:var(--text-primary);" data-i18n="Orders Management">Orders Management</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                    <a href="notifications.html" class="icon-btn"><i data-lucide="bell"></i><span class="notif-dot"></span></a>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title" data-i18n="Farmer Orders & Fulfillment">Farmer Orders &amp; Fulfillment</h1>
+                        <p class="page-subtitle" data-i18n="Track incoming orders from buyers and update fulfillment status in real-time.">Track incoming orders from buyers and update fulfillment status in real-time.</p>
+                    </div>
+                </div>
+
+                <!-- Status Filter Tabs (Option A: Responsive Horizontal Scrollable Chips Bar) -->
+                <div class="filter-scroll-wrapper">
+                    <div class="filter-chips-bar" role="tablist" aria-label="Filter orders by status">
+                        <button type="button" class="btn btn-primary btn-sm filter-chip-btn active" data-filter="all" data-i18n="All Orders">All Orders</button>
+                        <button type="button" class="btn btn-secondary btn-sm filter-chip-btn" data-filter="ORDER PLACED" data-i18n="Placed">Placed</button>
+                        <button type="button" class="btn btn-secondary btn-sm filter-chip-btn" data-filter="CONFIRMED" data-i18n="Confirmed">Confirmed</button>
+                        <button type="button" class="btn btn-secondary btn-sm filter-chip-btn" data-filter="PREPARING" data-i18n="Preparing">Preparing</button>
+                        <button type="button" class="btn btn-secondary btn-sm filter-chip-btn" data-filter="OUT FOR DELIVERY" data-i18n="Out for Delivery">Out for Delivery</button>
+                        <button type="button" class="btn btn-secondary btn-sm filter-chip-btn" data-filter="DELIVERED" data-i18n="Delivered">Delivered</button>
+                    </div>
+                </div>
+
+                <!-- Orders Table Container -->
+                <div class="card" style="padding:0; overflow:hidden;">
+                    <div class="table-responsive" style="overflow-x:auto;">
+                        <table class="data-table" style="width:100%; table-layout:auto;">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Order ID">Order ID</th>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Buyer">Buyer</th>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Items">Items &amp; Produce</th>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Total Value">Total Value</th>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Delivery Location">Delivery Location</th>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Status">Status</th>
+                                    <th style="padding: 10px 12px; font-size: 0.75rem;" data-i18n="Actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <!-- Rendered dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order View Modal -->
+    <div id="orderViewModal" class="modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; padding:16px;">
+        <div class="modal-card" style="background:#fff; border-radius:12px; max-width:550px; width:100%; padding:24px; box-shadow:0 10px 25px rgba(0,0,0,0.2); relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border); padding-bottom:12px; margin-bottom:16px;">
+                <h3 style="font-size:1.1rem; font-weight:700; color:var(--text-primary); margin:0;">Order Details - <span id="modalOrderId"></span></h3>
+                <button type="button" onclick="closeOrderModal()" style="background:none; border:none; cursor:pointer; color:var(--text-muted);"><i data-lucide="x"></i></button>
+            </div>
+            <div id="modalOrderContent" style="display:flex; flex-direction:column; gap:14px; font-size:0.9rem;">
+                <!-- Filled dynamically -->
+            </div>
+            <div style="margin-top:20px; text-align:right;">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="closeOrderModal()" style="padding:6px 16px;" data-i18n="Close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/orders.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        let allOrders = [];
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!AuthService.requireRole('farmer')) return;
+            const farmer = AuthService.getCurrentUser();
+            allOrders = await OrderService.getAll({ role: 'farmer', userId: farmer.id });
+            renderOrders();
+
+            document.querySelectorAll('[data-filter]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('[data-filter]').forEach(b => {
+                        b.classList.remove('btn-primary', 'active');
+                        b.classList.add('btn-secondary');
+                    });
+                    e.currentTarget.classList.remove('btn-secondary');
+                    e.currentTarget.classList.add('btn-primary', 'active');
+
+                    currentFilter = e.currentTarget.getAttribute('data-filter');
+                    renderOrders();
+                });
+            });
+        });
+
+        function renderOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            let list = allOrders;
+            if (currentFilter !== 'all') {
+                list = list.filter(o => o.status.toUpperCase() === currentFilter.toUpperCase());
+            }
+
+            if (list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="padding:30px;"><div class="empty-state"><h3 data-i18n="No orders found">No orders found</h3><p data-i18n="New buyer orders will appear here automatically.">New buyer orders will appear here automatically.</p></div></td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = list.map(o => {
+                const nextStatuses = OrderService.getNextAllowedStatuses(o.status);
+                let badgeClass = 'badge-placed';
+                if (o.status === 'CONFIRMED' || o.status === 'DELIVERED') badgeClass = 'badge-confirmed';
+                if (o.status === 'OUT FOR DELIVERY') badgeClass = 'badge-out-for-delivery';
+
+                const itemsSummary = o.items.map(it => `${window.t ? window.t(it.name) : it.name} (${it.quantity} ${it.unit} × ${Utils.formatCurrency(it.price)})`).join(', ');
+
+                return `
+                    <tr style="vertical-align:middle;">
+                        <td style="white-space:nowrap; vertical-align:middle; padding: 10px 10px;">
+                            <strong style="color:var(--text-primary); font-size:0.82rem;">${o.id}</strong>
+                        </td>
+                        <td style="vertical-align:middle; padding: 10px 10px;">
+                            <div style="font-weight:700; color:var(--text-primary); font-size:0.82rem;" data-i18n="${Utils.escapeHtml(o.buyerName)}">${Utils.escapeHtml(o.buyerName)}</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);" data-i18n="${Utils.escapeHtml(o.buyerPhone)}">${Utils.escapeHtml(o.buyerPhone)}</div>
+                        </td>
+                        <td style="vertical-align:middle; padding: 10px 10px;">
+                            <div style="font-size:0.8rem; color:var(--text-primary); max-width:180px; line-height:1.3;" data-i18n="${itemsSummary}">${itemsSummary}</div>
+                        </td>
+                        <td style="white-space:nowrap; vertical-align:middle; padding: 10px 10px;">
+                            <strong style="color:var(--primary); font-size:0.88rem;" data-i18n="${Utils.formatCurrency(o.total)}">${Utils.formatCurrency(o.total)}</strong>
+                        </td>
+                        <td style="vertical-align:middle; padding: 10px 10px;">
+                            <div style="font-size:0.78rem; color:var(--text-primary); max-width:200px; line-height:1.3;">
+                                <strong data-i18n="${Utils.escapeHtml(o.deliveryAddress?.city || 'Local')}">${Utils.escapeHtml(o.deliveryAddress?.city || 'Local')}</strong>, ${Utils.escapeHtml(o.deliveryAddress?.text || '')}
+                            </div>
+                        </td>
+                        <td style="white-space:nowrap; vertical-align:middle; padding: 10px 8px;">
+                            <span class="status-badge ${badgeClass}" style="font-size:0.7rem; padding:3px 8px; display:block; margin-bottom:4px;">
+                                ${o.status}
+                            </span>
+                            ${o.returnStatus ? `<span class="status-badge" style="background:rgba(230,81,0,0.1); color:#E65100; font-size:0.65rem; padding:2px 6px; display:block;" data-i18n="Return: ${o.returnStatus}">Return: ${o.returnStatus}</span>` : ''}
+                        </td>
+                        <td style="white-space:nowrap; vertical-align:middle; padding: 10px 10px;">
+                            <div style="display:flex; flex-direction:column; gap:4px; align-items:stretch;">
+                                <button type="button" class="btn btn-outline btn-sm" onclick="viewOrderDetails('${o.id}')" style="padding:3px 8px; font-size:0.72rem; white-space:nowrap; width:100%; margin-bottom:2px;">
+                                    <i data-lucide="eye" style="width:12px;height:12px;display:inline;vertical-align:-1px;"></i> View
+                                </button>
+                                ${nextStatuses.length ? nextStatuses.map(ns => `
+                                    <button type="button" class="btn ${ns === 'CANCELLED' ? 'btn-danger' : 'btn-primary'} btn-sm" onclick="transitionOrderStatus('${o.id}', '${ns}')" style="padding:4px 8px; font-size:0.72rem; white-space:nowrap; width:100%;" data-i18n="Mark ${ns}">Mark ${ns}</button>
+                                `).join('') : '<span style="font-size:0.75rem; color:var(--text-muted); text-align:center;" data-i18n="Completed">Completed</span>'}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+            if (window.Language && typeof Language.applyTranslations === 'function') {
+                Language.applyTranslations();
+            }
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = allOrders.find(o => o.id === orderId);
+            if (!order) return;
+
+            document.getElementById('modalOrderId').innerText = order.id;
+            const content = document.getElementById('modalOrderContent');
+
+            const itemsHtml = order.items.map(it => `
+                <div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--border); padding:6px 0;">
+                    <div>
+                        <strong data-i18n="${Utils.escapeHtml(window.t ? window.t(it.name) : it.name)}">${Utils.escapeHtml(window.t ? window.t(it.name) : it.name)}</strong>
+                        <div style="font-size:0.78rem; color:var(--text-muted);" data-i18n="${it.quantity} ${it.unit} × ${Utils.formatCurrency(it.price)}">${it.quantity} ${it.unit} × ${Utils.formatCurrency(it.price)}</div>
+                    </div>
+                    <div style="font-weight:700; color:var(--text-primary);" data-i18n="${Utils.formatCurrency(it.quantity * it.price)}">${Utils.formatCurrency(it.quantity * it.price)}</div>
+                </div>
+            `).join('');
+
+            content.innerHTML = `
+                <div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);" data-i18n="Buyer Information:">Buyer Information:</span>
+                    <div style="font-weight:700; font-size:0.95rem;" data-i18n="${Utils.escapeHtml(order.buyerName)}">${Utils.escapeHtml(order.buyerName)}</div>
+                    <div style="font-size:0.82rem; color:var(--text-secondary);"><i data-lucide="phone" style="width:13px;height:13px;display:inline;vertical-align:-2px;"></i> ${Utils.escapeHtml(order.buyerPhone)}</div>
+                </div>
+                <div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);" data-i18n="Delivery Address:">Delivery Address:</span>
+                    <div style="font-size:0.88rem; color:var(--text-primary); line-height:1.4;">
+                        <strong data-i18n="${Utils.escapeHtml(order.deliveryAddress?.city || 'Local')}">${Utils.escapeHtml(order.deliveryAddress?.city || 'Local')}</strong>, ${Utils.escapeHtml(order.deliveryAddress?.text || '')}
+                    </div>
+                </div>
+                <div>
+                    <span style="font-size:0.8rem; color:var(--text-muted);" data-i18n="Ordered Items:">Ordered Items:</span>
+                    <div style="margin-top:6px; background:var(--bg); padding:10px 14px; border-radius:8px;" data-i18n="${itemsHtml}">${itemsHtml}</div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:1rem; font-weight:700; border-top:1px solid var(--border); padding-top:10px;">
+                    <span data-i18n="Total Amount:">Total Amount:</span>
+                    <span style="color:var(--primary); font-size:1.1rem;" data-i18n="${Utils.formatCurrency(order.total)}">${Utils.formatCurrency(order.total)}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.8rem; color:var(--text-muted);" data-i18n="Current Status:">Current Status:</span>
+                    <span class="status-badge badge-confirmed" style="font-size:0.75rem;">${order.status}</span>
+                </div>
+                ${order.returnStatus ? `
+                <div style="border: 1px solid #FFE0B2; background: #FFF3E0; padding:14px; border-radius:8px; margin-top:10px;">
+                    <div style="font-weight:700; color:#E65100; margin-bottom:6px;" data-i18n="Return Request">Return Request</div>
+                    <div style="font-size:0.85rem; margin-bottom:4px;"><strong data-i18n="Reason:">Reason:</strong> ${Utils.escapeHtml(order.returnDetails?.reason || '')}</div>
+                    <div style="font-size:0.85rem; margin-bottom:8px;"><strong data-i18n="Description:">Description:</strong> ${Utils.escapeHtml(order.returnDetails?.description || '')}</div>
+                    <div style="font-size:0.85rem; display:flex; justify-content:space-between;">
+                        <span><strong data-i18n="Status:">Status:</strong> ${order.returnStatus}</span>
+                        <span><strong data-i18n="Refund:">Refund:</strong> ${order.refundStatus}</span>
+                    </div>
+                    ${order.returnStatus === RETURN_STATUSES.REQUESTED ? `
+                        <div style="margin-top:12px; display:flex; gap:10px;">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="manageReturn('${order.id}', '${RETURN_STATUSES.APPROVED}', '${REFUND_STATUSES.PROCESSING}')" data-i18n="Approve Return">Approve Return</button>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="manageReturn('${order.id}', '${RETURN_STATUSES.REJECTED}', '${REFUND_STATUSES.PENDING}')" data-i18n="Reject">Reject</button>
+                        </div>
+                    ` : ''}
+                    ${order.returnStatus === RETURN_STATUSES.APPROVED && order.refundStatus === REFUND_STATUSES.PROCESSING ? `
+                        <div style="margin-top:12px;">
+                            <button type="button" class="btn btn-secondary btn-sm" style="border-color:var(--primary); color:var(--primary);" onclick="manageReturn('${order.id}', '${RETURN_STATUSES.APPROVED}', '${REFUND_STATUSES.REFUNDED}')" data-i18n="Mark as Refunded">Mark as Refunded</button>
+                        </div>
+                    ` : ''}
+                </div>
+                ` : ''}
+            `;
+
+            document.getElementById('orderViewModal').style.display = 'flex';
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderViewModal').style.display = 'none';
+        }
+
+        async function transitionOrderStatus(orderId, nextStatus) {
+            try {
+                const updated = await OrderService.updateStatus(orderId, nextStatus, `Updated by farmer to ${nextStatus}`);
+                const idx = allOrders.findIndex(o => o.id === orderId);
+                if (idx !== -1 && updated) {
+                    allOrders[idx] = updated;
+                }
+                Utils.showToast(`Order status updated to ${nextStatus}`, 'success');
+                renderOrders();
+            } catch (err) {
+                Utils.showToast('Could not update status: ' + err.message, 'error');
+            }
+        }
+
+        async function manageReturn(orderId, returnStatus, refundStatus) {
+            try {
+                const updated = await OrderService.updateReturnStatus(orderId, returnStatus, refundStatus);
+                const idx = allOrders.findIndex(o => o.id === orderId);
+                if (idx !== -1 && updated) {
+                    allOrders[idx] = updated;
+                }
+                Utils.showToast(`Return status updated successfully.`, 'success');
+                closeOrderModal();
+                renderOrders();
+            } catch (err) {
+                Utils.showToast('Could not update return status: ' + err.message, 'error');
+            }
+        }
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

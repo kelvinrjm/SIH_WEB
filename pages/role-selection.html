@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Role | FarmLink</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .role-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin: 28px 0;
+        }
+        .choice-card {
+            background: #FFFFFF;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 30px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .choice-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+        .choice-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-full);
+            background: var(--primary-light);
+            color: var(--primary);
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+        }
+        .choice-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .choice-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+    <div class="auth-card" style="width:min(980px, 100%);">
+        <!-- Language Selector -->
+        <div class="auth-lang-bar">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+        </div>
+
+        <header class="auth-brand">
+            <div class="auth-logo-circle">
+                <img src="../img/logo.png" alt="FarmLink Logo">
+            </div>
+            <h1 data-i18n="Select Your Role">Select Your Role</h1>
+            <p data-i18n="Choose how you want to experience FarmLink">Choose how you want to experience FarmLink</p>
+        </header>
+
+        <div class="role-selection-grid">
+            <!-- Farmer Card -->
+            <div class="choice-card" onclick="window.location.href='../index.html?role=farmer'">
+                <div class="choice-icon">
+                    <i data-lucide="sprout" style="width:36px;height:36px;"></i>
+                </div>
+                <h2 class="choice-title" data-i18n="Farmer / Seller">Farmer / Seller</h2>
+                <p class="choice-desc" data-i18n="Sell produce at fair market prices">
+                    List harvested crops, verify produce with AI vision, discover real mandi rates, and manage buyer orders.
+                </p>
+                <a href="../index.html?role=farmer" class="btn btn-primary btn-full">
+                    <span data-i18n="Continue as Farmer">Continue as Farmer</span>
+                    <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+                </a>
+            </div>
+
+            <!-- Buyer Card -->
+            <div class="choice-card" onclick="window.location.href='../index.html?role=buyer'">
+                <div class="choice-icon" style="background:var(--accent-light); color:var(--accent-dark);">
+                    <i data-lucide="shopping-bag" style="width:36px;height:36px;"></i>
+                </div>
+                <h2 class="choice-title" data-i18n="Buyer / Merchant">Buyer / Merchant</h2>
+                <p class="choice-desc" data-i18n="Source fresh produce directly from farms">
+                    Directly browse fresh agricultural produce, compare farm prices, place orders, and track deliveries.
+                </p>
+                <a href="../index.html?role=buyer" class="btn btn-secondary btn-full">
+                    <span data-i18n="Continue as Buyer">Continue as Buyer</span>
+                    <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+                </a>
+            </div>
+
+            <!-- Field Officer / Assisted Portal Card -->
+            <div class="choice-card" onclick="window.location.href='field-officer/login.html'">
+                <div class="choice-icon" style="background:rgba(46, 125, 50, 0.14); color:var(--primary-dark);">
+                    <i data-lucide="shield-check" style="width:36px;height:36px;"></i>
+                </div>
+                <h2 class="choice-title" data-i18n="Field Officer">Field Officer</h2>
+                <p class="choice-desc" data-i18n="Assisted Farmer Portal for onboarding, verification, and produce entry">
+                    Assisted portal to help farmers with digital onboarding, produce listing, photo verification, and order assistance.
+                </p>
+                <a href="field-officer/login.html" class="btn btn-outline btn-full">
+                    <span data-i18n="Field Officer Portal">Field Officer Portal</span>
+                    <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top:12px;">
+            <a href="../index.html" style="font-size:0.9rem; color:var(--primary); font-weight:700;">
+                ← <span data-i18n="Back to Login">Back to Login</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

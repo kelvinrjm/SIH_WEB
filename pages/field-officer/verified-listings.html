@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Listings | FarmLink Field Officer</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .verified-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        @media (min-width: 640px) {
+            .verified-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .verified-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1360px) {
+            .verified-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item active">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Field Verified Catalog">
+                    Field Verified Catalog
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+                    <div>
+                        <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary);" data-i18n="Verified Produce Lots">
+                            Verified Produce Lots
+                        </h1>
+                        <p style="color:var(--text-secondary); font-size:0.9rem;" data-i18n="These lots are actively listed on the Buyer Marketplace with the official FIELD VERIFIED badge.">
+                            These lots are actively listed on the Buyer Marketplace with the official FIELD VERIFIED badge.
+                        </p>
+                    </div>
+                    <a href="pending-verification.html" class="btn btn-outline" style="border-color:#E65100; color:#E65100;">
+                        <i data-lucide="shield-alert" style="width:16px;height:16px;"></i>
+                        <span data-i18n="Inspect Pending Queue">Inspect Pending Queue</span>
+                    </a>
+                </div>
+
+                <!-- Search -->
+                <div class="filter-bar" style="margin-bottom:20px;">
+                    <div style="flex:1; min-width:220px; position:relative;">
+                        <input type="text" id="verifiedSearchInput" class="form-control" placeholder="Search verified produce by name or farmer..." style="padding-left:36px;">
+                        <i data-lucide="search" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); width:16px; height:16px; color:var(--text-muted);"></i>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:14px; font-size:0.9rem; color:var(--text-secondary);">
+                    Showing <strong id="verifiedCountDisplay" style="color:var(--text-primary);">0</strong> verified lots
+                </div>
+
+                <div class="verified-grid" id="verifiedGrid">
+                    <div style="grid-column:1/-1; text-align:center; padding:50px;">
+                        <div class="spinner"></div>
+                        <p style="margin-top:12px; color:var(--text-muted);" data-i18n="Loading verified listings...">Loading verified listings...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        let verifiedListings = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!AuthService.requireRole('field_officer')) return;
+
+            await loadVerifiedListings();
+            document.getElementById('verifiedSearchInput').addEventListener('input', renderVerified);
+        });
+
+        async function loadVerifiedListings() {
+            try {
+                const products = await ApiService.getProducts();
+                verifiedListings = products.filter(p => p.verificationStatus === 'VERIFIED');
+                renderVerified();
+            } catch (err) {
+                console.error('Error loading verified listings:', err);
+            }
+        }
+
+        function renderVerified() {
+            const search = document.getElementById('verifiedSearchInput').value.trim().toLowerCase();
+            const filtered = verifiedListings.filter(p => 
+                !search || 
+                (p.name || '').toLowerCase().includes(search) || 
+                (p.sellerName || '').toLowerCase().includes(search) || 
+                (p.location || '').toLowerCase().includes(search)
+            );
+
+            document.getElementById('verifiedCountDisplay').textContent = filtered.length;
+            const grid = document.getElementById('verifiedGrid');
+
+            if (!filtered.length) {
+                grid.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:60px 20px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                        <i data-lucide="shield-check" style="width:48px; height:48px; color:var(--text-muted); margin-bottom:12px;"></i>
+                        <h3 style="font-size:1.15rem; font-weight:700;" data-i18n="No Verified Listings Yet">No Verified Listings Yet</h3>
+                        <p style="color:var(--text-secondary); font-size:0.9rem; max-width:400px; margin:8px auto 16px auto;" data-i18n="Review pending listings in the verification queue and approve them to appear here.">Review pending listings in the verification queue and approve them to appear here.</p>
+                        <a href="pending-verification.html" class="btn btn-primary" style="background:var(--officer-primary);" data-i18n="Go to Verification Queue">Go to Verification Queue</a>
+                    </div>
+                `;
+                if (window.lucide) window.lucide.createIcons();
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="farmer-card">
+                    <div style="position:relative; width:100%; height:150px; border-radius:var(--radius-sm); overflow:hidden; background:#f0f0f0;">
+                        <img src="${p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=600'}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;">
+                        <span class="badge badge-field-verified" style="position:absolute; top:10px; left:10px;">
+                            <i data-lucide="shield-check" style="width:12px;height:12px;"></i> FIELD VERIFIED
+                        </span>
+                    </div>
+
+                    <div>
+                        <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:2px;">
+                            <strong data-i18n="Farmer:">Farmer:</strong> ${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}
+                        </div>
+                        <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin:0 0 6px 0;">
+                            ${p.name}
+                        </h3>
+                        <div style="font-size:1.1rem; font-weight:800; color:var(--officer-primary);">
+                            ₹${p.price} <small style="font-size:0.8rem; color:var(--text-secondary); font-weight:600;">/ ${p.unit || 'kg'}</small>
+                        </div>
+                    </div>
+
+                    <div style="font-size:0.82rem; color:var(--text-secondary); background:#F8FAF9; padding:8px 10px; border-radius:var(--radius-xs);">
+                        Available: <strong>${p.quantity} ${p.unit || 'kg'}</strong> · Grade: <strong data-i18n="${p.grade || 'Grade A'}">${p.grade || 'Grade A'}</strong>
+                    </div>
+
+                    <div style="display:flex; gap:8px; margin-top:auto;">
+                        <a href="../buyer/product-details.html?id=${p.id}" target="_blank" class="btn btn-secondary btn-sm" style="flex:1; justify-content:center;">
+                            <i data-lucide="external-link" style="width:12px;height:12px;"></i> View in Market
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboard Assisted Farmer | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item active">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Assisted Farmer Onboarding">
+                    Assisted Farmer Onboarding
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width: 800px;">
+                <div style="margin-bottom: 24px;">
+                    <a href="farmers.html" style="font-size:0.88rem; font-weight:700; color:var(--officer-primary); display:inline-flex; align-items:center; gap:4px; margin-bottom:8px;">
+                        ← <span data-i18n="Back to Farmers Directory">Back to Farmers Directory</span>
+                    </a>
+                    <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary);" data-i18n="Register Assisted Farmer">
+                        Register Assisted Farmer
+                    </h1>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;" data-i18n="Enter the farmer's details to create their official assistance record. Once registered, you can list produce on their behalf.">
+                        Enter the farmer's details to create their official assistance record. Once registered, you can list produce on their behalf.
+                    </p>
+                </div>
+
+                <!-- Registration Card -->
+                <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; box-shadow:var(--shadow-sm);">
+                    <form id="addFarmerForm" novalidate>
+                        <!-- Form Error Alert -->
+                        <div class="form-error-msg hidden" id="farmerFormError" style="margin-bottom:18px; padding:12px; background:#FEECEB; border-radius:var(--radius-sm); font-size:0.9rem;"></div>
+
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
+                            <!-- Full Name -->
+                            <div class="form-group">
+                                <label for="farmerNameInput" data-i18n="Farmer Full Name">Farmer Full Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="farmerNameInput" 
+                                    class="form-control" 
+                                    placeholder="e.g. Tukaram Shinde" 
+                                    data-i18n-placeholder="Enter farmer's full name"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Mobile Phone -->
+                            <div class="form-group">
+                                <label for="farmerPhoneInput" data-i18n="Mobile Number">Mobile Number *</label>
+                                <div style="position:relative; display:flex; align-items:center;">
+                                    <span style="position:absolute; left:14px; font-weight:700; color:var(--text-secondary); font-size:0.95rem;">+91</span>
+                                    <input 
+                                        type="tel" 
+                                        id="farmerPhoneInput" 
+                                        class="form-control" 
+                                        style="padding-left:52px;" 
+                                        placeholder="98231 12233" 
+                                        data-i18n-placeholder="10-digit mobile number"
+                                        maxlength="10" 
+                                        required
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- District -->
+                            <div class="form-group">
+                                <label for="farmerDistrictInput" data-i18n="District">District *</label>
+                                <select id="farmerDistrictInput" class="form-control" required>
+                                    <option value="Nashik">Nashik</option>
+                                    <option value="Jalgaon">Jalgaon</option>
+                                    <option value="Pune">Pune</option>
+                                    <option value="Ahmednagar">Ahmednagar</option>
+                                    <option value="Solapur">Solapur</option>
+                                    <option value="Nagpur">Nagpur</option>
+                                    <option value="Kolhapur">Kolhapur</option>
+                                    <option value="Aurangabad">Chhatrapati Sambhajinagar</option>
+                                </select>
+                            </div>
+
+                            <!-- State -->
+                            <div class="form-group">
+                                <label for="farmerStateInput" data-i18n="State">State *</label>
+                                <input type="text" id="farmerStateInput" class="form-control" value="Maharashtra" required readonly>
+                            </div>
+
+                            <!-- Village / Town -->
+                            <div class="form-group">
+                                <label for="farmerVillageInput" data-i18n="Village / Town">Village / Town *</label>
+                                <input 
+                                    type="text" 
+                                    id="farmerVillageInput" 
+                                    class="form-control" 
+                                    placeholder="e.g. Lasalgaon" 
+                                    data-i18n-placeholder="Village or nearest town"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Taluka / Block -->
+                            <div class="form-group">
+                                <label for="farmerTalukaInput" data-i18n="Taluka / Block">Taluka / Block (Optional)</label>
+                                <input 
+                                    type="text" 
+                                    id="farmerTalukaInput" 
+                                    class="form-control" 
+                                    placeholder="e.g. Niphad" 
+                                    data-i18n-placeholder="Taluka name"
+                                >
+                            </div>
+
+                            <!-- Landholding Area -->
+                            <div class="form-group">
+                                <label for="farmerLandInput" data-i18n="Landholding (Acres)">Landholding (Acres)</label>
+                                <input 
+                                    type="number" 
+                                    id="farmerLandInput" 
+                                    class="form-control" 
+                                    placeholder="e.g. 4.5" 
+                                    step="0.1" 
+                                    min="0"
+                                >
+                            </div>
+
+                            <!-- Primary Crops -->
+                            <div class="form-group">
+                                <label for="farmerCropsInput" data-i18n="Major Crops Grown">Major Crops Grown</label>
+                                <input 
+                                    type="text" 
+                                    id="farmerCropsInput" 
+                                    class="form-control" 
+                                    placeholder="e.g. Onion, Tomato, Grapes" 
+                                    data-i18n-placeholder="e.g. Onion, Tomato"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Officer Notes -->
+                        <div class="form-group" style="margin-top:16px;">
+                            <label for="farmerNotesInput" data-i18n="Officer Assistance Notes">Officer Assistance Notes (Optional)</label>
+                            <textarea 
+                                id="farmerNotesInput" 
+                                class="form-control" 
+                                rows="3" 
+                                placeholder="Add any special notes regarding digital literacy, preferred language, or harvest schedule..."
+                                data-i18n-placeholder="Special assistance notes..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+                            <a href="farmers.html" class="btn btn-secondary" data-i18n="Cancel">Cancel</a>
+                            <button type="submit" class="btn btn-primary btn-lg" id="submitFarmerBtn" style="background:var(--officer-primary); border-color:var(--officer-primary);">
+                                <i data-lucide="check" style="width:18px;height:18px;"></i>
+                                <span data-i18n="Save & Register Farmer">Save & Register Farmer</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!AuthService.requireRole('field_officer')) return;
+
+            const form = document.getElementById('addFarmerForm');
+            const submitBtn = document.getElementById('submitFarmerBtn');
+            const errorAlert = document.getElementById('farmerFormError');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                errorAlert.textContent = '';
+                errorAlert.classList.add('hidden');
+
+                const name = document.getElementById('farmerNameInput').value.trim();
+                const rawPhone = document.getElementById('farmerPhoneInput').value.trim();
+                const phone = rawPhone.replace(/\D/g, '').slice(-10);
+                const district = document.getElementById('farmerDistrictInput').value.trim();
+                const state = document.getElementById('farmerStateInput').value.trim();
+                const village = document.getElementById('farmerVillageInput').value.trim();
+                const taluka = document.getElementById('farmerTalukaInput').value.trim();
+                const land = parseFloat(document.getElementById('farmerLandInput').value) || 0;
+                const cropsRaw = document.getElementById('farmerCropsInput').value.trim();
+                const notes = document.getElementById('farmerNotesInput').value.trim();
+
+                if (!name) {
+                    showError(window.Language ? Language.get('Farmer Full Name is required') : 'Farmer Full Name is required');
+                    return;
+                }
+                if (!phone || phone.length < 10) {
+                    showError(window.Language ? Language.get('Please enter a valid 10-digit mobile number') : 'Please enter a valid 10-digit mobile number');
+                    return;
+                }
+                if (!village) {
+                    showError(window.Language ? Language.get('Village / Town is required') : 'Village / Town is required');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span data-i18n="Saving...">Saving...</span> <div class="spinner-sm" style="width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block;margin-left:8px;"></div>`;
+
+                try {
+                    const currentUser = AuthService.getUser();
+                    const farmerPayload = {
+                        name,
+                        phone,
+                        district,
+                        state,
+                        village,
+                        taluka,
+                        landAreaAcres: land,
+                        primaryCrops: cropsRaw ? cropsRaw.split(',').map(c => c.trim()) : [],
+                        notes,
+                        fieldOfficerId: currentUser?.id || 'usr-officer-1',
+                        fieldOfficerName: currentUser?.name || 'Sanjay Deshmukh'
+                    };
+
+                    const newFarmer = await ApiService.createFarmer(farmerPayload);
+
+                    if (window.FarmUtils) {
+                        FarmUtils.showToast(`Farmer ${newFarmer.name} registered successfully!`, 'success');
+                    }
+
+                    // Prompt next action: Add produce or back to directory
+                    setTimeout(() => {
+                        window.location.href = `add-produce.html?farmerId=${newFarmer.id}`;
+                    }, 400);
+                } catch (err) {
+                    showError(err.message || 'Error registering farmer. Please try again.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i data-lucide="check" style="width:18px;height:18px;"></i> <span data-i18n="Save & Register Farmer">Save & Register Farmer</span>`;
+                    if (window.lucide) window.lucide.createIcons();
+                }
+            });
+
+            function showError(msg) {
+                errorAlert.textContent = msg;
+                errorAlert.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

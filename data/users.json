@@ -1,0 +1,24 @@
+[
+  {
+    "id": "usr-farmer-1",
+    "name": "Ramesh Patel",
+    "phone": "9876543210",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "password": "farmer123",
+    "role": "farmer",
+    "createdAt": 1725500000000,
+    "verified": true
+  },
+  {
+    "id": "usr-buyer-1",
+    "name": "Priya Sharma",
+    "phone": "9876501234",
+    "district": "Thane",
+    "state": "Maharashtra",
+    "password": "buyer123",
+    "role": "buyer",
+    "createdAt": 1725600000000,
+    "verified": true
+  }
+]

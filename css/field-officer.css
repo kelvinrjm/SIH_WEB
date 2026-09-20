@@ -1,0 +1,314 @@
+/* ===================================================================
+   FARM LINK — AUTHORIZED FIELD OFFICER PORTAL STYLES (SIH26132)
+   Mobile-First, Responsive, High-Contrast & Professional Layout
+   =================================================================== */
+
+/* Field Officer Specific Palette Accents */
+:root {
+    --officer-primary: #1B5E20;
+    --officer-dark: #0D3311;
+    --officer-accent: #2E7D32;
+    --officer-light: #E8F5E9;
+    --officer-border: #A5D6A7;
+}
+
+/* Operational Metrics Grid */
+.officer-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 992px) {
+    .officer-stats-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.officer-stat-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform var(--transition), box-shadow var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.officer-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--officer-border);
+}
+
+.officer-stat-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--officer-light);
+    color: var(--officer-primary);
+    display: grid;
+    place-items: center;
+    margin-bottom: 4px;
+}
+
+.officer-stat-val {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.officer-stat-lbl {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* Quick Action Buttons Grid */
+.officer-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+    .officer-actions-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .officer-actions-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+.officer-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #FFFFFF;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 10px;
+    text-align: center;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.officer-action-btn:hover {
+    border-color: var(--officer-primary);
+    background: var(--officer-light);
+    color: var(--officer-primary);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm);
+}
+
+.officer-action-btn i {
+    width: 24px;
+    height: 24px;
+    color: var(--officer-primary);
+}
+
+/* Verification Badges */
+.badge-field-verified {
+    background: #E8F5E9 !important;
+    color: #1B5E20 !important;
+    border: 1px solid #A5D6A7 !important;
+    font-weight: 700 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+}
+
+.badge-farmer-listed {
+    background: #E3F2FD !important;
+    color: #0D47A1 !important;
+    border: 1px solid #90CAF9 !important;
+    font-weight: 700 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+}
+
+.badge-assisted-listing {
+    background: #F3E5F5 !important;
+    color: #4A148C !important;
+    border: 1px solid #CE93D8 !important;
+    font-weight: 700 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+}
+
+.badge-pending {
+    background: #FFF8E1 !important;
+    color: #F57F17 !important;
+    border: 1px solid #FFE082 !important;
+    font-weight: 700 !important;
+}
+
+.badge-rejected {
+    background: #FFEBEE !important;
+    color: #B71C1C !important;
+    border: 1px solid #FFCDD2 !important;
+    font-weight: 700 !important;
+}
+
+/* Farmer Cards Grid */
+.farmer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .farmer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .farmer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1360px) {
+    .farmer-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.farmer-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all var(--transition);
+}
+
+.farmer-card:hover {
+    border-color: var(--officer-border);
+    box-shadow: var(--shadow);
+}
+
+.farmer-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.farmer-avatar-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: var(--officer-light);
+    color: var(--officer-primary);
+    font-weight: 800;
+    font-size: 1.1rem;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+/* Produce Name Plain Text Input Box */
+.crop-input-plain {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: #FFFFFF;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.crop-input-plain:focus {
+    border-color: var(--officer-primary);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+/* Verification Decision Box */
+.verification-decision-panel {
+    background: #FBFDFB;
+    border: 1.5px solid var(--officer-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.verification-option-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+/* Table Responsive Container */
+.officer-table-container {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.officer-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+    text-align: left;
+}
+
+.officer-table th {
+    background: #F7FAF8;
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.officer-table td {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+}
+
+.officer-table tr:last-child td {
+    border-bottom: none;
+}
+
+.officer-table tr:hover td {
+    background: #FAFCFA;
+}

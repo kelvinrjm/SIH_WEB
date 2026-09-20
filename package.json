@@ -1,0 +1,21 @@
+{
+  "name": "farmlink-backend",
+  "version": "1.0.0",
+  "description": "FarmLink SIH26132 backend — photo verification (Cloudflare Workers AI) and government mandi market prices (data.gov.in)",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check script.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3",
+    "puppeteer": "^24.43.1"
+  }
+}

@@ -1,0 +1,18 @@
+require('dotenv').config();
+const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/v1/chat/completions`;
+
+async function test() {
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${CF_API_TOKEN}` },
+        body: JSON.stringify({
+            model: '@cf/meta/llama-3.2-11b-vision-instruct',
+            messages: [{ role: 'user', content: 'hello' }]
+        })
+    });
+    const text = await res.text();
+    console.log(res.status, text.substring(0, 500));
+}
+test();

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Verification Queue | FarmLink Field Officer</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .verification-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 900px) {
+            .verification-layout {
+                grid-template-columns: 340px 1fr;
+            }
+        }
+        .queue-item-card {
+            background: #FFFFFF;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            cursor: pointer;
+            transition: all var(--transition);
+            margin-bottom: 10px;
+        }
+        .queue-item-card:hover {
+            border-color: var(--officer-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .queue-item-card.selected {
+            border-color: var(--officer-primary);
+            background: #F4FBF5;
+        }
+        .inspection-box {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle" style="background:#1B5E20;">
+                        <img src="../../img/logo.png" alt="FarmLink Logo">
+                    </div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span style="color:#A5D6A7;" data-i18n="Assisted Farmer Portal">Assisted Farmer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span data-i18n="Dashboard">Dashboard</span>
+                </a>
+                <a href="farmers.html" class="nav-item">
+                    <i data-lucide="users"></i>
+                    <span data-i18n="Farmers">Farmers</span>
+                </a>
+                <a href="add-farmer.html" class="nav-item">
+                    <i data-lucide="user-plus"></i>
+                    <span data-i18n="Add Farmer">Add Farmer</span>
+                </a>
+                <a href="listings.html" class="nav-item">
+                    <i data-lucide="package"></i>
+                    <span data-i18n="My Listings">My Listings</span>
+                </a>
+                <a href="add-produce.html" class="nav-item">
+                    <i data-lucide="plus-circle"></i>
+                    <span data-i18n="Add Produce">Add Produce</span>
+                </a>
+                <a href="pending-verification.html" class="nav-item active">
+                    <i data-lucide="shield-alert"></i>
+                    <span data-i18n="Pending Verification">Pending Verification</span>
+                </a>
+                <a href="verified-listings.html" class="nav-item">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="Verified Listings">Verified Listings</span>
+                </a>
+                <a href="orders.html" class="nav-item">
+                    <i data-lucide="shopping-bag"></i>
+                    <span data-i18n="Orders">Orders</span>
+                </a>
+                <a href="notifications.html" class="nav-item">
+                    <i data-lucide="bell"></i>
+                    <span data-i18n="Notifications">Notifications</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i data-lucide="user"></i>
+                    <span data-i18n="Profile">Profile</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span data-i18n="Settings">Settings</span>
+                </a>
+                <a href="help.html" class="nav-item">
+                    <i data-lucide="help-circle"></i>
+                    <span data-i18n="Help">Help</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">FO</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Sanjay Deshmukh">Sanjay Deshmukh</div>
+                        <div class="user-role user-role-display" data-i18n="Field Officer">Field Officer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn">
+                    <i data-lucide="log-out" style="width:18px;height:18px;"></i>
+                    <span data-i18n="Logout">Logout</span>
+                </a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Open navigation">
+                    <i data-lucide="menu"></i>
+                </button>
+
+                <div style="font-weight:700; font-size:1.05rem;" data-i18n="Produce Verification Decision Desk">
+                    Produce Verification Decision Desk
+                </div>
+
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input" aria-label="Language selector">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <div style="margin-bottom:20px;">
+                    <h1 style="font-size:1.5rem; font-weight:800; color:var(--text-primary);" data-i18n="Verification Queue">
+                        Verification Queue
+                    </h1>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;" data-i18n="Review assisted produce entries, inspect photos, examine market prices, and make verification decisions before publication.">
+                        Review assisted produce entries, inspect photos, examine market prices, and make verification decisions before publication.
+                    </p>
+                </div>
+
+                <!-- Split Layout: Queue Sidebar + Detailed Inspection Workspace -->
+                <div class="verification-layout">
+                    <!-- Left: Items in Queue -->
+                    <div>
+                        <div style="font-weight:700; font-size:0.95rem; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                            <span data-i18n="Pending Lots">Pending Lots</span>
+                            <span class="badge" id="queueCountBadge" style="background:#FFF3E0; color:#E65100;">0</span>
+                        </div>
+                        <div id="queueListContainer" style="max-height:75vh; overflow-y:auto; padding-right:4px;">
+                            <div style="text-align:center; padding:30px; color:var(--text-muted);" data-i18n="Loading queue...">Loading queue...</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Inspection & Decision Console -->
+                    <div>
+                        <div class="inspection-box" id="inspectionConsole">
+                            <div style="text-align:center; padding:60px 20px; color:var(--text-muted);">
+                                <i data-lucide="shield-question" style="width:48px;height:48px;margin-bottom:12px;opacity:0.6;"></i>
+                                <h3 style="font-size:1.15rem; font-weight:700;" data-i18n="Select a produce lot to inspect">Select a produce lot to inspect</h3>
+                                <p style="font-size:0.9rem;" data-i18n="Choose an item from the pending queue to inspect details, review photographs, and complete verification.">Choose an item from the pending queue to inspect details, review photographs, and complete verification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Rejection Reason Modal -->
+    <div id="rejectionModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:2000; align-items:center; justify-content:center; padding:16px;">
+        <div style="background:#FFFFFF; border-radius:var(--radius); width:100%; max-width:440px; padding:24px; box-shadow:var(--shadow-lg);">
+            <h3 style="font-size:1.15rem; font-weight:800; color:#B71C1C; margin-bottom:8px;" data-i18n="Reject Produce Listing">Reject Produce Listing</h3>
+            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:14px;" data-i18n="Please select or provide a reason for rejection. This note will be recorded for audit and farmer assistance.">Please select or provide a reason for rejection. This note will be recorded for audit and farmer assistance.</p>
+            <div class="form-group" style="margin-bottom:12px;">
+                <label style="font-weight:700;" data-i18n="Reason *">Reason *</label>
+                <select id="presetReasonSelect" class="form-control">
+                    <option value="Produce photograph does not match declared crop name">Produce photograph does not match declared crop name</option>
+                    <option value="Visual signs of spoilage, decay, or substandard quality">Visual signs of spoilage, decay, or substandard quality</option>
+                    <option value="Requested price significantly diverges from mandi benchmarks">Requested price significantly diverges from mandi benchmarks</option>
+                    <option value="Quantity or harvest date discrepancy">Quantity or harvest date discrepancy</option>
+                    <option value="Other">Other (Specify below)</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom:18px;">
+                <label style="font-weight:700;" data-i18n="Additional Comments">Additional Comments</label>
+                <textarea id="customReasonText" class="form-control" rows="3" placeholder="Explain the issue to help the farmer correct it..."></textarea>
+            </div>
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button type="button" class="btn btn-secondary" id="cancelRejectBtn" data-i18n="Cancel">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmRejectBtn" data-i18n="Confirm Rejection">Confirm Rejection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        let pendingProducts = [];
+        let selectedProductId = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!AuthService.requireRole('field_officer')) return;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialId = urlParams.get('id');
+
+            await loadQueue(initialId);
+            setupRejectionModal();
+        });
+
+        async function loadQueue(initialSelectId = null) {
+            try {
+                const products = await ApiService.getProducts();
+                // Find items that are PENDING (or if an ID was passed in URL, include it)
+                pendingProducts = products.filter(p => 
+                    p.verificationStatus === 'PENDING' || 
+                    (initialSelectId && p.id === initialSelectId)
+                );
+
+                document.getElementById('queueCountBadge').textContent = pendingProducts.length;
+
+                renderQueueList();
+
+                if (pendingProducts.length > 0) {
+                    const targetId = (initialSelectId && pendingProducts.some(p => p.id === initialSelectId))
+                        ? initialSelectId 
+                        : pendingProducts[0].id;
+                    selectProductForInspection(targetId);
+                } else {
+                    document.getElementById('inspectionConsole').innerHTML = `
+                        <div style="text-align:center; padding:60px 20px;">
+                            <i data-lucide="check-circle" style="width:48px;height:48px;color:#2E7D32;margin-bottom:12px;"></i>
+                            <h3 style="font-size:1.2rem; font-weight:700;" data-i18n="Queue is All Caught Up!">Queue is All Caught Up!</h3>
+                            <p style="color:var(--text-secondary); margin:8px auto 16px auto; max-width:400px;" data-i18n="No produce listings are currently awaiting verification.">No produce listings are currently awaiting verification.</p>
+                            <a href="listings.html" class="btn btn-secondary" data-i18n="View Verified Listings">View Verified Listings</a>
+                        </div>
+                    `;
+                    if (window.lucide) window.lucide.createIcons();
+                }
+            } catch (err) {
+                console.error('Error loading queue:', err);
+            }
+        }
+
+        function renderQueueList() {
+            const container = document.getElementById('queueListContainer');
+            if (!pendingProducts.length) {
+                container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--text-muted);" data-i18n="No pending lots.">No pending lots.</div>`;
+                return;
+            }
+
+            container.innerHTML = pendingProducts.map(p => `
+                <div class="queue-item-card ${p.id === selectedProductId ? 'selected' : ''}" data-id="${p.id}">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <img src="${p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=100'}" style="width:44px; height:44px; border-radius:var(--radius-sm); object-fit:cover; flex-shrink:0;">
+                        <div style="min-width:0; flex:1;">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                                <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                                    ${p.name}
+                                </div>
+                                <span class="badge" style="background:#FFF3E0; color:#E65100; font-size:0.68rem;" data-i18n="PENDING">PENDING</span>
+                            </div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary);" data-i18n="${p.sellerName || 'Farmer'} · ${p.quantity} ${p.unit || 'kg'}">${p.sellerName || 'Farmer'} · ${p.quantity} ${p.unit || 'kg'}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.querySelectorAll('.queue-item-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    selectProductForInspection(card.dataset.id);
+                });
+            });
+        }
+
+        function selectProductForInspection(id) {
+            selectedProductId = id;
+            renderQueueList();
+
+            const p = pendingProducts.find(item => item.id === id);
+            if (!p) return;
+
+            const consoleBox = document.getElementById('inspectionConsole');
+            const images = p.images?.length ? p.images : [p.image || 'https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=600'];
+
+            consoleBox.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+                    <div>
+                        <div style="font-size:0.82rem; color:var(--text-muted); font-weight:700;" data-i18n="PRODUCE LOT INSPECTION · ID: ${p.id}">PRODUCE LOT INSPECTION · ID: ${p.id}</div>
+                        <h2 style="font-size:1.45rem; font-weight:800; color:var(--text-primary); margin:4px 0;">
+                            ${p.name}
+                        </h2>
+                        <div style="font-size:0.88rem; color:var(--text-secondary);">
+                            Owned by <strong data-i18n="${p.sellerName || 'Farmer'}">${p.sellerName || 'Farmer'}</strong> (+91 ${p.sellerPhone || '9876543210'})
+                        </div>
+                    </div>
+                    <span class="badge badge-pending" style="font-size:0.85rem; padding:6px 14px;" data-i18n="PENDING DECISION">PENDING DECISION</span>
+                </div>
+
+                <!-- Photos Inspection Strip -->
+                <div style="margin-bottom:20px;">
+                    <div style="font-weight:700; font-size:0.9rem; margin-bottom:8px;" data-i18n="Harvest Photographs (${images.length})">Harvest Photographs (${images.length})</div>
+                    <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:8px;">
+                        ${images.map(img => `
+                            <a href="${img}" target="_blank" title="Click to view full photo" style="flex-shrink:0;">
+                                <img src="${img}" style="width:120px; height:120px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border);">
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <!-- Produce Attributes Grid -->
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; background:#F8FAF9; border-radius:var(--radius-sm); padding:16px; margin-bottom:20px;">
+                    <div>
+                        <div style="font-size:0.78rem; color:var(--text-muted); font-weight:700;" data-i18n="QUANTITY / UNIT">QUANTITY / UNIT</div>
+                        <div style="font-weight:800; font-size:1.1rem; color:var(--text-primary);">${p.quantity} ${p.unit || 'kg'}</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.78rem; color:var(--text-muted); font-weight:700;" data-i18n="FARMER SELLING PRICE">FARMER SELLING PRICE</div>
+                        <div style="font-weight:800; font-size:1.1rem; color:var(--officer-primary);">₹${p.price} / ${p.unit || 'kg'}</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.78rem; color:var(--text-muted); font-weight:700;" data-i18n="QUALITY GRADE">QUALITY GRADE</div>
+                        <div style="font-weight:700; font-size:1.05rem;" data-i18n="${p.grade || 'Grade A'}">${p.grade || 'Grade A'}</div>
+                    </div>
+                    <div>
+                        <div style="font-size:0.78rem; color:var(--text-muted); font-weight:700;" data-i18n="HARVEST LOCATION">HARVEST LOCATION</div>
+                        <div style="font-weight:700; font-size:0.95rem;" data-i18n="${p.location || 'Maharashtra'}">${p.location || 'Maharashtra'}</div>
+                    </div>
+                </div>
+
+                <!-- AI Inspection Telemetry -->
+                <div style="background:#E8F5E9; border:1px solid #A5D6A7; border-radius:var(--radius-sm); padding:14px; margin-bottom:24px;">
+                    <div style="font-weight:800; color:#1B5E20; display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                        <i data-lucide="shield-check" style="width:16px;height:16px;"></i>
+                        AI Produce Inspection & Freshness Score
+                    </div>
+                    <div style="font-size:0.88rem; color:#1B5E20;">
+                        Freshness Score: <strong data-i18n="${p.freshnessScore || 94}/100">${p.freshnessScore || 94}/100</strong> · Estimated Shelf Life: <strong data-i18n="${p.estimatedShelfLifeDays || 8} Days">${p.estimatedShelfLifeDays || 8} Days</strong>
+                    </div>
+                    <div style="font-size:0.82rem; color:#2E7D32; margin-top:4px;" data-i18n="${p.description || 'Produce matches agricultural standards and exhibits healthy coloration and firmness.'}">${p.description || 'Produce matches agricultural standards and exhibits healthy coloration and firmness.'}</div>
+                </div>
+
+                <!-- Decision Action Bar -->
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:18px; flex-wrap:wrap; gap:12px;">
+                    <button type="button" class="btn btn-danger" id="rejectActionBtn" style="border-radius:var(--radius-full);">
+                        <i data-lucide="x-circle"></i> Reject Listing
+                    </button>
+
+                    <div style="display:flex; gap:10px;">
+                        <a href="add-produce.html?editId=${p.id}" class="btn btn-secondary">
+                            <i data-lucide="edit"></i> Edit Lot
+                        </a>
+                        <button type="button" class="btn btn-primary" id="verifyActionBtn" style="background:var(--officer-primary); border-color:var(--officer-primary); font-weight:800;">
+                            <i data-lucide="shield-check"></i> Verify & Publish (FIELD VERIFIED)
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            if (window.lucide) window.lucide.createIcons();
+
+            // Setup buttons
+            document.getElementById('verifyActionBtn').addEventListener('click', () => {
+                executeVerificationDecision(p.id, 'VERIFIED');
+            });
+
+            document.getElementById('rejectActionBtn').addEventListener('click', () => {
+                openRejectionModal(p.id);
+            });
+        }
+
+        async function executeVerificationDecision(id, status, reason = '') {
+            try {
+                const currentUser = AuthService.getUser();
+                await ApiService.verifyProduct(id, status, reason);
+
+                if (window.FarmUtils) {
+                    const msg = status === 'VERIFIED' 
+                        ? 'Listing Verified & Published to Marketplace!' 
+                        : 'Listing has been rejected with recorded feedback.';
+                    FarmUtils.showToast(msg, status === 'VERIFIED' ? 'success' : 'info');
+                }
+
+                // Reload queue
+                await loadQueue();
+            } catch (err) {
+                alert('Error updating verification status: ' + err.message);
+            }
+        }
+
+        function setupRejectionModal() {
+            const modal = document.getElementById('rejectionModal');
+            const cancelBtn = document.getElementById('cancelRejectBtn');
+            const confirmBtn = document.getElementById('confirmRejectBtn');
+
+            cancelBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+
+            confirmBtn.addEventListener('click', () => {
+                const preset = document.getElementById('presetReasonSelect').value;
+                const custom = document.getElementById('customReasonText').value.trim();
+                const reason = custom ? `${preset} - ${custom}` : preset;
+
+                modal.style.display = 'none';
+                executeVerificationDecision(selectedProductId, 'REJECTED', reason);
+            });
+        }
+
+        function openRejectionModal(id) {
+            selectedProductId = id;
+            document.getElementById('customReasonText').value = '';
+            document.getElementById('rejectionModal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>

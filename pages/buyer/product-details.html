@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .product-detail-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .main-prod-img {
+            width: 100%;
+            height: 420px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: #F1F5F3;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        .main-prod-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+            background: var(--surface-sunken);
+            padding: 16px;
+            border-radius: var(--radius);
+        }
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .spec-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .spec-val {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item active"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <a href="marketplace.html" class="btn btn-icon" style="background:none; border:none;" title="Back to Marketplace">
+                        <i data-lucide="arrow-left"></i>
+                    </a>
+                    <span style="font-weight:700; font-size:1.1rem;" data-i18n="Lot Details">Produce Details</span>
+                </div>
+                <div class="topbar-right">
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" id="detailContainer">
+                <div style="text-align:center; padding:60px;">
+                    <div class="spinner"></div>
+                    <p style="color:var(--text-secondary); margin-top:14px;" data-i18n="Loading harvest lot details...">Loading harvest lot details...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom Offer Modal -->
+    <div class="modal-overlay" id="offerModal" style="display:none;">
+        <div class="modal" style="max-width:500px;">
+            <div class="modal-header">
+                <h3 style="font-size:1.2rem; font-weight:700;" data-i18n="Submit Custom Offer / Inquiry">Submit Custom Offer / Inquiry</h3>
+                <button class="modal-close" onclick="closeOfferModal()"><i data-lucide="x"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:16px;" data-i18n="Propose your required quantity and target price directly to the farmer. The farmer will receive your request immediately.">Propose your required quantity and target price directly to the farmer. The farmer will receive your request immediately.</p>
+                <form id="offerForm">
+                    <div class="form-group" style="margin-bottom:14px;">
+                        <label>Target Quantity (<span id="modalUnit">kg</span>)</label>
+                        <input type="number" id="modalQty" class="form-control" required min="10" step="5">
+                    </div>
+                    <div class="form-group" style="margin-bottom:14px;">
+                        <label>Offered Price per <span id="modalPriceUnit">kg</span> (₹)</label>
+                        <input type="number" id="modalPrice" class="form-control" required min="1" step="0.5">
+                    </div>
+                    <div class="form-group" style="margin-bottom:18px;">
+                        <label data-i18n="Delivery Destination / Special Notes">Delivery Destination / Special Notes</label>
+                        <textarea id="modalNotes" class="form-control" rows="3" placeholder="e.g. Needed in Vashi mandi by Thursday morning..." required></textarea>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:10px;">
+                        <button type="button" class="btn btn-secondary" onclick="closeOfferModal()" data-i18n="Cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i data-lucide="send"></i> Send Proposal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        let currentProduct = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const prodId = urlParams.get('id');
+
+            if (!prodId) {
+                renderError('No product specified in URL.');
+                return;
+            }
+
+            try {
+                currentProduct = await ProductService.getById(prodId);
+                if (!currentProduct) {
+                    renderError('This produce lot could not be found or has been withdrawn by the farmer.');
+                    return;
+                }
+                renderProduct(currentProduct);
+            } catch (err) {
+                renderError(err.message);
+            }
+
+            // Offer form submit
+            document.getElementById('offerForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const qty = parseInt(document.getElementById('modalQty').value);
+                const price = parseFloat(document.getElementById('modalPrice').value);
+                const notes = document.getElementById('modalNotes').value;
+                const user = FarmAuth.getCurrentUser();
+
+                const requests = FarmStorage.get(STORAGE_KEYS.REQUESTS, []);
+                requests.push({
+                    id: 'REQ-' + Date.now(),
+                    productId: currentProduct.id,
+                    productName: currentProduct.name,
+                    buyerName: user?.name || 'Priya Sharma',
+                    buyerPhone: user?.phone || '+91 98765 43210',
+                    requestedQuantity: qty,
+                    offeredPrice: price,
+                    destination: notes,
+                    status: 'PENDING',
+                    unit: currentProduct.unit || 'kg',
+                    createdAt: new Date().toISOString()
+                });
+                FarmStorage.set(STORAGE_KEYS.REQUESTS, requests);
+
+                FarmUtils.showToast('Custom offer transmitted directly to farmer!', 'success');
+                closeOfferModal();
+            });
+        });
+
+        function renderProduct(p) {
+            const container = document.getElementById('detailContainer');
+            const imgUrl = p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80';
+            const unit = p.unit || 'kg';
+
+            container.innerHTML = `
+                <div class="product-detail-layout">
+                    <!-- Left: Images -->
+                    <div>
+                        <div class="main-prod-img">
+                            <img src="${imgUrl}" alt="${p.name}">
+                            <span class="badge badge-confirmed" style="position:absolute; top:16px; left:16px; font-size:0.9rem; padding:6px 14px;" data-i18n="Quality Grade ${p.qualityGrade || 'A'}">Quality Grade ${p.qualityGrade || 'A'}</span>
+                            <div style="position:absolute; top:16px; right:16px; display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+                                ${(p.listingSource === 'FIELD_OFFICER' || p.verificationStatus === 'VERIFIED')
+                                    ? `<span class="badge" style="background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; font-size:0.8rem; font-weight:700; padding:6px 12px; border-radius:8px;"><i data-lucide="shield-check" style="width:13px;height:13px;display:inline;margin-right:4px;vertical-align:-2px;"></i>FIELD VERIFIED</span>`
+                                    : ''
+                                }
+                                ${p.verification?.ai?.status === 'VERIFIED'
+                                    ? `<span class="badge" style="background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; font-size:0.8rem; font-weight:700; padding:6px 12px; border-radius:8px;"><i data-lucide="cpu" style="width:13px;height:13px;display:inline;margin-right:4px;vertical-align:-2px;"></i>AI VERIFIED</span>`
+                                    : ''
+                                }
+                                ${(!p.verification?.ai || p.verification.ai.status !== 'VERIFIED') && !(p.listingSource === 'FIELD_OFFICER' || p.verificationStatus === 'VERIFIED')
+                                    ? `<span class="badge" style="background:#E3F2FD; color:#0D47A1; border:1px solid #90CAF9; font-size:0.8rem; font-weight:700; padding:6px 12px; border-radius:8px;"><i data-lucide="sprout" style="width:13px;height:13px;display:inline;margin-right:4px;vertical-align:-2px;"></i>FARMER LISTED</span>`
+                                    : ''
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Info & Purchase Controls -->
+                    <div class="card" style="padding:28px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+                            <div>
+                                <span class="badge" style="background:var(--surface-sunken); border:1px solid var(--border); margin-bottom:8px; font-size:0.82rem;" data-i18n="${p.category || 'Produce'}">${p.category || 'Produce'}</span>
+                                <h1 style="font-size:1.85rem; font-weight:800; color:var(--text-primary); margin:4px 0;">${p.name}</h1>
+                                <div style="color:var(--text-secondary); font-size:0.92rem;">Variety: <strong data-i18n="${p.variety || 'Standard Desi'}">${p.variety || 'Standard Desi'}</strong></div>
+                            </div>
+                        </div>
+
+                        <!-- Price & Live Stock -->
+                        <div style="display:flex; align-items:baseline; gap:12px; margin:16px 0 12px 0;">
+                            <span style="font-size:2.2rem; font-weight:800; color:var(--primary);" data-i18n="${FarmUtils.formatCurrency(p.price)}">${FarmUtils.formatCurrency(p.price)}</span>
+                            <span style="font-size:1.1rem; color:var(--text-secondary); font-weight:600;">/ ${unit}</span>
+                        </div>
+
+                        <div style="display:flex; align-items:center; gap:8px; font-size:0.92rem; color:${p.quantity < 50 ? 'var(--danger)' : 'var(--primary)'}; font-weight:700; margin-bottom:20px;">
+                            <i data-lucide="${p.quantity < 50 ? 'alert-circle' : 'check-circle'}" style="width:18px;height:18px;"></i>
+                            <span data-i18n="${p.quantity} ${unit} Available in Stock">${p.quantity} ${unit} Available in Stock</span>
+                        </div>
+
+                        <!-- Specs Table -->
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label" data-i18n="Harvest Date">Harvest Date</span>
+                                <span class="spec-val" data-i18n="${p.harvestDate ? FarmUtils.formatDate(p.harvestDate) : 'Fresh (Current Week)'}">${p.harvestDate ? FarmUtils.formatDate(p.harvestDate) : 'Fresh (Current Week)'}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-i18n="Cultivation">Cultivation</span>
+                                <span class="spec-val" data-i18n="${p.organic ? 'Certified Organic' : 'Conventional Safe'}">${p.organic ? 'Certified Organic' : 'Conventional Safe'}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-i18n="Moisture Content">Moisture Content</span>
+                                <span class="spec-val" data-i18n="${p.moisture ? p.moisture + '%' : 'Optimal APMC standard'}">${p.moisture ? p.moisture + '%' : 'Optimal APMC standard'}</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label" data-i18n="Dispatch Location">Dispatch Location</span>
+                                <span class="spec-val" data-i18n="${p.location || 'Nashik, Maharashtra'}">${p.location || 'Nashik, Maharashtra'}</span>
+                            </div>
+                        </div>
+
+                        <!-- Purchase Selector -->
+                        <div style="background:#F7FAF8; border:1px solid rgba(46, 125, 50, 0.2); border-radius:var(--radius); padding:18px; margin-bottom:24px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                <label style="font-weight:700; font-size:0.95rem; margin:0;" data-i18n="Select Purchase Quantity (${unit}):">Select Purchase Quantity (${unit}):</label>
+                                <span id="calculatedSubtotal" style="font-weight:800; font-size:1.1rem; color:var(--primary);">₹${p.price * 10}</span>
+                            </div>
+                            <div style="display:flex; gap:12px; align-items:center;">
+                                <div style="display:flex; align-items:center; border:1px solid var(--border); border-radius:var(--radius-md); background:#fff;">
+                                    <button type="button" class="btn btn-icon" id="qtyMinus" style="border:none; width:40px; height:40px;">-</button>
+                                    <input type="number" id="detailQty" value="10" min="1" max="${p.quantity}" style="width:70px; text-align:center; border:none; font-weight:700; font-size:1.05rem;" readonly>
+                                    <button type="button" class="btn btn-icon" id="qtyPlus" style="border:none; width:40px; height:40px;">+</button>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btnAddToCart" style="flex:1; height:44px; font-weight:700;">
+                                    <i data-lucide="shopping-cart"></i> Add to Cart
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="btnBuyNow" style="background:#1B5E20; color:#fff; height:44px; font-weight:700;" data-i18n="Buy Now">Buy Now</button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Offer Trigger -->
+                        <div style="text-align:center;">
+                            <button type="button" class="btn btn-text" onclick="openOfferModal()" style="font-size:0.9rem; color:var(--text-secondary);">
+                                <i data-lucide="handshake"></i> Need bulk tonnage or negotiable price? Submit Offer
+                            </button>
+                        </div>
+
+                        <!-- Farmer Card -->
+                        <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border); display:flex; align-items:center; gap:16px;">
+                            <div style="width:52px; height:52px; border-radius:var(--radius-full); background:var(--primary); color:#fff; display:grid; place-items:center; font-weight:800; font-size:1.2rem;" data-i18n="${FarmUtils.getInitials(p.sellerName || 'Farmer')}">${FarmUtils.getInitials(p.sellerName || 'Farmer')}</div>
+                            <div style="flex:1;">
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                    <span style="font-weight:700; font-size:1.05rem;" data-i18n="${p.sellerName || 'Verified Farmer'}">${p.sellerName || 'Verified Farmer'}</span>
+                                    ${(p.listingSource === 'FIELD_OFFICER' || p.verificationStatus === 'VERIFIED')
+                                        ? `<span class="badge" style="background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:6px;"><i data-lucide="shield-check" style="width:12px;height:12px;display:inline;margin-right:3px;vertical-align:-1px;"></i>FIELD VERIFIED</span>`
+                                        : ''
+                                    }
+                                    ${p.verification?.ai?.status === 'VERIFIED'
+                                        ? `<span class="badge" style="background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:6px;"><i data-lucide="cpu" style="width:12px;height:12px;display:inline;margin-right:3px;vertical-align:-1px;"></i>AI VERIFIED</span>`
+                                        : ''
+                                    }
+                                    ${(!p.verification?.ai || p.verification.ai.status !== 'VERIFIED') && !(p.listingSource === 'FIELD_OFFICER' || p.verificationStatus === 'VERIFIED')
+                                        ? `<span class="badge" style="background:#E3F2FD; color:#0D47A1; border:1px solid #90CAF9; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:6px;"><i data-lucide="sprout" style="width:12px;height:12px;display:inline;margin-right:3px;vertical-align:-1px;"></i>FARMER LISTED</span>`
+                                        : ''
+                                    }
+                                </div>
+                                <div style="font-size:0.85rem; color:var(--text-secondary); margin-top:2px;">
+                                    ${p.location || 'Maharashtra'} · Direct Farmer Lot
+                                    ${p.fieldOfficerName ? ` · <span style="color:var(--text-muted);" data-i18n="Assisted by Field Officer ${p.fieldOfficerName}">Assisted by Field Officer ${p.fieldOfficerName}</span>` : ''}
+                                </div>
+                                <button type="button" class="btn btn-primary btn-sm" id="btnChatFarmer" style="margin-top:12px; font-weight:600;" onclick="startChat('${p.id}', '${p.name}', '${p.sellerId}', '${p.sellerName}')">
+                                    <i data-lucide="message-square" style="width:16px;height:16px;"></i> Chat with Farmer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            lucide.createIcons();
+
+            // Quantity controls
+            const qtyInput = document.getElementById('detailQty');
+            const subtotalEl = document.getElementById('calculatedSubtotal');
+            const updateSubtotal = () => {
+                const qty = parseInt(qtyInput.value) || 1;
+                subtotalEl.textContent = FarmUtils.formatCurrency(p.price * qty);
+            };
+
+            document.getElementById('qtyMinus').addEventListener('click', () => {
+                let current = parseInt(qtyInput.value) || 10;
+                if (current > 1) {
+                    qtyInput.value = current - 1;
+                    updateSubtotal();
+                }
+            });
+
+            document.getElementById('qtyPlus').addEventListener('click', () => {
+                let current = parseInt(qtyInput.value) || 10;
+                if (current < p.quantity) {
+                    qtyInput.value = current + 1;
+                    updateSubtotal();
+                } else {
+                    FarmUtils.showToast(`Max available stock is ${p.quantity} ${unit}`, 'info');
+                }
+            });
+
+            // Add to cart
+            document.getElementById('btnAddToCart').addEventListener('click', async () => {
+                const qty = parseInt(qtyInput.value) || 1;
+                try {
+                    await CartService.addItem(p, qty);
+                    FarmUtils.showToast(`Added ${qty} ${unit} of ${p.name} to your cart!`, 'success');
+                    CartService.updateBadge();
+                } catch (err) {
+                    FarmUtils.showToast(err.message, 'error');
+                }
+            });
+
+            // Buy now
+            document.getElementById('btnBuyNow').addEventListener('click', async () => {
+                const qty = parseInt(qtyInput.value) || 1;
+                try {
+                    await CartService.addItem(p, qty);
+                    window.location.href = 'checkout.html';
+                } catch (err) {
+                    FarmUtils.showToast(err.message, 'error');
+                }
+            });
+        }
+
+        function renderError(msg) {
+            document.getElementById('detailContainer').innerHTML = `
+                <div style="text-align:center; padding:60px; background:#fff; border-radius:var(--radius); border:1px solid var(--border); max-width:600px; margin:0 auto;">
+                    <i data-lucide="alert-triangle" style="width:48px; height:48px; color:var(--warning); margin-bottom:16px;"></i>
+                    <h2 style="font-size:1.3rem; font-weight:700;" data-i18n="Produce Not Available">Produce Not Available</h2>
+                    <p style="color:var(--text-secondary); margin:8px 0 20px 0;">${msg}</p>
+                    <a href="marketplace.html" class="btn btn-primary"><i data-lucide="store"></i> Back to Marketplace</a>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        window.openOfferModal = () => {
+            if (!currentProduct) return;
+            document.getElementById('modalUnit').textContent = currentProduct.unit || 'kg';
+            document.getElementById('modalPriceUnit').textContent = currentProduct.unit || 'kg';
+            document.getElementById('modalQty').value = 50;
+            document.getElementById('modalPrice').value = currentProduct.price;
+            document.getElementById('offerModal').style.display = 'grid';
+        };
+
+        window.closeOfferModal = () => {
+            document.getElementById('offerModal').style.display = 'none';
+        };
+
+        window.startChat = async (productId, productName, farmerId, farmerName) => {
+            const user = AuthService.getUser();
+            if (!user) return;
+            const chatData = {
+                productId,
+                productName,
+                buyerId: user.id,
+                buyerName: user.name,
+                farmerId,
+                farmerName
+            };
+            const chat = await ApiService.createChat(chatData);
+            if (chat) {
+                window.location.href = `chats.html`;
+            } else {
+                FarmUtils.showToast('Failed to start chat', 'error');
+            }
+        };
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

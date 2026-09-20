@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Support | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-answer {
+            margin-top: 10px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            display: none;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .faq-chevron {
+            transform: rotate(180deg);
+        }
+        .faq-chevron {
+            transition: transform 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item active"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Buyer Support">Procurement Helpdesk</div>
+                <div class="topbar-right">
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container" style="max-width:860px;">
+                <div style="margin-bottom:24px;">
+                    <h1 style="font-size:1.6rem; font-weight:800; color:var(--text-primary);" data-i18n="Procurement Help & Dispute Resolution">Buyer Support & Helpdesk</h1>
+                    <p style="color:var(--text-secondary); font-size:0.95rem;" data-i18n="Guidance on farm logistics, quality assurance, weighing disputes, and order settlement.">Guidance on farm logistics, quality assurance, weighing disputes, and order settlement.</p>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+                    <div class="card" style="padding:20px; background:linear-gradient(135deg, rgba(46, 125, 50, 0.08), rgba(27, 94, 32, 0.04)); border:1px solid rgba(46, 125, 50, 0.2);">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+                            <div style="width:40px; height:40px; border-radius:var(--radius-full); background:var(--primary); color:#fff; display:grid; place-items:center;">
+                                <i data-lucide="headphones" style="width:20px; height:20px;"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;" data-i18n="Procurement Desk">Procurement Desk</div>
+                                <div style="font-size:1.2rem; font-weight:800; color:var(--primary);"><a href="tel:18001802244" style="color:inherit; text-decoration:none;">1800-180-2244</a></div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Toll-free buyer logistics & farm dispatch helpline.">Toll-free buyer logistics & farm dispatch helpline.</p>
+                    </div>
+
+                    <div class="card" style="padding:20px; background:linear-gradient(135deg, rgba(2, 136, 209, 0.08), rgba(1, 87, 155, 0.04)); border:1px solid rgba(2, 136, 209, 0.2);">
+                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+                            <div style="width:40px; height:40px; border-radius:var(--radius-full); background:var(--info); color:#fff; display:grid; place-items:center;">
+                                <i data-lucide="scale" style="width:20px; height:20px;"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:0.82rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;" data-i18n="APMC Weighment Desk">APMC Weighment Desk</div>
+                                <div style="font-size:1.2rem; font-weight:800; color:var(--text-primary);">weighment@farmlink.gov.in</div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--text-secondary); margin:0;" data-i18n="Official arbitration cell for tare weight or grade discrepancies.">Official arbitration cell for tare weight or grade discrepancies.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="padding:28px; margin-bottom:24px;">
+                    <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:16px;" data-i18n="Frequently Asked Questions">Frequently Asked Questions</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="How does FarmLink verify the authenticity of farmer listings?">How does FarmLink verify the authenticity of farmer listings?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer" data-i18n="Farmers are verified against state land records (7/12 extracts) and PM-KISAN database IDs. Every lot published includes exact GPS coordinate stamps and village APMC mandi benchmarks.">Farmers are verified against state land records (7/12 extracts) and PM-KISAN database IDs. Every lot published includes exact GPS coordinate stamps and village APMC mandi benchmarks.</div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="What happens if the delivered consignment has quality defects?">What happens if the delivered consignment has quality defects?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer" data-i18n="In Cash on Delivery (COD) and Escrow models, funds are not released until you inspect the lot at your receiving dock. If there is a grade variance, you can report a discrepancy within 2 hours of unloading.">In Cash on Delivery (COD) and Escrow models, funds are not released until you inspect the lot at your receiving dock. If there is a grade variance, you can report a discrepancy within 2 hours of unloading.</div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="Can I request custom bulk tonnage or negotiable prices?">Can I request custom bulk tonnage or negotiable prices?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer">
+                                Yes. On every produce details page, click <em>Submit Custom Offer</em>. This allows you to propose custom volume (e.g. 5 tonnes) and target rates directly to the grower.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span data-i18n="Are invoices eligible for GST and APMC mandi compliance?">Are invoices eligible for GST and APMC mandi compliance?</span>
+                                <i data-lucide="chevron-down" class="faq-chevron"></i>
+                            </div>
+                            <div class="faq-answer" data-i18n="Yes. Every order generates a downloadable legal tax invoice and settlement bill specifying the agricultural produce exemption, mandi cess, and farmer 7/12 cluster origin.">Yes. Every order generates a downloadable legal tax invoice and settlement bill specifying the agricultural produce exemption, mandi cess, and farmer 7/12 cluster origin.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="padding:28px;">
+                    <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:8px;" data-i18n="Contact Dispute & Logistics Officer">Contact Dispute & Logistics Officer</h3>
+                    <form id="buyerSupportForm">
+                        <div class="form-group" style="margin-bottom:16px;">
+                            <label data-i18n="Order ID (Optional)">Order ID (Optional)</label>
+                            <input type="text" id="bSupOrder" class="form-control" placeholder="e.g. ORD-82194">
+                        </div>
+                        <div class="form-group" style="margin-bottom:20px;">
+                            <label data-i18n="Describe your question or issue">Describe your question or issue</label>
+                            <textarea id="bSupDetails" class="form-control" rows="4" placeholder="Explain your inquiry in detail..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i data-lucide="send"></i> Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.addEventListener('click', () => {
+                    q.closest('.faq-item').classList.toggle('active');
+                });
+            });
+
+            document.getElementById('buyerSupportForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                FarmUtils.showToast('Support message submitted. An officer will contact you shortly.', 'success');
+                document.getElementById('buyerSupportForm').reset();
+            });
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

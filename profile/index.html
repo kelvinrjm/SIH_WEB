@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Portal – Farmer Market Linkage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <div class="app-container">
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-brand">
+                <div class="brand-icon"><i class="fas fa-seedling"></i></div>
+                <div class="brand-text">
+                    <span class="brand-title" data-i18n="FarmLink">FarmLink</span>
+                    <span class="brand-subtitle" data-i18n="Buyer Portal">Buyer Portal</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard"><i class="fas fa-th-large"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="#" class="nav-item" data-page="orders"><i class="fas fa-box"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="#" class="nav-item" data-page="cart"><i class="fas fa-shopping-cart"></i><span data-i18n="Cart">Cart</span><span class="nav-badge" id="cartBadge">3</span></a>
+                <a href="#" class="nav-item" data-page="profile"><i class="fas fa-user"></i><span data-i18n="My Profile">My Profile</span></a>
+                <a href="#" class="nav-item" data-page="address"><i class="fas fa-map-marker-alt"></i><span data-i18n="Address">Address</span></a>
+                <a href="#" class="nav-item" data-page="payment"><i class="fas fa-wallet"></i><span data-i18n="Payment Methods">Payment Methods</span></a>
+                <a href="#" class="nav-item" data-page="billing"><i class="fas fa-file-invoice"></i><span data-i18n="Billing">Billing</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small">RK</div>
+                    <div class="user-info-small">
+                        <span class="user-name-small" data-i18n="Rahul Kumar">Rahul Kumar</span>
+                        <span class="user-role-small" data-i18n="Buyer">Buyer</span>
+                    </div>
+                </div>
+                <a href="#" class="nav-item logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <button id="hamburgerBtn" class="hamburger-btn"><i class="fas fa-bars"></i></button>
+                    <h1 id="pageTitle" class="page-title" data-i18n="Dashboard">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-search"><i class="fas fa-search"></i><input type="text" placeholder="Search orders, products..."></div>
+                    <button class="header-icon-btn" title="Notifications"><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+                    <div class="header-user">
+                        <div class="header-avatar">RK</div>
+                        <span class="header-user-name" data-i18n="Rahul Kumar">Rahul Kumar</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard -->
+            <section id="page-dashboard" class="page active">
+                <div class="dashboard-banner" data-aos>
+                    <div class="banner-content">
+                        <h2 data-i18n="Welcome back, Rahul">Welcome back, Rahul</h2>
+                        <p data-i18n="Manage your orders, track deliveries, and discover fresh produce from local farmers.">Manage your orders, track deliveries, and discover fresh produce from local farmers.</p>
+                    </div>
+                    <div class="banner-decoration"><i class="fas fa-leaf"></i><i class="fas fa-leaf"></i><i class="fas fa-leaf"></i></div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="summary-card card-total-orders" data-aos>
+                        <div class="card-icon-wrap"><i class="fas fa-box"></i></div>
+                        <div class="card-info"><span class="card-label" data-i18n="Total Orders">Total Orders</span><span class="card-value" id="totalOrdersCount">12</span></div>
+                    </div>
+                    <div class="summary-card card-confirmed" data-aos>
+                        <div class="card-icon-wrap"><i class="fas fa-check-circle"></i></div>
+                        <div class="card-info"><span class="card-label" data-i18n="Confirmed Orders">Confirmed Orders</span><span class="card-value" id="confirmedOrdersCount">8</span></div>
+                    </div>
+                    <div class="summary-card card-pending" data-aos>
+                        <div class="card-icon-wrap"><i class="fas fa-clock"></i></div>
+                        <div class="card-info"><span class="card-label" data-i18n="Pending Orders">Pending Orders</span><span class="card-value" id="pendingOrdersCount">4</span></div>
+                    </div>
+                    <div class="summary-card card-delivery" data-aos>
+                        <div class="card-icon-wrap"><i class="fas fa-truck"></i></div>
+                        <div class="card-info"><span class="card-label" data-i18n="Upcoming Delivery">Upcoming Delivery</span><span class="card-value card-value-sm" id="upcomingDelivery">Jan 18, 10 AM</span></div>
+                    </div>
+                    <div class="summary-card card-cart" data-aos>
+                        <div class="card-icon-wrap"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="card-info"><span class="card-label" data-i18n="Cart Items">Cart Items</span><span class="card-value" id="cartItemCount">3</span><span class="card-sub" id="cartTotalValue">₹1,250</span></div>
+                    </div>
+                    <div class="summary-card card-quick-nav" data-aos>
+                        <div class="card-icon-wrap"><i class="fas fa-compass"></i></div>
+                        <div class="card-info"><span class="card-label" data-i18n="Quick Navigate">Quick Navigate</span>
+                            <div class="quick-links">
+                                <button class="quick-link-btn" data-goto="orders" data-i18n="Orders">Orders</button>
+                                <button class="quick-link-btn" data-goto="profile" data-i18n="Profile">Profile</button>
+                                <button class="quick-link-btn" data-goto="address" data-i18n="Address">Address</button>
+                                <button class="quick-link-btn" data-goto="payment" data-i18n="Payment">Payment</button>
+                                <button class="quick-link-btn" data-goto="cart" data-i18n="Cart">Cart</button>
+                                <button class="quick-link-btn" data-goto="billing" data-i18n="Billing">Billing</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-section" data-aos>
+                    <div class="highlight-icon-wrap"><i class="fas fa-fire"></i></div>
+                    <div class="highlight-content">
+                        <span class="highlight-tag" data-i18n="Best Selling Opportunity">Best Selling Opportunity</span>
+                        <h3 data-i18n="Fresh Organic Tomatoes">Fresh Organic Tomatoes</h3>
+                        <p>From farmer Ramesh Patel — Best price <strong>₹25/kg</strong>, Available: 150 kg</p>
+                    </div>
+                    <button class="btn btn-highlight" data-goto="cart" data-i18n="Add to Cart">Add to Cart</button>
+                </div>
+                <div class="section-block" data-aos>
+                    <div class="section-header">
+                        <h2 class="section-title" data-i18n="Recent Orders">Recent Orders</h2>
+                        <button class="text-btn" data-goto="orders">View All <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead><tr><th data-i18n="Order ID">Order ID</th><th data-i18n="Product">Product</th><th data-i18n="Qty">Qty</th><th data-i18n="Total">Total</th><th data-i18n="Date">Date</th><th data-i18n="Status">Status</th></tr></thead>
+                            <tbody id="recentOrdersBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders -->
+            <section id="page-orders" class="page">
+                <div class="orders-filters" data-aos>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all" data-i18n="All Orders">All Orders</button>
+                        <button class="filter-tab" data-filter="Placed" data-i18n="Placed">Placed</button>
+                        <button class="filter-tab" data-filter="Confirmed" data-i18n="Confirmed">Confirmed</button>
+                        <button class="filter-tab" data-filter="Packed" data-i18n="Packed">Packed</button>
+                        <button class="filter-tab" data-filter="Out for Delivery" data-i18n="Out for Delivery">Out for Delivery</button>
+                        <button class="filter-tab" data-filter="Delivered" data-i18n="Delivered">Delivered</button>
+                        <button class="filter-tab" data-filter="Cancelled" data-i18n="Cancelled">Cancelled</button>
+                    </div>
+                </div>
+                <div id="ordersList" class="orders-list" data-aos></div>
+            </section>
+
+            <!-- Cart -->
+            <section id="page-cart" class="page">
+                <div class="cart-layout" data-aos>
+                    <div class="cart-items-section">
+                        <h2 class="section-title">Your Cart <span class="text-muted" id="cartItemsLabel">(3 items)</span></h2>
+                        <div id="cartItemsList" class="cart-items-list"></div>
+                        <div id="emptyCart" class="empty-state" style="display:none;"><i class="fas fa-shopping-cart"></i><h3 data-i18n="Your cart is empty">Your cart is empty</h3><p data-i18n="Browse products from farmers and add them to your cart.">Browse products from farmers and add them to your cart.</p></div>
+                    </div>
+                    <div class="cart-summary-section">
+                        <div class="cart-summary-card">
+                            <h3 data-i18n="Order Summary">Order Summary</h3>
+                            <div class="summary-row"><span data-i18n="Subtotal">Subtotal</span><span id="cartSubtotal">₹0</span></div>
+                            <div class="summary-row"><span data-i18n="Delivery Charges">Delivery Charges</span><span id="cartDelivery">₹0</span></div>
+                            <div class="summary-row summary-total"><span data-i18n="Total">Total</span><span id="cartFinalTotal">₹0</span></div>
+                            <button class="btn btn-primary btn-full" id="proceedCheckoutBtn" data-i18n="Proceed to Checkout">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Checkout -->
+            <section id="page-checkout" class="page">
+                <div class="checkout-layout" data-aos>
+                    <div class="checkout-steps">
+                        <div class="step active" data-step="1"><div class="step-circle">1</div><span data-i18n="Address">Address</span></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="2"><div class="step-circle">2</div><span data-i18n="Payment">Payment</span></div>
+                        <div class="step-line"></div>
+                        <div class="step" data-step="3"><div class="step-circle">3</div><span data-i18n="Confirm">Confirm</span></div>
+                    </div>
+                    <div class="checkout-step-content active" id="checkoutStep1">
+                        <h2 data-i18n="Select Delivery Address">Select Delivery Address</h2>
+                        <div id="checkoutAddresses" class="address-grid"></div>
+                        <div class="checkout-actions"><button class="btn btn-secondary" data-goto="cart" data-i18n="Back to Cart">Back to Cart</button><button class="btn btn-primary" id="checkoutNext1" data-i18n="Continue to Payment">Continue to Payment</button></div>
+                    </div>
+                    <div class="checkout-step-content" id="checkoutStep2">
+                        <h2 data-i18n="Select Payment Method">Select Payment Method</h2>
+                        <div id="checkoutPayments" class="payment-options-grid"></div>
+                        <div class="checkout-actions"><button class="btn btn-secondary" id="checkoutBack2" data-i18n="Back">Back</button><button class="btn btn-primary" id="checkoutNext2" data-i18n="Review Order">Review Order</button></div>
+                    </div>
+                    <div class="checkout-step-content" id="checkoutStep3">
+                        <h2 data-i18n="Order Confirmation">Order Confirmation</h2>
+                        <div class="confirm-card" id="confirmDetails"></div>
+                        <div class="checkout-actions"><button class="btn btn-secondary" id="checkoutBack3" data-i18n="Back">Back</button><button class="btn btn-primary btn-full" id="placeOrderBtn"><i class="fas fa-check"></i> Place Order</button></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile -->
+            <section id="page-profile" class="page">
+                <div class="profile-layout" data-aos>
+                    <div class="profile-card-main">
+                        <div class="profile-header-section">
+                            <div class="profile-avatar-large">RK</div>
+                            <div class="profile-header-info">
+                                <h2 id="profileName" data-i18n="Rahul Kumar">Rahul Kumar</h2>
+                                <p class="text-muted" data-i18n="Buyer Account">Buyer Account</p>
+                                <span class="badge badge-success" data-i18n="Active">Active</span>
+                            </div>
+                        </div>
+                        <div class="profile-details-grid">
+                            <div class="profile-field"><label><i class="fas fa-user"></i> Full Name</label><p id="profileFullName" data-i18n="Rahul Kumar">Rahul Kumar</p></div>
+                            <div class="profile-field"><label><i class="fas fa-envelope"></i> Email</label><p id="profileEmail">rahul.kumar@email.com</p></div>
+                            <div class="profile-field"><label><i class="fas fa-phone"></i> Mobile</label><p id="profileMobile">+91 98765 43210</p></div>
+                            <div class="profile-field"><label><i class="fas fa-map-marker-alt"></i> Address</label><p id="profileAddress" data-i18n="123, Green Valley Apartments, Sector 15, Noida, UP - 201301">123, Green Valley Apartments, Sector 15, Noida, UP - 201301</p></div>
+                            <div class="profile-field"><label><i class="fas fa-id-card"></i> Account ID</label><p>BUY-2024-00847</p></div>
+                            <div class="profile-field"><label><i class="fas fa-calendar"></i> Member Since</label><p data-i18n="August 2023">August 2023</p></div>
+                            <div class="profile-field"><label><i class="fas fa-box"></i> Total Orders</label><p id="profileTotalOrders">12</p></div>
+                            <div class="profile-field"><label><i class="fas fa-rupee-sign"></i> Total Spent</label><p id="profileTotalSpent">₹24,580</p></div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="btn btn-secondary" id="editProfileBtn"><i class="fas fa-edit"></i> Edit Profile</button>
+                            <button class="btn btn-outline" data-goto="orders"><i class="fas fa-history"></i> View Order History</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Address -->
+            <section id="page-address" class="page">
+                <div class="address-page-layout" data-aos>
+                    <div class="section-header"><h2 class="section-title" data-i18n="Saved Addresses">Saved Addresses</h2><button class="btn btn-primary" id="addAddressBtn"><i class="fas fa-plus"></i> Add New Address</button></div>
+                    <div id="addressGrid" class="address-grid"></div>
+                </div>
+            </section>
+
+            <!-- Payment -->
+            <section id="page-payment" class="page">
+                <div class="payment-page-layout" data-aos>
+                    <div class="section-header"><h2 class="section-title" data-i18n="Payment Methods">Payment Methods</h2></div>
+                    <p class="section-desc" data-i18n="Select and manage your preferred payment methods for checkout.">Select and manage your preferred payment methods for checkout.</p>
+                    <div id="paymentGrid" class="payment-options-grid"></div>
+                </div>
+            </section>
+
+            <!-- Billing -->
+            <section id="page-billing" class="page">
+                <div class="billing-page-layout" data-aos>
+                    <div class="section-header"><h2 class="section-title" data-i18n="Bills & Invoices">Bills & Invoices</h2></div>
+                    <p class="section-desc" data-i18n="View and download invoices for your completed and confirmed orders.">View and download invoices for your completed and confirmed orders.</p>
+                    <div id="billingList" class="billing-list"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="orderDetailModal" class="modal"><div class="modal-backdrop"></div><div class="modal-content modal-lg"><div class="modal-header"><h3 data-i18n="Order Details">Order Details</h3><button class="modal-close" data-close="orderDetailModal"><i class="fas fa-times"></i></button></div><div class="modal-body" id="orderDetailBody"></div></div></div>
+    <div id="trackOrderModal" class="modal"><div class="modal-backdrop"></div><div class="modal-content"><div class="modal-header"><h3 data-i18n="Track Order">Track Order</h3><button class="modal-close" data-close="trackOrderModal"><i class="fas fa-times"></i></button></div><div class="modal-body" id="trackOrderBody"></div></div></div>
+    <div id="addressFormModal" class="modal"><div class="modal-backdrop"></div><div class="modal-content"><div class="modal-header"><h3 id="addressFormTitle" data-i18n="Add New Address">Add New Address</h3><button class="modal-close" data-close="addressFormModal"><i class="fas fa-times"></i></button></div><div class="modal-body">
+        <form id="addressForm" class="form-grid">
+            <input type="hidden" id="addressEditId" value="">
+            <div class="form-group"><label data-i18n="Address Label">Address Label</label><select id="addressLabel" required><option value="">Select type</option><option value="Home">Home</option><option value="College">College</option><option value="Office">Office</option><option value="Other">Other</option></select></div>
+            <div class="form-group full-width"><label data-i18n="Full Address">Full Address</label><textarea id="addressText" rows="3" placeholder="House/Flat No., Street, Landmark..." required></textarea></div>
+            <div class="form-group"><label data-i18n="City">City</label><input type="text" id="addressCity" placeholder="City" required></div>
+            <div class="form-group"><label data-i18n="State">State</label><input type="text" id="addressState" placeholder="State" required></div>
+            <div class="form-group"><label data-i18n="PIN Code">PIN Code</label><input type="text" id="addressPin" placeholder="6-digit PIN" required pattern="[0-9]{6}"></div>
+            <div class="form-group"><label data-i18n="Mobile Number">Mobile Number</label><input type="tel" id="addressMobile" placeholder="+91 XXXXX XXXXX" required></div>
+            <div class="form-group full-width"><label class="checkbox-label"><input type="checkbox" id="addressDefault"><span data-i18n="Set as default delivery address">Set as default delivery address</span></label></div>
+            <div class="form-actions full-width"><button type="button" class="btn btn-secondary" data-close="addressFormModal" data-i18n="Cancel">Cancel</button><button type="submit" class="btn btn-primary" data-i18n="Save Address">Save Address</button></div>
+        </form>
+    </div></div></div>
+    <div id="viewBillModal" class="modal"><div class="modal-backdrop"></div><div class="modal-content modal-lg"><div class="modal-header"><h3 data-i18n="Invoice">Invoice</h3><button class="modal-close" data-close="viewBillModal"><i class="fas fa-times"></i></button></div><div class="modal-body" id="viewBillBody"></div><div class="modal-footer"><button class="btn btn-secondary" id="printBillBtn"><i class="fas fa-print"></i> Print Bill</button><button class="btn btn-primary" id="downloadBillBtn"><i class="fas fa-download"></i> Download as PDF</button></div></div></div>
+    <div id="editProfileModal" class="modal"><div class="modal-backdrop"></div><div class="modal-content"><div class="modal-header"><h3 data-i18n="Edit Profile">Edit Profile</h3><button class="modal-close" data-close="editProfileModal"><i class="fas fa-times"></i></button></div><div class="modal-body">
+        <form id="editProfileForm" class="form-grid">
+            <div class="form-group full-width"><label data-i18n="Full Name">Full Name</label><input type="text" id="editName" required></div>
+            <div class="form-group full-width"><label data-i18n="Email">Email</label><input type="email" id="editEmail" required></div>
+            <div class="form-group full-width"><label data-i18n="Mobile Number">Mobile Number</label><input type="tel" id="editMobile" required></div>
+            <div class="form-actions full-width"><button type="button" class="btn btn-secondary" data-close="editProfileModal" data-i18n="Cancel">Cancel</button><button type="submit" class="btn btn-primary" data-i18n="Save Changes">Save Changes</button></div>
+        </form>
+    </div></div></div>
+
+    <iframe id="pdfFrame" style="display:none;"></iframe>
+    <script src="script.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+</body>
+</html>

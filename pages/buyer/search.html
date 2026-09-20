@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Farm Produce | FarmLink</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/buyer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Buyer Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="brand-link">
+                    <div class="brand-logo-circle"><img src="../../img/logo.png" alt="FarmLink Logo"></div>
+                    <div class="brand-title-wrap">
+                        <h1 data-i18n="FarmLink">FarmLink</h1>
+                        <span data-i18n="Buyer Portal">Buyer Portal</span>
+                    </div>
+                </a>
+                <button type="button" class="sidebar-close" id="sidebarClose"><i data-lucide="x"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span data-i18n="Dashboard">Dashboard</span></a>
+                <a href="marketplace.html" class="nav-item"><i data-lucide="store"></i><span data-i18n="Marketplace">Marketplace</span></a>
+                <a href="search.html" class="nav-item active"><i data-lucide="search"></i><span data-i18n="Search Produce">Search Produce</span></a>
+                <a href="categories.html" class="nav-item"><i data-lucide="grid"></i><span data-i18n="Categories">Categories</span></a>
+                <a href="cart.html" class="nav-item">
+                    <i data-lucide="shopping-cart"></i>
+                    <span data-i18n="My Cart">My Cart</span>
+                    <span class="badge cart-count-badge" style="display:none; margin-left:auto; background:var(--primary); color:#fff; font-size:0.75rem; padding:2px 7px; border-radius:10px;">0</span>
+                </a>
+                <a href="orders.html" class="nav-item"><i data-lucide="package-check"></i><span data-i18n="My Orders">My Orders</span></a>
+                <a href="chats.html" class="nav-item"><i data-lucide="message-square"></i><span data-i18n="Chats">Chats</span></a>
+                <a href="favorites.html" class="nav-item"><i data-lucide="heart"></i><span data-i18n="Saved Produce">Saved Produce</span></a>
+                <a href="notifications.html" class="nav-item"><i data-lucide="bell"></i><span data-i18n="Notifications">Notifications</span></a>
+                <a href="profile.html" class="nav-item"><i data-lucide="user"></i><span data-i18n="Profile">Profile</span></a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i><span data-i18n="Settings">Settings</span></a>
+                <a href="help.html" class="nav-item"><i data-lucide="help-circle"></i><span data-i18n="Help">Help</span></a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="user-avatar-small user-avatar-initials">PS</div>
+                    <div class="user-info-small">
+                        <div class="user-name user-name-display" data-i18n="Priya Sharma">Priya Sharma</div>
+                        <div class="user-role user-role-display" data-i18n="Verified Buyer">Verified Buyer</div>
+                    </div>
+                </div>
+                <a href="#" class="logout-btn"><i data-lucide="log-out"></i><span data-i18n="Logout">Logout</span></a>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
+                <div style="font-weight:700; font-size:1.1rem;" data-i18n="Search Produce">Search Produce</div>
+                <div class="topbar-right">
+                    <a href="cart.html" class="btn btn-icon" style="position:relative; background:var(--surface); border:1px solid var(--border);" title="Cart">
+                        <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                        <span class="badge cart-count-badge" style="display:none; position:absolute; top:-4px; right:-4px; background:var(--primary); color:#fff; font-size:0.7rem; padding:1px 6px; border-radius:10px;">0</span>
+                    </a>
+                    <div class="language-selector">
+                        <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                        <select class="lang-select-input">
+                            <option value="en">English</option>
+                            <option value="ta">தமிழ்</option>
+                            <option value="hi">हिन्दी</option>
+                        </select>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-container">
+                <!-- Search Box with Voice Assistant -->
+                <div class="card" style="padding:24px; margin-bottom:28px;">
+                    <form id="searchForm" style="display:flex; gap:10px; align-items:center;">
+                        <div style="flex:1; position:relative;">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search crops (e.g. Nashik Onion, Desi Tomato, Sharbati Wheat)..." style="padding:14px 44px 14px 44px; font-size:1rem; border-radius:var(--radius);">
+                            <i data-lucide="search" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); width:20px; height:20px; color:var(--text-muted);"></i>
+                            <button type="button" id="voiceSearchBtn" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--primary); cursor:pointer; width:34px; height:34px; display:grid; place-items:center; border-radius:var(--radius-full);" title="Speak search term">
+                                <i data-lucide="mic" style="width:20px; height:20px;"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="padding:14px 24px; font-weight:700;">
+                            <i data-lucide="search"></i> Find Produce
+                        </button>
+                    </form>
+                    <div id="voiceStatus" style="font-size:0.85rem; color:var(--primary); margin-top:8px; display:none; align-items:center; gap:6px;">
+                        <span class="spinner" style="width:14px; height:14px; border-width:2px;"></span> Listening... speak clearly in English, Hindi, or Tamil
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+                    <h2 style="font-size:1.25rem; font-weight:800; color:var(--text-primary);">
+                        Results for "<span id="searchTermDisplay" data-i18n="All Produce">All Produce</span>"
+                    </h2>
+                    <span style="font-size:0.9rem; color:var(--text-secondary);"><strong id="resultsCount">0</strong> items found</span>
+                </div>
+
+                <!-- Results Grid -->
+                <div class="marketplace-grid" id="resultsGrid">
+                    <div style="grid-column:1/-1; text-align:center; padding:40px;">
+                        <div class="spinner"></div>
+                        <p style="color:var(--text-secondary); margin-top:12px;" data-i18n="Searching catalog...">Searching catalog...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/products.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            FarmAuth.requireRole('buyer');
+            lucide.createIcons();
+            CartService.updateBadge();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialQuery = urlParams.get('q') || '';
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = initialQuery;
+
+            let allProducts = [];
+            try {
+                allProducts = await ProductService.getAll();
+                doSearch(initialQuery);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('resultsGrid').innerHTML = `<p style="color:var(--danger); padding:20px;" data-i18n="Could not load products: ${err.message}">Could not load products: ${err.message}</p>`;
+            }
+
+            document.getElementById('searchForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                doSearch(searchInput.value);
+            });
+
+            // Voice search
+            const voiceBtn = document.getElementById('voiceSearchBtn');
+            const voiceStatus = document.getElementById('voiceStatus');
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                const recognizer = new SpeechRecognition();
+                recognizer.continuous = false;
+                recognizer.interimResults = false;
+
+                voiceBtn.addEventListener('click', () => {
+                    const lang = FarmStorage.get(STORAGE_KEYS.LANG, 'en');
+                    recognizer.lang = lang === 'ta' ? 'ta-IN' : (lang === 'hi' ? 'hi-IN' : 'en-IN');
+                    try {
+                        recognizer.start();
+                        voiceStatus.style.display = 'flex';
+                    } catch (e) {
+                        console.log('Voice recognition already started', e);
+                    }
+                });
+
+                recognizer.onresult = (event) => {
+                    const text = event.results[0][0].transcript;
+                    searchInput.value = text;
+                    voiceStatus.style.display = 'none';
+                    doSearch(text);
+                };
+
+                recognizer.onerror = () => {
+                    voiceStatus.style.display = 'none';
+                    FarmUtils.showToast('Voice search not recognized. Please try again or type.', 'info');
+                };
+
+                recognizer.onend = () => {
+                    voiceStatus.style.display = 'none';
+                };
+            } else {
+                voiceBtn.style.display = 'none';
+            }
+
+            function doSearch(q) {
+                const query = (q || '').toLowerCase().trim();
+                document.getElementById('searchTermDisplay').textContent = query || 'All Produce';
+
+                const list = allProducts.filter(p => p.status !== 'SOLD_OUT' && (p.quantity > 0));
+                const results = query ? list.filter(p => 
+                    p.name.toLowerCase().includes(query) || 
+                    (p.category || '').toLowerCase().includes(query) ||
+                    (p.variety || '').toLowerCase().includes(query) ||
+                    (p.sellerName || '').toLowerCase().includes(query) ||
+                    (p.location || '').toLowerCase().includes(query)
+                ) : list;
+
+                document.getElementById('resultsCount').textContent = results.length;
+                const grid = document.getElementById('resultsGrid');
+
+                if (results.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column:1/-1; text-align:center; padding:60px; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
+                            <i data-lucide="search-x" style="width:48px; height:48px; color:var(--text-muted); margin-bottom:14px;"></i>
+                            <h3 style="font-size:1.2rem; font-weight:700;" data-i18n="No Produce Found For &quot;${query}&quot;">No Produce Found For "${query}"</h3>
+                            <p style="color:var(--text-secondary); font-size:0.92rem; margin:8px auto 16px auto;" data-i18n="Try searching for generic terms like &quot;Tomato&quot;, &quot;Wheat&quot;, &quot;Nashik&quot;, or view our full marketplace.">Try searching for generic terms like "Tomato", "Wheat", "Nashik", or view our full marketplace.</p>
+                            <a href="marketplace.html" class="btn btn-primary"><i data-lucide="store"></i> Browse All Produce</a>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                    return;
+                }
+
+                grid.innerHTML = results.map(p => `
+                    <div class="buyer-product-card">
+                        <div class="buyer-card-img">
+                            <img src="${p.image || p.images?.[0] || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80'}" alt="${p.name}">
+                            <span class="badge badge-confirmed" style="position:absolute; top:12px; left:12px;" data-i18n="Grade ${p.qualityGrade || 'A'}">Grade ${p.qualityGrade || 'A'}</span>
+                        </div>
+                        <div class="buyer-card-body">
+                            <div class="buyer-card-farmer">
+                                <i data-lucide="map-pin" style="width:14px;height:14px; color:var(--primary);"></i>
+                                <span data-i18n="${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}">${p.sellerName || 'Farmer'} · ${p.location || 'Maharashtra'}</span>
+                            </div>
+                            <h3 class="buyer-card-title">${p.name}</h3>
+                            <div class="buyer-card-price">
+                                ${FarmUtils.formatCurrency(p.price)} <small>/ ${p.unit || 'kg'}</small>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+                                <span>Stock: <strong>${p.quantity} ${p.unit || 'kg'}</strong></span>
+                                <span>Category: <strong data-i18n="${p.category || 'Produce'}">${p.category || 'Produce'}</strong></span>
+                            </div>
+                            <div style="display:flex; gap:8px; margin-top:auto;">
+                                <a href="product-details.html?id=${p.id}" class="btn btn-secondary" style="flex:1; justify-content:center; font-size:0.85rem;" data-i18n="Details">Details</a>
+                                <button class="btn btn-primary add-cart-btn" data-id="${p.id}" style="flex:1; justify-content:center; font-size:0.85rem;">
+                                    <i data-lucide="shopping-cart"></i> Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                lucide.createIcons();
+
+                grid.querySelectorAll('.add-cart-btn').forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const pid = btn.dataset.id;
+                        const prod = allProducts.find(p => p.id === pid);
+                        if (prod) {
+                            try {
+                                await CartService.addItem(prod, 10);
+                                FarmUtils.showToast(`Added 10 ${prod.unit || 'kg'} of ${prod.name} to cart!`, 'success');
+                                CartService.updateBadge();
+                            } catch (err) {
+                                FarmUtils.showToast(err.message, 'error');
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+    <script src="../../js/chatbot.js"></script>
+</body>
+</html>

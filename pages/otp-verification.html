@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP | FarmLink</title>
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .success-box {
+            background: #E8F5E9;
+            border: 1px solid #A5D6A7;
+            color: #1B5E20;
+            padding: 16px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+    <div class="auth-card" style="width:min(480px, 100%);">
+        <!-- Language Selector -->
+        <div class="auth-lang-bar">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+        </div>
+
+        <header class="auth-brand">
+            <div class="auth-logo-circle">
+                <img src="../img/logo.png" alt="FarmLink Logo">
+            </div>
+            <h1 data-i18n="Verify Mobile Number">Verify Mobile Number</h1>
+            <p id="otpPhoneSub" data-i18n="Confirm demo code to activate your account">Confirm demo code to activate your account</p>
+        </header>
+
+        <!-- Success Container (Shown upon verification before redirect) -->
+        <div id="successContainer" class="hidden success-box">
+            <div style="font-weight:800; font-size:1.1rem; margin-bottom:4px;" data-i18n="✓ Registration Completed!">✓ Registration Completed!</div>
+            <div style="font-size:0.9rem;" data-i18n="Your account is ready. Redirecting to login page...">Your account is ready. Redirecting to login page...</div>
+        </div>
+
+        <form id="otpForm" novalidate>
+            <div class="form-group">
+                <label for="otpCodeInput" data-i18n="Enter 6-digit OTP">Enter 6-digit OTP</label>
+                <input 
+                    type="text" 
+                    id="otpCodeInput" 
+                    class="form-control" 
+                    placeholder="123456" 
+                    maxlength="6" 
+                    inputmode="numeric" 
+                    autocomplete="one-time-code"
+                    style="text-align:center; font-size:1.6rem; letter-spacing:8px; font-weight:800;"
+                    required
+                >
+                <div class="form-error-msg hidden" id="otpErrorMsg"></div>
+            </div>
+
+            <!-- Demo Hint Box -->
+            <div class="otp-box">
+                <span style="font-size:0.75rem; font-weight:700; color:var(--primary); text-transform:uppercase;" data-i18n="Development / Demo OTP:">Development / Demo OTP:</span>
+                <div class="otp-code-display">123456</div>
+                <div class="otp-hint-text">
+                    This is a development/demo code for testing. Enter <strong>123456</strong> to verify registration. No real SMS is claimed.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitOtpBtn">
+                <span data-i18n="Verify & Create Account">Verify &amp; Create Account</span>
+                <i data-lucide="check" style="width:18px;height:18px;"></i>
+            </button>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; font-size:0.88rem;">
+                <a href="registration.html" style="color:var(--text-secondary);">← <span data-i18n="Back to Registration">Back to Edit</span></a>
+                <button type="button" id="resendBtn" style="color:var(--primary); font-weight:700; background:none; border:none; cursor:pointer;" data-i18n="Resend OTP">Resend Demo Code</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/otp.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const phone = urlParams.get('phone') || '9876543210';
+            document.getElementById('otpPhoneSub').textContent = `Confirming registration for +91 ${phone}`;
+
+            const otpForm = document.getElementById('otpForm');
+            const otpInput = document.getElementById('otpCodeInput');
+            const errorMsg = document.getElementById('otpErrorMsg');
+            const submitBtn = document.getElementById('submitOtpBtn');
+            const successBox = document.getElementById('successContainer');
+
+            otpInput.value = '123456'; // Pre-fill demo OTP
+            otpInput.focus();
+
+            // Resend button
+            document.getElementById('resendBtn').addEventListener('click', () => {
+                otpInput.value = '123456';
+                FarmUtils.showToast('Demo OTP 123456 ready to submit', 'info');
+            });
+
+            otpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                errorMsg.classList.add('hidden');
+                errorMsg.textContent = '';
+
+                const code = otpInput.value.trim();
+
+                // Validate OTP: Must strictly be 123456
+                if (code !== '123456') {
+                    errorMsg.textContent = 'Invalid OTP code. Enter the development code 123456.';
+                    errorMsg.classList.remove('hidden');
+                    return;
+                }
+
+                // Retrieve pending registration data
+                let pendingData = null;
+                try {
+                    pendingData = JSON.parse(sessionStorage.getItem('farmlink_pending_reg'));
+                } catch (err) {}
+
+                if (!pendingData) {
+                    // Fallback registration with URL parameters if user navigated directly
+                    pendingData = {
+                        name: 'Verified User',
+                        phone: phone,
+                        district: 'Nashik',
+                        state: 'Maharashtra',
+                        password: 'password123',
+                        role: urlParams.get('role') || 'farmer'
+                    };
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span class="spinner" style="width:18px;height:18px;border-width:2px;"></span> Verifying...`;
+
+                try {
+                    // Create account in persistent store
+                    AuthService.register(pendingData);
+                    sessionStorage.removeItem('farmlink_pending_reg');
+
+                    otpForm.classList.add('hidden');
+                    successBox.classList.remove('hidden');
+
+                    FarmUtils.showToast('Registration successful! Please log in with your phone and password.', 'success');
+
+                    // Redirect to login page after 1.4 seconds
+                    setTimeout(() => {
+                        window.location.href = `../index.html?registered=true&role=${pendingData.role}&phone=${pendingData.phone}`;
+                    }, 1400);
+
+                } catch (err) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span data-i18n="Verify & Create Account">Verify &amp; Create Account</span> <i data-lucide="check" style="width:18px;height:18px;"></i>`;
+                    errorMsg.textContent = err.message || 'Account registration failed.';
+                    errorMsg.classList.remove('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

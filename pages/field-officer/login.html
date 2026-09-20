@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Officer Login | FarmLink Assisted Portal</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/auth.css">
+    <link rel="stylesheet" href="../../css/field-officer.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .officer-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #E8F5E9;
+            color: #1B5E20;
+            border: 1px solid #A5D6A7;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+        .demo-box {
+            margin-top: 18px;
+            padding: 12px 14px;
+            background: #F4FBF5;
+            border: 1px dashed var(--officer-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+        .demo-chip {
+            display: inline-block;
+            background: #FFFFFF;
+            border: 1px solid var(--officer-border);
+            border-radius: var(--radius-full);
+            padding: 4px 10px;
+            margin: 4px 2px;
+            font-weight: 700;
+            color: var(--officer-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .demo-chip:hover {
+            background: var(--officer-primary);
+            color: #FFFFFF;
+        }
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            display: grid;
+            place-items: center;
+        }
+        .password-toggle-btn:hover {
+            color: var(--officer-primary);
+        }
+    </style>
+</head>
+<body class="auth-page">
+
+    <div class="auth-card" id="officerLoginCard" style="max-width: 460px;">
+        <!-- Language Selector Bar -->
+        <div class="auth-lang-bar">
+            <div class="language-selector">
+                <i data-lucide="globe" style="width:16px;height:16px;"></i>
+                <select class="lang-select-input" id="officerLangSelect" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Brand Header -->
+        <header class="auth-brand">
+            <div class="auth-logo-circle" style="border-color: var(--officer-border);">
+                <img src="../../img/logo.png" alt="FarmLink Logo" id="brandLogo">
+            </div>
+            <h1 data-i18n="FarmLink">FarmLink</h1>
+            <div class="officer-badge-pill">
+                <i data-lucide="shield-check" style="width:14px;height:14px;"></i>
+                <span data-i18n="Authorized Field Officer Portal">Authorized Field Officer Portal</span>
+            </div>
+            <p style="margin-top:8px; font-size:0.88rem; color:var(--text-secondary);" data-i18n="Assisted Farmer Onboarding & Produce Verification">
+                Assisted Farmer Onboarding & Produce Verification
+            </p>
+        </header>
+
+        <!-- Officer Login Form -->
+        <form id="officerLoginForm" novalidate style="margin-top: 20px;">
+            <!-- Officer Identifier: ID or Phone -->
+            <div class="form-group">
+                <label for="officerIdInput" data-i18n="Officer ID or Mobile Number">Officer ID or Mobile Number</label>
+                <div style="position:relative; display:flex; align-items:center;">
+                    <i data-lucide="user-check" style="position:absolute; left:14px; width:18px; height:18px; color:var(--text-muted);"></i>
+                    <input 
+                        type="text" 
+                        id="officerIdInput" 
+                        class="form-control" 
+                        style="padding-left:42px;" 
+                        placeholder="e.g. FO-MH-2026-08 or 9876599999" 
+                        data-i18n-placeholder="Enter Officer ID or Phone"
+                        autocomplete="username" 
+                        required
+                    >
+                </div>
+                <div class="form-error-msg hidden" id="officerIdError"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group" style="margin-top:16px;">
+                <label for="officerPasswordInput" data-i18n="Password">Password</label>
+                <div class="password-container">
+                    <input 
+                        type="password" 
+                        id="officerPasswordInput" 
+                        class="form-control" 
+                        placeholder="••••••••" 
+                        autocomplete="current-password" 
+                        required
+                    >
+                    <button type="button" class="password-toggle-btn" id="togglePasswordBtn" title="Toggle password visibility">
+                        <i data-lucide="eye" id="eyeIcon" style="width:18px; height:18px;"></i>
+                    </button>
+                </div>
+                <div class="form-error-msg hidden" id="passwordError"></div>
+            </div>
+
+            <!-- General Error Alert -->
+            <div class="form-error-msg hidden" id="officerGeneralError" style="margin-top:14px; text-align:center; padding:10px; background:#FEECEB; border-radius:var(--radius-sm);"></div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitOfficerLoginBtn" style="margin-top:16px; background:var(--officer-primary); border-color:var(--officer-primary);">
+                <span id="btnText" data-i18n="Login to Portal">Login to Portal</span>
+                <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+            </button>
+
+            <!-- Quick Demo Credentials Chip -->
+            <div class="demo-box">
+                <div style="font-weight:700; color:var(--officer-primary); margin-bottom:4px;" data-i18n="Demo Officer Credentials:">Demo Officer Credentials:</div>
+                <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                    <span class="demo-chip" id="demoOfficerChip">
+                        <i data-lucide="key" style="width:12px;height:12px;display:inline;"></i> FO-MH-2026-08 (officer123)
+                    </span>
+                    <span class="demo-chip" id="demoOfficerPhoneChip">
+                        <i data-lucide="phone" style="width:12px;height:12px;display:inline;"></i> 9876599999 (officer123)
+                    </span>
+                </div>
+            </div>
+        </form>
+
+        <footer class="auth-footer" style="margin-top:20px;">
+            <a href="../role-selection.html" style="color:var(--text-secondary); font-size:0.88rem;">
+                ← <span data-i18n="Switch Portal / Role">Switch Portal / Role</span>
+            </a>
+            <div style="margin-top:12px; font-size:0.8rem;">
+                <a href="help.html" style="color:var(--text-secondary); margin:0 8px;" data-i18n="Officer SOP & Guidelines">Officer SOP & Guidelines</a> · 
+                <a href="../../public/faq.html" style="color:var(--text-secondary); margin:0 8px;" data-i18n="Help">Help</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/config.js"></script>
+    <script src="../../js/language.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            // Password show/hide toggle
+            const passInput = document.getElementById('officerPasswordInput');
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (toggleBtn && passInput) {
+                toggleBtn.addEventListener('click', () => {
+                    const isPass = passInput.type === 'password';
+                    passInput.type = isPass ? 'text' : 'password';
+                    eyeIcon.setAttribute('data-lucide', isPass ? 'eye-off' : 'eye');
+                    if (window.lucide) window.lucide.createIcons();
+                });
+            }
+
+            // Quick autofill demo chips
+            document.getElementById('demoOfficerChip')?.addEventListener('click', () => {
+                document.getElementById('officerIdInput').value = 'FO-MH-2026-08';
+                document.getElementById('officerPasswordInput').value = 'officer123';
+                hideErrors();
+            });
+            document.getElementById('demoOfficerPhoneChip')?.addEventListener('click', () => {
+                document.getElementById('officerIdInput').value = '9876599999';
+                document.getElementById('officerPasswordInput').value = 'officer123';
+                hideErrors();
+            });
+
+            // Form submission
+            const form = document.getElementById('officerLoginForm');
+            const submitBtn = document.getElementById('submitOfficerLoginBtn');
+            const generalError = document.getElementById('officerGeneralError');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                hideErrors();
+
+                const idVal = document.getElementById('officerIdInput').value.trim();
+                const passVal = document.getElementById('officerPasswordInput').value.trim();
+
+                if (!idVal) {
+                    showError('officerIdError', window.Language ? Language.get('Please enter your Officer ID or Mobile Number') : 'Please enter your Officer ID or Mobile Number');
+                    return;
+                }
+                if (!passVal) {
+                    showError('passwordError', window.Language ? Language.get('Password is required') : 'Password is required');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = `<span data-i18n="Logging in...">Logging in...</span> <div class="spinner-sm" style="width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block;margin-left:8px;"></div>`;
+
+                try {
+                    // Try backend login first
+                    let res;
+                    try {
+                        const response = await fetch(`${CONFIG.API_BASE}/api/auth/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ identifier: idVal, phoneOrOfficerId: idVal, password: passVal, role: 'field_officer' })
+                        });
+                        res = await response.json();
+                    } catch (netErr) {
+                        console.warn('Backend login fallback to local store:', netErr.message);
+                    }
+
+                    if (res && res.success && res.user && res.user.role === 'field_officer') {
+                        AuthService.setUser(res.user);
+                        if (window.FarmUtils) FarmUtils.showToast('Login successful! Redirecting to Officer Dashboard...', 'success');
+                        setTimeout(() => { window.location.href = 'dashboard.html'; }, 300);
+                        return;
+                    }
+
+                    // Fallback to local AuthService
+                    const localRes = AuthService.loginWithCredentials(idVal, passVal, 'field_officer');
+                    if (localRes.success && localRes.user.role === 'field_officer') {
+                        if (window.FarmUtils) FarmUtils.showToast('Login successful! Redirecting...', 'success');
+                        setTimeout(() => { window.location.href = 'dashboard.html'; }, 300);
+                    } else if (localRes.success && localRes.user.role !== 'field_officer') {
+                        generalError.textContent = window.Language ? Language.get('This account does not have Field Officer privileges.') : 'This account does not have Field Officer privileges.';
+                        generalError.classList.remove('hidden');
+                        AuthService.logout(window.location.href);
+                    } else {
+                        const msg = localRes.message || (res && res.error) || 'Invalid credentials. Please verify Officer ID and password.';
+                        generalError.textContent = window.Language ? Language.get(msg) : msg;
+                        generalError.classList.remove('hidden');
+                    }
+                } catch (err) {
+                    generalError.textContent = err.message || 'Authentication error. Please try again.';
+                    generalError.classList.remove('hidden');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                    if (window.lucide) window.lucide.createIcons();
+                }
+            });
+
+            function hideErrors() {
+                document.querySelectorAll('.form-error-msg').forEach(el => {
+                    el.textContent = '';
+                    el.classList.add('hidden');
+                });
+            }
+
+            function showError(elementId, msg) {
+                const el = document.getElementById(elementId);
+                if (el) {
+                    el.textContent = msg;
+                    el.classList.remove('hidden');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
