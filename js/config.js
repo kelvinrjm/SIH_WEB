@@ -5,7 +5,7 @@
 const CONFIG = {
     APP_NAME: 'FarmLink',
     VERSION: '2.0-hardened',
-    API_BASE: 'https://farmlink-v8yh.onrender.com/',
+    API_BASE: 'https://farmlink-v8yh.onrender.com',
     TIMEOUT_MS: 15000,
     DEMO_OTP: '123456',
     MAX_IMAGE_SIZE_BYTES: 2 * 1024 * 1024, // 2MB
